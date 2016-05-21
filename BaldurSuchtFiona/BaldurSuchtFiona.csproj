@@ -46,6 +46,25 @@
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\SceneComponent.cs" />
     <Compile Include="Components\SimulationComponent.cs" />
+    <Compile Include="Models\Object.cs" />
+    <Compile Include="Interfaces\ICollidable.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Npc.cs" />
+    <Compile Include="Models\Enemy.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Interfaces\ICollectable.cs" />
+    <Compile Include="Interfaces\ICollector.cs" />
+    <Compile Include="Models\Baldur.cs" />
+    <Compile Include="Interfaces\IAttackable.cs" />
+    <Compile Include="Interfaces\IAttacker.cs" />
+    <Compile Include="Models\Fiona.cs" />
+    <Compile Include="Models\Farmer.cs" />
+    <Compile Include="Models\Miner.cs" />
+    <Compile Include="Models\FarmLeader.cs" />
+    <Compile Include="Models\MineLeader.cs" />
+    <Compile Include="Models\Fighter.cs" />
+    <Compile Include="Models\Boss.cs" />
+    <Compile Include="Models\Healpot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -59,5 +78,7 @@
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Models\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>
