@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Storage;
 namespace BaldurSuchtFiona
 {
 	/// <summary>
-	/// This is the main type for your game.
+	/// 	This is the main type for your game.
 	/// </summary>
 	internal class Game1 : Game
 	{
