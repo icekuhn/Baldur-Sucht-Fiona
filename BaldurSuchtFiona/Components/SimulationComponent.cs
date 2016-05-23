@@ -40,10 +40,6 @@ namespace BaldurSuchtFiona.Components
 
 		}
 
-		public void NewGame() {
-			Position = new Vector2 (0, 0);
-		}
-
 		public override void Update (GameTime gameTime)
 		{
 			if (!game.Input.Handled) 
