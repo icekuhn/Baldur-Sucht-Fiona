@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Components
 {
 	internal class SceneComponent : DrawableGameComponent
 	{

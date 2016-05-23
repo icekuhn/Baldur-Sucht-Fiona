@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
@@ -45,12 +45,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\InputComponent.cs" />
     <Compile Include="Components\SceneComponent.cs" />
+    <Compile Include="Components\ScreenComponent.cs" />
     <Compile Include="Components\SimulationComponent.cs" />
+    <Compile Include="Components\HudComponent.cs" />
+    <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Controls\Control.cs" />
+    <Compile Include="Controls\Label.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Rendering\NineTileRenderer.cs" />
+    <Compile Include="Controls\Panel.cs" />
+    <Compile Include="Controls\ListControl.cs" />
+    <Compile Include="Controls\VerticalListControl.cs" />
+    <Compile Include="Controls\HorizontalListControl.cs" />
+    <Compile Include="Controls\MenuList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
     <None Include="packages.config" />
-    <None Include="Content\Character_Armor_front.png" />
+    <None Include="Content\Character_Armor_front.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\GameFont.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\GameFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Character_Armor_front.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\MenuItems.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\MenuItems.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -59,5 +88,8 @@
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <ItemGroup>
     <Folder Include="Components\" />
+    <Folder Include="Screens\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Rendering\" />
   </ItemGroup>
 </Project>

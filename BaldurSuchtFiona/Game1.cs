@@ -1,8 +1,8 @@
 ﻿using System;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
+using BaldurSuchtFiona.Components;
 
 
 namespace BaldurSuchtFiona
@@ -19,6 +19,11 @@ namespace BaldurSuchtFiona
 			private set;
 		}
 
+		public ScreenComponent Screen {
+			get;
+			private set;
+		}
+
 		public SimulationComponent Simulation {
 			get;
 			private set;
@@ -29,25 +34,39 @@ namespace BaldurSuchtFiona
 			private set;
 		}
 
+		public HudComponent Hud {
+			get;
+			private set;
+		}
 
 		public Game1 ()
 		{
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
-			graphics.IsFullScreen = true;
+			graphics.IsFullScreen = false;
 
 			Input = new InputComponent (this);
 			Input.UpdateOrder = 0;
 			Components.Add (Input);
 
+			Screen = new ScreenComponent (this);
+			Screen.UpdateOrder = 1;
+			Screen.DrawOrder = 2;
+			Components.Add (Screen);
+
 			Simulation = new SimulationComponent (this);
-			Simulation.UpdateOrder = 1;
+			Simulation.UpdateOrder = 2;
 			Components.Add (Simulation);
 
 			Scene = new SceneComponent (this);
-			Scene.UpdateOrder = 2;
+			Scene.UpdateOrder = 3;
 			Scene.DrawOrder = 0;
 			Components.Add (Scene);
+
+			Hud = new HudComponent (this);
+			Hud.UpdateOrder = 4;
+			Hud.DrawOrder = 1;
+			Components.Add (Hud);
 		}
 
 		/// <summary>

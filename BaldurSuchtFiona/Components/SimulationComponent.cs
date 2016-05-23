@@ -1,13 +1,18 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Components
 {
 	internal class SimulationComponent : GameComponent
 	{
 		private Game1 game;
 
 		public Vector2 Position {
+			get;
+			private set;
+		}
+
+		public Vector2 velocity {
 			get;
 			private set;
 		}
@@ -18,11 +23,22 @@ namespace BaldurSuchtFiona
 			this.game = game;
 		}
 
+		public void NewGame() {
+			Position = new Vector2 (0, 0);
+		}
+
 		public override void Update (GameTime gameTime)
 		{
-			Position += game.Input.Bewegung;
+			if (!game.Input.Handled) 
+			{
+				velocity = game.Input.Movement;
+			}
+			else 
+			{
+				velocity = Vector2.Zero;
+			}
 
-			base.Update (gameTime);
+			Position += velocity;
 		}
 	}
 }
