@@ -33,10 +33,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="MonoGame.Framework">
       <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.5.1.1679\lib\net40\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +60,30 @@
     <Compile Include="Controls\VerticalListControl.cs" />
     <Compile Include="Controls\HorizontalListControl.cs" />
     <Compile Include="Controls\MenuList.cs" />
+    <Compile Include="Models\Object.cs" />
+    <Compile Include="Interfaces\ICollidable.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Npc.cs" />
+    <Compile Include="Models\Enemy.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Interfaces\ICollectable.cs" />
+    <Compile Include="Interfaces\ICollector.cs" />
+    <Compile Include="Models\Baldur.cs" />
+    <Compile Include="Interfaces\IAttackable.cs" />
+    <Compile Include="Interfaces\IAttacker.cs" />
+    <Compile Include="Models\Fiona.cs" />
+    <Compile Include="Models\Farmer.cs" />
+    <Compile Include="Models\Miner.cs" />
+    <Compile Include="Models\FarmLeader.cs" />
+    <Compile Include="Models\MineLeader.cs" />
+    <Compile Include="Models\Fighter.cs" />
+    <Compile Include="Models\Boss.cs" />
+    <Compile Include="Models\Healpot.cs" />
+    <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Layer.cs" />
+    <Compile Include="Models\Tile.cs" />
+    <Compile Include="Models\World.cs" />
+    <Compile Include="Models\FileArea.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -65,6 +91,8 @@
     <None Include="Content\Character_Armor_front.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Maps\base.json" />
+    <None Include="Maps\base1.png" />
     <None Include="Content\GameFont.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -91,5 +119,25 @@
     <Folder Include="Screens\" />
     <Folder Include="Controls\" />
     <Folder Include="Rendering\" />
+    <Folder Include="Models\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Maps\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy IndentSwitchBody="True" IndentBlocksInsideExpressions="True" AnonymousMethodBraceStyle="NextLine" PropertyBraceStyle="NextLine" PropertyGetBraceStyle="NextLine" PropertySetBraceStyle="NextLine" EventBraceStyle="NextLine" EventAddBraceStyle="NextLine" EventRemoveBraceStyle="NextLine" StatementBraceStyle="NextLine" ElseNewLinePlacement="NewLine" CatchNewLinePlacement="NewLine" FinallyNewLinePlacement="NewLine" WhileNewLinePlacement="DoNotCare" ArrayInitializerWrapping="DoNotChange" ArrayInitializerBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" NewLineBeforeConstructorInitializerColon="NewLine" NewLineAfterConstructorInitializerColon="SameLine" BeforeDelegateDeclarationParentheses="False" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+          <TextStylePolicy FileWidth="120" TabsToSpaces="False" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+          <TextStylePolicy inheritsSet="null" scope="application/config+xml" />
+          <XmlFormattingPolicy inheritsSet="null" scope="application/config+xml" />
+          <TextStylePolicy inheritsSet="null" scope="application/xml" />
+          <XmlFormattingPolicy inheritsSet="Mono" inheritsScope="application/xml" scope="application/xml" />
+          <TextStylePolicy inheritsSet="null" scope="application/json" />
+          <TextStylePolicy inheritsSet="null" scope="text/x-mgcb" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
