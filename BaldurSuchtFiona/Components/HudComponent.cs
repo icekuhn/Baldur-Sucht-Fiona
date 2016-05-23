@@ -26,7 +26,7 @@ namespace BaldurSuchtFiona.Components
 		public override void Draw(GameTime gameTime)
 		{
 				spriteBatch.Begin();
-				spriteBatch.DrawString (gameFont, "Testversion", new Vector2 (20, 20), Color.Black); 
+			spriteBatch.DrawString (gameFont, String.Format ("Testversion {0}",System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()), new Vector2 (20, 20), Color.Black); 
 				spriteBatch.End();
 		}
 	}
