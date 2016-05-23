@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BaldurSuchtFiona
 {
-	public abstract class Enemy : Object,IAttackable,IAttacker
+    public abstract class Enemy : Character,IAttackable,IAttacker
 	{
 		//IAttacker
 		public List<IAttackable> AttackableItems { get; set; }

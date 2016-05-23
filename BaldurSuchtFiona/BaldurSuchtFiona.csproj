@@ -84,6 +84,7 @@
     <Compile Include="Models\Tile.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Models\FileArea.cs" />
+    <Compile Include="Models\Character.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
