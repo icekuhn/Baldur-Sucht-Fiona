@@ -48,7 +48,7 @@ namespace BaldurSuchtFiona.Components
                     textures.Add(textureName, texture);
                 }
             }
-            Baldur = new Texture2D(GraphicsDevice, 32, 32);
+            Baldur = game.Content.Load<Texture2D>("Character_Armor_front");
         }
 
         public override void Update(GameTime gameTime)
@@ -73,6 +73,7 @@ namespace BaldurSuchtFiona.Components
             {
                 RenderLayer(area, area.Layers[l], scaleX, scaleY);
             }
+            spriteBatch.Draw (Baldur, game.Simulation.Baldur.Position, Color.White);
             spriteBatch.End();
         }
             

@@ -51,7 +51,7 @@ namespace BaldurSuchtFiona.Components
 				velocity = Vector2.Zero;
 			}
 
-			Position += velocity;
+			Baldur.Position += velocity;
 		}
 
 		private Area LoadFromJson(string name)
