@@ -1,36 +1,42 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BaldurSuchtFiona
 {
-    public class Iron : Item,ICollectable
+    internal class Iron : Item,ICollectable
     {
         public int Value { get; set; }
 
-        public Iron()
+        public Iron(Game1 game)
         {
             Value = 1;
-            Name = "Iron";
+            InitializeData(game);
         }
 
-        public Iron (Vector2 position) : base()
+        public Iron (Game1 game,Vector2 position) : base()
         {
             Position = position;
             Value = 1;
-            Name = "Iron";
+            InitializeData(game);
         }
 
-        public Iron(int value)
+        public Iron(Game1 game,int value)
         {
             Value = value;
-            Name = "Iron";
+            InitializeData(game);
         }
 
-        public Iron(int value,Vector2 position)
+        public Iron(Game1 game,int value,Vector2 position)
         {
             Position = position;
             Value = value;
+            InitializeData(game);
+        }
+
+        public void InitializeData(Game1 game){
             Name = "Iron";
+            LoadTexture(game,"Character_Armor_front");
         }
     }
 }

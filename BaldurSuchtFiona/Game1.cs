@@ -54,7 +54,7 @@ namespace BaldurSuchtFiona
 			Screen.DrawOrder = 2;
 			Components.Add (Screen);
 
-			Simulation = new SimulationComponent (this);
+            Simulation = new SimulationComponent (this);
 			Simulation.UpdateOrder = 2;
 			Components.Add (Simulation);
 

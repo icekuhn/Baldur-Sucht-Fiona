@@ -21,6 +21,10 @@ namespace BaldurSuchtFiona.Components
             textures = new Dictionary<string, Texture2D>();
         }
 
+        public void LoadAnything(){
+            LoadContent();
+        }
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -38,6 +42,7 @@ namespace BaldurSuchtFiona.Components
 
             }
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            textures.Clear();
             foreach (var textureName in requiredTilesetTextures)
             {
                 using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
@@ -46,10 +51,19 @@ namespace BaldurSuchtFiona.Components
                     textures.Add(textureName, texture);
                 }
             }
+            var map = game.Simulation.World.Areas[0];
 
-            game.Simulation.Baldur.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
-            game.Simulation.Iron.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
-            game.Simulation.Iron2.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            var baldur = new Baldur(game,new Vector2(15, 12));
+            map.Objects.Add(baldur);
+
+            var iron1 = new Iron(game,new Vector2(18, 15));
+            map.Objects.Add(iron1);
+
+            var iron2 = new Iron(game,new Vector2(13, 17));
+            map.Objects.Add(iron2);
+            //game.Simulation.Baldur.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            //game.Simulation.Iron.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            //game.Simulation.Iron2.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
         }
 
         public override void Update(GameTime gameTime)

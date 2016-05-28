@@ -32,6 +32,12 @@ namespace BaldurSuchtFiona
 			Position = position;
 			Radius = radius;
 		}
+            
+        internal void LoadTexture(Game1 game,string texture){
+
+            //Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            Texture = game.Content.Load<Texture2D>(texture);
+        }
 	}
 }
 

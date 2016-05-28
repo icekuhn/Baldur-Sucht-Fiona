@@ -110,8 +110,6 @@
     <None Include="Content\MenuItems.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Collectables.gif" />
-    <None Include="Content\Collectables.xnb" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

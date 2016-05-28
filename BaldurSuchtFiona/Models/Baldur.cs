@@ -3,21 +3,21 @@ using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona
 {
-	public class Baldur : Player
+	internal class Baldur : Player
     {
         public Baldur () : base()
         {
-            InitializeData ();
         }
 
-        public Baldur (Vector2 position) : base()
+        public Baldur (Game1 game,Vector2 position) : base()
         {
             Position = position;
-            InitializeData ();
+            InitializeData (game);
         }
 
-		public void InitializeData (){
-			Name = "Baldur";
+        public void InitializeData (Game1 game){
+            Name = "Baldur";
+            LoadTexture(game,"Character_Armor_front");
 		}
 	}
 }

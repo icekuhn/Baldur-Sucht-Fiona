@@ -11,8 +11,9 @@ namespace BaldurSuchtFiona.Components
 	internal class SimulationComponent : GameComponent
 	{
 		private Game1 game;
+        private bool isRunning;
         public World World { get; private set; }
-        public Baldur Baldur { get; private set; }
+        public Baldur Baldur { get ; private set; }
         public Iron Iron{ get; private set; }
         public Iron Iron2{ get; private set; }
 
@@ -41,16 +42,10 @@ namespace BaldurSuchtFiona.Components
 
 			Area playerBase = LoadFromJson("base");
 			World.Areas.Add(playerBase);
-
-            Baldur = new Baldur(new Vector2(15, 12));
-            playerBase.Objects.Add(Baldur);
-
-            Iron = new Iron(new Vector2(18, 15));
-            playerBase.Objects.Add(Iron);
-
-            Iron2 = new Iron(new Vector2(13, 17));
-            playerBase.Objects.Add(Iron2);
-
+            if (isRunning)
+                this.game.Scene.LoadAnything();
+            else
+                isRunning = true;
 		}
 
 		public override void Update (GameTime gameTime)

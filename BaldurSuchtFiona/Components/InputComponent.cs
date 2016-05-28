@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Components
 {
@@ -85,7 +86,9 @@ namespace BaldurSuchtFiona.Components
 			if (bewegung.Length () > 1f)		//????
 				bewegung.Normalize ();
 
-            game.Simulation.Baldur.Velocity = bewegung * 20;
+            var baldur = (game.Simulation.World.Areas[0].Objects.FirstOrDefault(o => o is Baldur) as Baldur);
+            if (baldur != null)
+                baldur.Velocity = bewegung * 20;
 			upTrigger.Value = up;
 			downTrigger.Value = down;
 			leftTrigger.Value = left;
