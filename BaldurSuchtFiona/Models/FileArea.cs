@@ -29,7 +29,7 @@ namespace BaldurSuchtFiona
 		
 	public class FileTileProperty
 	{
-		public bool Block { get; set; }
+        public bool blocked { get; set; }
 	}
 }
 

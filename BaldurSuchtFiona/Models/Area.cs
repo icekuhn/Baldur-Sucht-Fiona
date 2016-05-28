@@ -76,7 +76,7 @@ namespace BaldurSuchtFiona
                     {
                         FileTileProperty property;
                         if (tileset.tileproperties.TryGetValue(j, out property))
-                            block = property.Block;
+                            block = property.blocked;
                     }
 
                     Tile tile = new Tile()

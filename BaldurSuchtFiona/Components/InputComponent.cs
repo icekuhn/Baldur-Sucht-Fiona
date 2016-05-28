@@ -85,7 +85,7 @@ namespace BaldurSuchtFiona.Components
 			if (bewegung.Length () > 1f)		//????
 				bewegung.Normalize ();
 
-			Movement = bewegung;
+            game.Simulation.Baldur.Velocity = bewegung * 20;
 			upTrigger.Value = up;
 			downTrigger.Value = down;
 			leftTrigger.Value = left;

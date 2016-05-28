@@ -12,8 +12,6 @@ namespace BaldurSuchtFiona.Components
 
         private Dictionary<string, Texture2D> textures;
 
-        private Texture2D Baldur;
-
         private SpriteBatch spriteBatch;
 
         public SceneComponent(Game1 game)
@@ -48,7 +46,8 @@ namespace BaldurSuchtFiona.Components
                     textures.Add(textureName, texture);
                 }
             }
-            Baldur = game.Content.Load<Texture2D>("Character_Armor_front");
+
+            game.Simulation.Baldur.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
         }
 
         public override void Update(GameTime gameTime)
@@ -73,7 +72,20 @@ namespace BaldurSuchtFiona.Components
             {
                 RenderLayer(area, area.Layers[l], scaleX, scaleY);
             }
-            spriteBatch.Draw (Baldur, game.Simulation.Baldur.Position, Color.White);
+
+            foreach (var item in area.Objects)
+            {
+                
+                Color color = Color.Yellow;
+                if (item is Player)
+                    color = Color.White;
+
+                // Positionsermittlung und Ausgabe des Spielelements.
+                int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
+                int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
+                int size = (int)((item.Radius * 2) * scaleX);
+                spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), color);
+            }
             spriteBatch.End();
         }
             

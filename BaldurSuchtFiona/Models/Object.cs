@@ -1,10 +1,13 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BaldurSuchtFiona
 {
 	public abstract class Object : ICollidable
-	{
+    {
+        internal Vector2 move = Vector2.Zero;
+        public Texture2D Texture;
 		public string Name { get; set; }
 		public string Icon { get; set; }
 		public float Mass { get; set; }
