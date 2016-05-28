@@ -46,7 +46,7 @@ namespace BaldurSuchtFiona
             Tiles = new Dictionary<int, Tile>();
             Layers = new Layer[area.layers.Length];
             for (int l = 0; l < area.layers.Length; l++)
-                Layers[l] = new Layer(area.width, area.height);
+                Layers[l] = new Layer(area.layers[l].name,area.width, area.height);
             Width = area.width;
             Height = area.height;
             Background = new Color(0, 0, 0);

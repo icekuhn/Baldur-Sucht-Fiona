@@ -87,15 +87,19 @@ namespace BaldurSuchtFiona.Components
             for (int l = 0; l < area.Layers.Length; l++)
             {
                 RenderLayer(area, area.Layers[l], scaleX, scaleY);
+                if (area.Layers[l].Name == "mapitems")
+                {
+                    foreach (var item in area.Objects)
+                    {
+                        int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
+                        int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
+                        int size = (int)((item.Radius * 2) * scaleX);
+                        spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), Color.White);
+                    }
+                }
             }
 
-            foreach (var item in area.Objects)
-            {
-                int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
-                int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
-                int size = (int)((item.Radius * 2) * scaleX);
-                spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), Color.White);
-            }
+
             spriteBatch.End();
         }
             

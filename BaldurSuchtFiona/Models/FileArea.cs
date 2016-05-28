@@ -14,6 +14,7 @@ namespace BaldurSuchtFiona
 
 	public class FileLayer
 	{
+        public string name { get; set; }
 		public int[] data { get; set; }
 	}
 
