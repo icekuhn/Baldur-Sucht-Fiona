@@ -48,6 +48,8 @@ namespace BaldurSuchtFiona.Components
             }
 
             game.Simulation.Baldur.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            game.Simulation.Iron.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
+            game.Simulation.Iron2.Texture = game.Content.Load<Texture2D>("Character_Armor_front");
         }
 
         public override void Update(GameTime gameTime)
@@ -75,16 +77,10 @@ namespace BaldurSuchtFiona.Components
 
             foreach (var item in area.Objects)
             {
-                
-                Color color = Color.Yellow;
-                if (item is Player)
-                    color = Color.White;
-
-                // Positionsermittlung und Ausgabe des Spielelements.
                 int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
                 int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
                 int size = (int)((item.Radius * 2) * scaleX);
-                spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), color);
+                spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), Color.White);
             }
             spriteBatch.End();
         }

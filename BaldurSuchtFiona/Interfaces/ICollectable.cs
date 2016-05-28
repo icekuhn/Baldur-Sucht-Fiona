@@ -2,7 +2,7 @@
 
 namespace BaldurSuchtFiona
 {
-	public interface ICollectable
+	internal interface ICollectable
 	{
 	}
 }

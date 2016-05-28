@@ -4,14 +4,17 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace BaldurSuchtFiona.Components
 {
 	internal class SimulationComponent : GameComponent
 	{
 		private Game1 game;
-		public World World { get; private set; }
+        public World World { get; private set; }
         public Baldur Baldur { get; private set; }
+        public Iron Iron{ get; private set; }
+        public Iron Iron2{ get; private set; }
 
         private float gap = 0.00001f;
 
@@ -39,18 +42,24 @@ namespace BaldurSuchtFiona.Components
 			Area playerBase = LoadFromJson("base");
 			World.Areas.Add(playerBase);
 
+            Baldur = new Baldur(new Vector2(15, 12));
+            playerBase.Objects.Add(Baldur);
 
-			Baldur = new Baldur() { 
-                Position = new Vector2(15, 10)
-            };
-			playerBase.Objects.Add(Baldur);
+            Iron = new Iron(new Vector2(18, 15));
+            playerBase.Objects.Add(Iron);
+
+            Iron2 = new Iron(new Vector2(13, 17));
+            playerBase.Objects.Add(Iron2);
 
 		}
 
 		public override void Update (GameTime gameTime)
-		{
+        {
+            List<Action> transfers = new List<Action>();
+
             if (game.Input.Handled)
                 return;
+            
             foreach (var area in World.Areas)
             {
                 foreach (var character in area.Objects.OfType<Character>())
@@ -81,6 +90,16 @@ namespace BaldurSuchtFiona.Components
                                 float totalMass = item.Mass + character.Mass;
                                 character.move -= resolution * (item.Mass / totalMass);
                                 item.move += resolution * (character.Mass / totalMass);
+                            }
+
+                            if (item is ICollectable && character is ICollector)
+                            {
+                                transfers.Add(() =>
+                                    {
+                                        area.Objects.Remove(item);
+                                        (character as ICollector).Inventory.Add(item as Item);
+                                        item.Position = Vector2.Zero;
+                                    });
                             }
                         }
                     }
@@ -170,7 +189,8 @@ namespace BaldurSuchtFiona.Components
                 }
             }
 
-            
+            foreach (var transfer in transfers)
+                transfer();
             //velocity = game.Input.Movement;
 			//Baldur.Position += velocity;
 		}

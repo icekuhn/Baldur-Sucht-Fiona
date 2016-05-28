@@ -33,6 +33,7 @@ namespace BaldurSuchtFiona
 			Defense = 0;
 			TotalRecovery = new TimeSpan (0, 0, 0, 5);
 			Recovery = new TimeSpan (0, 0, 0, 0);
+            Inventory = new List<Item>();
 		}
 	}
 }
