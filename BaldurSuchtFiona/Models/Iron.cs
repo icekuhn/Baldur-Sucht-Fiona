@@ -17,7 +17,7 @@ namespace BaldurSuchtFiona
         public Iron (Game1 game,Vector2 position) : base()
         {
             Position = position;
-            Value = 1;
+            Value = 3;
             InitializeData(game);
         }
 
@@ -36,7 +36,7 @@ namespace BaldurSuchtFiona
 
         public void InitializeData(Game1 game){
             Name = "Iron";
-            LoadTexture(game,"Character_Armor_front");
+            LoadTexture(game,"collectables",(Value - 1 ) * 32,0,32,32);
         }
     }
 }

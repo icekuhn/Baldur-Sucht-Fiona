@@ -94,7 +94,10 @@ namespace BaldurSuchtFiona.Components
                         int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
                         int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
                         int size = (int)((item.Radius * 2) * scaleX);
-                        spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), Color.White);
+                        if(item.DrawAll)
+                            spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size), Color.White);
+                        else
+                            spriteBatch.Draw(item.Texture, new Rectangle(posX, posY, size, size),new Rectangle(item.DrawX, item.DrawY, item.DrawWidth, item.DrawHeight), Color.White);
                     }
                 }
             }
