@@ -29,6 +29,10 @@ namespace BaldurSuchtFiona.Components
             this.textures = new Dictionary<string, Texture2D>();
         }
 
+        public void ReloadContent(){
+            LoadContent();
+        }
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -46,6 +50,7 @@ namespace BaldurSuchtFiona.Components
 
             }
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            textures.Clear();
             foreach (var textureName in requiredTilesetTextures)
             {
                 using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
@@ -125,7 +130,10 @@ namespace BaldurSuchtFiona.Components
                 int posX = (int)((charac.Position.X - charac.Radius/2) * Camera.Scale) - offset.X;
                 int posY = (int)((charac.Position.Y - charac.Radius/2) * Camera.Scale) - offset.Y;
                 int size = (int)((charac.Radius) * Camera.Scale);
-                spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size, size), color);
+                if(charac.DrawAll)
+                    spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size*2, size*2), color);
+                else
+                    spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size, size), new Rectangle(charac.DrawX, charac.DrawY, charac.DrawWidth, charac.DrawHeight), color);
             }
         }
     }

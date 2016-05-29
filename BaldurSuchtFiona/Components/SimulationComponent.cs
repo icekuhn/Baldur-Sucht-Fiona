@@ -11,6 +11,7 @@ namespace BaldurSuchtFiona.Components
 {
 	public class SimulationComponent : GameComponent
 	{
+        private bool isRunning;
 		private Game1 game;
 		public World World { get; set; }
 		public Baldur Baldur { get; set; }
@@ -40,6 +41,11 @@ namespace BaldurSuchtFiona.Components
             Area area = LoadFromJson("base");
 
             World.Areas.Add(area); 
+
+            if (isRunning)
+                game.Scene.ReloadContent();
+            else
+                isRunning = true;
 		}
 
 		public override void Update (GameTime gameTime)

@@ -22,10 +22,11 @@ namespace BaldurSuchtFiona.Models
 		public float Radius { get; set; }
 
 		public Object ()
-		{
+        {
+            DrawAll = true;
 			IsFixed = true;
 			Mass = 1f;
-			Radius = 0.25f;
+			Radius = 0.5f;
 			Name = "Item";
 		}
 
