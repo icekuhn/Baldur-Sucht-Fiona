@@ -10,33 +10,33 @@ namespace BaldurSuchtFiona
 	/// <summary>
 	/// 	This is the main type for your game.
 	/// </summary>
-	internal class Game1 : Game
+	public class Game1 : Game
 	{
 		private GraphicsDeviceManager graphics;
 
 		public InputComponent Input {
 			get;
-			private set;
+			set;
 		}
 
 		public ScreenComponent Screen {
 			get;
-			private set;
+			set;
 		}
 
 		public SimulationComponent Simulation {
 			get;
-			private set;
+			set;
 		}
 
 		public SceneComponent Scene {
 			get;
-			private set;
+			set;
 		}
 
 		public HudComponent Hud {
 			get;
-			private set;
+			set;
 		}
 
 		public Game1 ()

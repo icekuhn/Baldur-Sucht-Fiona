@@ -7,7 +7,7 @@ using BaldurSuchtFiona.Controls;
 
 namespace BaldurSuchtFiona.Screens
 {
-	internal abstract class Screen
+	public abstract class Screen
 	{
 		public List<Control> Controls { get; private set; }
 

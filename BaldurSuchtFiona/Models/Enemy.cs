@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using BaldurSuchtFiona.Interfaces;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Models
 {
 	public abstract class Enemy : Object,IAttackable,IAttacker
 	{

@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using BaldurSuchtFiona.Models;
+using BaldurSuchtFiona.Interfaces;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Models
 {
 	public abstract class Player : Object,ICollector,IAttackable,IAttacker
 	{

@@ -6,7 +6,7 @@ using BaldurSuchtFiona.Models;
 
 namespace BaldurSuchtFiona.Components
 {
-	internal class SimulationComponent : GameComponent
+	public class SimulationComponent : GameComponent
 	{
 		private Game1 game;
 		public World World { get; private set; }
@@ -101,7 +101,7 @@ namespace BaldurSuchtFiona.Components
                             {
                                 FileTileProperty property;
                                 if (tileset.tileproperties.TryGetValue(j, out property))
-                                    block = property.Block;
+                                    block = property.blocked;
                             }
 
                             Tile tile = new Tile()

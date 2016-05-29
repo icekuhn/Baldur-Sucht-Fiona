@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona.Rendering
 {
-    internal class Camera
+    public class Camera
     {
         public int Border { get; set; }
 

@@ -5,7 +5,7 @@ using System.IO;
 
 namespace BaldurSuchtFiona.Components
 {
-	internal class HudComponent : DrawableGameComponent
+	public class HudComponent : DrawableGameComponent
 	{
 		private Game1 game;
 

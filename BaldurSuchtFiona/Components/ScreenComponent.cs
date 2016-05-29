@@ -7,7 +7,7 @@ using BaldurSuchtFiona.Rendering;
 
 namespace BaldurSuchtFiona.Components
 {
-	internal class ScreenComponent : DrawableGameComponent
+	public class ScreenComponent : DrawableGameComponent
 	{
 		public new Game1 Game; 
 		private SpriteBatch spriteBatch;

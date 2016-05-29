@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using BaldurSuchtFiona.Models;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Components
 {
-	internal class InputComponent : GameComponent
+	public class InputComponent : GameComponent
 	{
 		private readonly Trigger upTrigger;
 		private readonly Trigger downTrigger;
@@ -82,8 +84,12 @@ namespace BaldurSuchtFiona.Components
 				attack |= keyboard.IsKeyDown (Keys.Space);
 
 
-			if (bewegung.Length () > 1f)		//????
+			if (bewegung.Length () > 1f)
 				bewegung.Normalize ();
+
+            var baldur = (game.Simulation.World.Areas[0].Objects.FirstOrDefault(o => o is Baldur) as Baldur);
+            if (baldur != null)
+                baldur.Velocity = bewegung * 20;
 
 			Movement = bewegung;
 			upTrigger.Value = up;

@@ -91,6 +91,8 @@
     <Compile Include="Screens\ManualScreen.cs" />
     <Compile Include="Screens\InfoScreen.cs" />
     <Compile Include="Screens\HighScoreScreen.cs" />
+    <Compile Include="Models\Iron.cs" />
+    <Compile Include="Models\Character.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -123,6 +125,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\hudIcons.xnb" />
+    <None Include="Content\collectables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\collectables.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

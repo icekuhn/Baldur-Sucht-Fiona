@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Models
 {
 	public class FileArea
 	{
@@ -14,6 +14,7 @@ namespace BaldurSuchtFiona
 
 	public class FileLayer
 	{
+        public string name { get; set; }
 		public int[] data { get; set; }
 	}
 
@@ -29,7 +30,7 @@ namespace BaldurSuchtFiona
 		
 	public class FileTileProperty
 	{
-		public bool Block { get; set; }
+		public bool blocked { get; set; }
 	}
 }
 

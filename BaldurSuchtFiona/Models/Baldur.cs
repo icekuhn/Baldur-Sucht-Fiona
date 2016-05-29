@@ -1,6 +1,9 @@
 ﻿using System;
+using BaldurSuchtFiona;
+using BaldurSuchtFiona.Models;
+using Microsoft.Xna.Framework;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Models
 {
 	public class Baldur : Player
 	{
@@ -16,7 +19,6 @@ namespace BaldurSuchtFiona
 
         public Baldur () : base()
 		{
-			InitializeData ();
             Flowers = 0;
             Ores = 0;
             Potions = 0;
@@ -24,9 +26,21 @@ namespace BaldurSuchtFiona
             Keycards = 1;
 		}
 
-		public void InitializeData (){
-			Name = "Baldur";
-		}
+        public Baldur (Game1 game,Vector2 position) : base()
+        {
+            Position = position;
+            InitializeData (game);
+            Flowers = 0;
+            Ores = 0;
+            Potions = 0;
+            Weapons = 1;
+            Keycards = 1;
+        }
+
+        public void InitializeData (Game1 game){
+            Name = "Baldur";
+            LoadTexture(game,"Character_Armor_front");
+        }
 	}
 }
 

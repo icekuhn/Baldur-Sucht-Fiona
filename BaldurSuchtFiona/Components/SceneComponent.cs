@@ -8,7 +8,7 @@ using BaldurSuchtFiona.Models;
 
 namespace BaldurSuchtFiona.Components
 {
-    internal class SceneComponent : DrawableGameComponent
+    public class SceneComponent : DrawableGameComponent
     {
         private readonly Game1 game;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Interfaces
 {
 	public interface IAttacker
 	{

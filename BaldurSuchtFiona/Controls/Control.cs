@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BaldurSuchtFiona.Controls
 {
-	internal abstract class Control
+	public abstract class Control
 	{
 		protected ScreenComponent Manager { get; private set; }
 

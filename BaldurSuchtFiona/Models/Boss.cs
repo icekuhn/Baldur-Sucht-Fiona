@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaldurSuchtFiona
+namespace BaldurSuchtFiona.Models
 {
 	public class Boss : Enemy
 	{
