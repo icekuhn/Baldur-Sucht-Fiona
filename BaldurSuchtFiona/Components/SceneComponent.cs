@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using BaldurSuchtFiona.Rendering;
 using System.IO;
 using BaldurSuchtFiona.Models;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Components
 {
@@ -52,8 +53,17 @@ namespace BaldurSuchtFiona.Components
                     Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
                     textures.Add(textureName, texture);
                 }
-            }
-            Baldur = game.Content.Load<Texture2D>("Character_Armor_front");
+            }            
+            var map = game.Simulation.World.Areas[0];
+
+            game.Simulation.Baldur = new Baldur(game,new Vector2(15, 12));
+            map.Objects.Add(game.Simulation.Baldur);
+
+            var iron1 = new Iron(game,new Vector2(18, 15));
+            map.Objects.Add(iron1);
+
+            var iron2 = new Iron(game,new Vector2(13, 17));
+            map.Objects.Add(iron2);
         }
 
         public override void Update(GameTime gameTime)
@@ -73,32 +83,12 @@ namespace BaldurSuchtFiona.Components
             Point offset = (Camera.Offset * Camera.Scale).ToPoint();
 
             for (int l = 0; l < area.Layers.Length; l++) {
-                //for (int x = 0; x < area.Width; x++)
-                //{
                     RenderLayer(area, area.Layers[l], offset);
                 if (l == 3)
-                    RenderCharacter(area, offset);
-                //}
+                {
+                    ObjectRenderer(area, offset);
+                }
             }
-
-            //foreach (var item in area.Items)
-            //{
-            //    Color color = Color.Yellow;
-            //    int posX = (int)((item.Position.X - item.Radius) * scaleX) + 10;
-            //    int posY = (int)((item.Position.Y - item.Radius) * scaleY) + 10;
-            //    int size = (int)((item.Radius * 2) * scaleX);
-            //    spriteBatch.Draw(pixel, new Rectangle(posX, posY, size, size), color);
-            //}
-
-            //foreach (var player in area.Players)
-            //{
-            //    Color color = Color.Red;
-            //    int posX = (int)((player.Position.X - player.Radius) * scaleX) + 10;
-            //    int posY = (int)((player.Position.Y - player.Radius) * scaleY) + 10;
-            //    int size = (int)((player.Radius * 2) * scaleX);
-            //    spriteBatch.Draw(pixel, new Rectangle(posX, posY, size, size), color);
-            //}
-
 
             spriteBatch.End();
 
@@ -125,9 +115,9 @@ namespace BaldurSuchtFiona.Components
             }
         }
 
-        private void RenderCharacter(Area area, Point offset)
+        private void ObjectRenderer(Area area, Point offset)
         {
-            foreach (var charac in area.Players)
+            foreach (var charac in area.Objects)
             {
                 Color color = Color.White;
 
@@ -135,7 +125,7 @@ namespace BaldurSuchtFiona.Components
                 int posX = (int)((charac.Position.X - charac.Radius/2) * Camera.Scale) - offset.X;
                 int posY = (int)((charac.Position.Y - charac.Radius/2) * Camera.Scale) - offset.Y;
                 int size = (int)((charac.Radius) * Camera.Scale);
-                spriteBatch.Draw(Baldur, new Rectangle(posX, posY, size, size), color);
+                spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size, size), color);
             }
         }
     }

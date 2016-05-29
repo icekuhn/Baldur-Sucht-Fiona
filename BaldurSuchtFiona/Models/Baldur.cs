@@ -19,6 +19,7 @@ namespace BaldurSuchtFiona.Models
 
         public Baldur () : base()
 		{
+            Radius = 0.5f;
             Flowers = 0;
             Ores = 0;
             Potions = 0;
@@ -28,6 +29,7 @@ namespace BaldurSuchtFiona.Models
 
         public Baldur (Game1 game,Vector2 position) : base()
         {
+            Radius = 0.5f;
             Position = position;
             InitializeData (game);
             Flowers = 0;

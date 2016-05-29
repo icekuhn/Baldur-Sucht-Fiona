@@ -5,7 +5,7 @@ using BaldurSuchtFiona.Interfaces;
 
 namespace BaldurSuchtFiona.Models
 {
-	public abstract class Enemy : Object,IAttackable,IAttacker
+	public abstract class Enemy : Character,IAttackable,IAttacker
 	{
 		//IAttacker
 		public List<IAttackable> AttackableItems { get; set; }

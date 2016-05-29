@@ -6,7 +6,7 @@ using BaldurSuchtFiona.Interfaces;
 
 namespace BaldurSuchtFiona.Models
 {
-	public abstract class Player : Object,ICollector,IAttackable,IAttacker
+	public abstract class Player : Character,ICollector,IAttackable,IAttacker
 	{
 		//IAttacker
 		public List<IAttackable> AttackableItems { get; set; }
@@ -24,9 +24,6 @@ namespace BaldurSuchtFiona.Models
 		//ICollector
 		public List<Item> Inventory { get; set; }
 
-        //von ALex
-        public Vector2 Velocity {get; set; }
-
 		public Player () : base()
 		{
 			AttackRange = 1f;
@@ -38,6 +35,7 @@ namespace BaldurSuchtFiona.Models
 			Defense = 0;
 			TotalRecovery = new TimeSpan (0, 0, 0, 5);
 			Recovery = new TimeSpan (0, 0, 0, 0);
+            Inventory = new List<Item>();
 		}
 	}
 }
