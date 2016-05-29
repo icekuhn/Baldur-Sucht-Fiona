@@ -12,17 +12,17 @@ namespace BaldurSuchtFiona.Screens
 
 		private ListItem ManualItem = new ListItem() { Text = "Anleitung" };
 		private ListItem newGameItem = new ListItem() { Text = "Neues Spiel" };
-		private ListItem optionsItem = new ListItem() { Text = "Optionen", Enabled = false };
+        private ListItem highScoreItem = new ListItem() { Text = "Highscore"};
 		private ListItem exitGameItem = new ListItem() { Text = "Beenden" };
 
 		public MainMenuScreen (ScreenComponent manager) : base(manager, new Point(400, 300)) {
 			Controls.Add (new Panel (manager) { Position = new Rectangle (20, 20, 360, 40) });
-			Controls.Add (new Label (manager) { Text = "Hauptmenue", Position = new Microsoft.Xna.Framework.Rectangle (40, 30, 0, 0) });
+			Controls.Add (new Label (manager) { Text = "Hauptmenue", Position = new Rectangle (30, 30, 0, 0) });
 			Controls.Add (menu = new MenuList (manager) { Position = new Rectangle (20, 70, 360, 200) });
 
 			menu.Items.Add (ManualItem);
 			menu.Items.Add (newGameItem);
-			menu.Items.Add (optionsItem);
+			menu.Items.Add (highScoreItem);
 			menu.Items.Add (exitGameItem);
 
 			menu.SelectedItem = newGameItem;
@@ -32,10 +32,18 @@ namespace BaldurSuchtFiona.Screens
 
 		void OnInteract (ListItem item)
 		{
+            if (item == ManualItem) {
+                Manager.ShowScreen(new ManualScreen(Manager));
+            }
+
 			if (item == newGameItem) {
 				Manager.Game.Simulation.NewGame ();
 				Manager.CloseScreen ();
 			}
+
+            if (item == highScoreItem) {
+                Manager.ShowScreen(new HighScoreScreen(Manager));
+            }
 
 			if (item == exitGameItem) {
 				Manager.Game.Exit ();
@@ -45,10 +53,11 @@ namespace BaldurSuchtFiona.Screens
 
 		public override void Update(GameTime gametime) {
 			if (!Manager.Game.Input.Handled) {
-				if (Manager.Game.Input.Close) {
-					Manager.CloseScreen ();
-					Manager.Game.Input.Handled = true;
-				}
+                if (Manager.Game.Input.Close)
+                {
+                    Manager.CloseScreen();
+                    Manager.Game.Input.Handled = true;
+                }
 			}
 		}
 	}

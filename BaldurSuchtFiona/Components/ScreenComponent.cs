@@ -11,7 +11,7 @@ namespace BaldurSuchtFiona.Components
 	{
 		public new Game1 Game; 
 		private SpriteBatch spriteBatch;
-		private readonly Stack<Screen> screens;
+        public Stack<Screen> screens { get; private set; }
 
 		public Texture2D Pixel { get; private set; }
 
@@ -60,12 +60,13 @@ namespace BaldurSuchtFiona.Components
 
 		public override void Update(GameTime gameTime) {
 			Screen activeScreen = ActiveScreen;
-			if (activeScreen != null) {
-				foreach (var control in activeScreen.Controls)
-					control.Update(gameTime);
-				activeScreen.Update(gameTime);
-				Game.Input.Handled = true;
-			}
+            if (activeScreen != null)
+            {
+                foreach (var control in activeScreen.Controls)
+                    control.Update(gameTime);
+                activeScreen.Update(gameTime);
+                Game.Input.Handled = true;
+            }
 
 			if (!Game.Input.Handled) {
 				if (Game.Input.Close) {
@@ -78,7 +79,9 @@ namespace BaldurSuchtFiona.Components
 
 		public override void Draw(GameTime gameTime) {
 			spriteBatch.Begin( samplerState: SamplerState.LinearWrap);
-			foreach (var screen in screens)
+            var list = screens.ToArray();
+            Array.Reverse(list);
+            foreach (var screen in list)
 				screen.Draw (gameTime, spriteBatch);
 			spriteBatch.End ();
 		}

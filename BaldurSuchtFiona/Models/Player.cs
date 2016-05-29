@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using BaldurSuchtFiona.Models;
 
 namespace BaldurSuchtFiona
 {
@@ -21,6 +22,9 @@ namespace BaldurSuchtFiona
 		public TimeSpan Restoration { get; set; }
 		//ICollector
 		public List<Item> Inventory { get; set; }
+
+        //von ALex
+        public Vector2 Velocity {get; set; }
 
 		public Player () : base()
 		{

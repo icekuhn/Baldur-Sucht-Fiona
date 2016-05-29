@@ -28,12 +28,12 @@ namespace BaldurSuchtFiona.Controls
 		}
 
 		public override void Update(GameTime gameTime) {
-			if (Manager.Game.Input.Interact) {
-				if (SelectedItem != null && OnInteract != null)
-					OnInteract (SelectedItem);
+    			if (Manager.Game.Input.Interact) {
+    				if (SelectedItem != null && OnInteract != null)
+    					OnInteract (SelectedItem);
 
-				Manager.Game.Input.Handled = true;
-			}
+    				Manager.Game.Input.Handled = true;
+    			}
 
 			base.Update (gameTime);
 		}
