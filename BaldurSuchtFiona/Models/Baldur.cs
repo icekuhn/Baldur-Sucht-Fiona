@@ -25,6 +25,7 @@ namespace BaldurSuchtFiona.Models
             Potions = 0;
             Weapons = 1;
             Keycards = 1;
+            Texture = "sprite_player_3.png";
 		}
 
         public Baldur (Game1 game,Vector2 position) : base()
@@ -37,11 +38,12 @@ namespace BaldurSuchtFiona.Models
             Potions = 0;
             Weapons = 1;
             Keycards = 1;
+            Texture = "sprite_player_3.png";
         }
 
         public void InitializeData (Game1 game){
             Name = "Baldur";
-            LoadTexture(game,"Character_Armor_front");
+          //  LoadTexture(game,"Character_Armor_front");
         }
 	}
 }

@@ -4,7 +4,7 @@ using BaldurSuchtFiona.Interfaces;
 
 namespace BaldurSuchtFiona.Models
 {
-	public abstract class Item : Object,ICollectable
+	public abstract class Item : Objekt,ICollectable
 	{
 		public Item ()
 		{

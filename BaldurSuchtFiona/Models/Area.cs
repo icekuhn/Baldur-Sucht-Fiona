@@ -15,7 +15,7 @@ namespace BaldurSuchtFiona.Models
 
         public int Height { get; private set; }
 
-        public List<Object> Objects { get; private set; }
+        public List<Objekt> Objects { get; private set; }
 
         public List<Item> Items { get; private set; }   //zu viel
 
@@ -34,7 +34,7 @@ namespace BaldurSuchtFiona.Models
             for (int l = 0; l < 1; l++)
                 Layers[l] = new Layer(35, 20);
 
-            Objects = new List<Object>();
+            Objects = new List<Objekt>();
             Tiles = new Dictionary<int, Tile>();
         }
 
@@ -42,7 +42,8 @@ namespace BaldurSuchtFiona.Models
     	{
             Width = width;
             Height = height;
-            Items = new List<Item>();
+            //Items = new List<Item>();
+            Objects = new List<Objekt>();
             Players = new List<Player>();
 
             Layers = new Layer[layers];
@@ -52,12 +53,12 @@ namespace BaldurSuchtFiona.Models
             }
 
             Tiles = new Dictionary<int,Tile>();
-            Objects = new List<Object>();
+            Objects = new List<Objekt>();
         }
 
         public Area(FileArea area)
         {
-            Objects = new List<Object>();
+            Objects = new List<Objekt>();
             Tiles = new Dictionary<int, Tile>();
             Layers = new Layer[area.layers.Length];
             for (int l = 0; l < area.layers.Length; l++)

@@ -62,7 +62,6 @@
     <Compile Include="Controls\VerticalListControl.cs" />
     <Compile Include="Controls\HorizontalListControl.cs" />
     <Compile Include="Controls\MenuList.cs" />
-    <Compile Include="Models\Object.cs" />
     <Compile Include="Interfaces\ICollidable.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Npc.cs" />
@@ -93,6 +92,10 @@
     <Compile Include="Screens\HighScoreScreen.cs" />
     <Compile Include="Models\Iron.cs" />
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Rendering\CharacterRenderer.cs" />
+    <Compile Include="Rendering\ObjektRenderer.cs" />
+    <Compile Include="Rendering\SimpleObjektRenderer.cs" />
+    <Compile Include="Models\Objekt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -131,6 +134,7 @@
     <None Include="Content\collectables.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\sprite_player_3.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

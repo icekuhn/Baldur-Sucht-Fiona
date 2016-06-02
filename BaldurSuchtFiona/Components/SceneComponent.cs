@@ -14,19 +14,20 @@ namespace BaldurSuchtFiona.Components
         private readonly Game1 game;
 
         private SpriteBatch spriteBatch;
-
         private Texture2D pixel;
-
         private Texture2D Baldur;
-
-        private Dictionary<string, Texture2D> textures;
+        private Dictionary<string, Texture2D> tilesetTextures;
+        private Dictionary<string, Texture2D> objektTextures;
+        private Dictionary<Objekt, ObjektRenderer> objektRenderer;
 
         public Camera Camera { get; private set; }
 
         public SceneComponent(Game1 game) : base(game)
         {
             this.game = game;
-            this.textures = new Dictionary<string, Texture2D>();
+            this.tilesetTextures = new Dictionary<string, Texture2D>();
+            objektTextures = new Dictionary<string, Texture2D>();
+            objektRenderer = new Dictionary<Objekt, ObjektRenderer>();
         }
 
         public void ReloadContent(){
@@ -41,25 +42,52 @@ namespace BaldurSuchtFiona.Components
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new [] { Color.White });
 
+
             List<string> requiredTilesetTextures = new List<string>();
+            List<string> requiredObjektTextures = new List<string>();
             foreach (var area in game.Simulation.World.Areas)
             {
+                // Tile Texturen
                 foreach (var tile in area.Tiles.Values)
                     if (!requiredTilesetTextures.Contains(tile.Texture))
                         requiredTilesetTextures.Add(tile.Texture);
 
+                // Objekt Texturen
+                requiredObjektTextures.Add("sprite_player_3.png");
+                requiredObjektTextures.Add("collectables.png");
+                foreach (var objekt in area.Objects)
+                    if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
+                        requiredObjektTextures.Add(objekt.Texture);
             }
+
+          
+
+            // Tileset Texturen laden
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
-            textures.Clear();
+            tilesetTextures.Clear();
             foreach (var textureName in requiredTilesetTextures)
             {
                 using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
                 {
                     Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
-                    textures.Add(textureName, texture);
+                    tilesetTextures.Add(textureName, texture);
                 }
             }            
             var map = game.Simulation.World.Areas[0];
+
+
+            // Objekt Texturen laden
+            mapPath = Path.Combine(Environment.CurrentDirectory, "Content");
+            objektTextures.Clear();
+            foreach (var textureName in requiredObjektTextures)
+            {
+                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
+                {
+                    Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
+                    objektTextures.Add(textureName, texture);
+                }
+            }     
+
 
             game.Simulation.Baldur = new Baldur(game,new Vector2(15, 12));
             map.Objects.Add(game.Simulation.Baldur);
@@ -91,7 +119,7 @@ namespace BaldurSuchtFiona.Components
                     RenderLayer(area, area.Layers[l], offset);
                 if (l == 3)
                 {
-                    ObjectRenderer(area, offset);
+                    RendererObjekts(area, offset, gameTime);
                 }
             }
 
@@ -110,7 +138,7 @@ namespace BaldurSuchtFiona.Components
                         continue;
 
                     Tile tile = area.Tiles[tileId];
-                    Texture2D texture = textures[tile.Texture];
+                    Texture2D texture = tilesetTextures[tile.Texture];
 
                     int offsetX = (int)(x * Camera.Scale) - offset.X;
                     int offsetY = (int)(y * Camera.Scale) - offset.Y;
@@ -120,20 +148,41 @@ namespace BaldurSuchtFiona.Components
             }
         }
 
-        private void ObjectRenderer(Area area, Point offset)
+        private void RendererObjekts(Area area, Point offset, GameTime gameTime)
         {
-            foreach (var charac in area.Objects)
-            {
-                Color color = Color.White;
+          //  foreach (var charac in area.Objects)
+          //  {
+              //  Color color = Color.White;
 
                 // Positionsermittlung und Ausgabe des Spielelements.
-                int posX = (int)((charac.Position.X - charac.Radius/2) * Camera.Scale) - offset.X;
-                int posY = (int)((charac.Position.Y - charac.Radius/2) * Camera.Scale) - offset.Y;
-                int size = (int)((charac.Radius) * Camera.Scale);
-                if(charac.DrawAll)
-                    spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size*2, size*2), color);
-                else
-                    spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size, size), new Rectangle(charac.DrawX, charac.DrawY, charac.DrawWidth, charac.DrawHeight), color);
+             //   int posX = (int)((charac.Position.X - charac.Radius) * Camera.Scale) - offset.X;
+             //   int posY = (int)((charac.Position.Y - charac.Radius) * Camera.Scale) - offset.Y;
+             //   int size = (int)((charac.Radius) * Camera.Scale);
+             //   if(charac.DrawAll)
+             //       spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size*4, size*4), color);
+             //   else
+              //      spriteBatch.Draw(charac.Texture, new Rectangle(posX, posY, size, size), new Rectangle(charac.DrawX, charac.DrawY, charac.DrawWidth, charac.DrawHeight), color);
+
+            // Objekte in Reihenfolge rendern
+            // foreach (var objekt in area.Objects.OrderBy(i => i.Position.Y))
+               foreach (var objekt in area.Objects)
+            {
+                // Renderer ermitteln
+                ObjektRenderer renderer;
+                if (!objektRenderer.TryGetValue(objekt, out renderer))
+                {
+                    // Texturen nachladen beachten
+                        Texture2D texture = objektTextures[objekt.Texture];
+
+                        if(objekt is Character) {
+                            renderer = new CharacterRenderer(objekt as Character, Camera, texture);
+                        } else {
+                            renderer = new SimpleObjektRenderer(objekt, Camera, texture);
+                        }
+                            objektRenderer.Add(objekt, renderer);
+                }
+
+                renderer.Draw(spriteBatch, offset, gameTime);
             }
         }
     }

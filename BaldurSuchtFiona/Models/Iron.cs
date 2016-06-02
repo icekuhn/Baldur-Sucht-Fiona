@@ -37,7 +37,7 @@ namespace BaldurSuchtFiona.Models
 
         public void InitializeData(Game1 game){
             Name = "Iron";
-            LoadTexture(game,"collectables",(Value - 1 ) * 32,0,32,32);
+            LoadTexture(game,"collectables.png",(Value - 1 ) * 32,0,32,32);
         }
     }
 }
