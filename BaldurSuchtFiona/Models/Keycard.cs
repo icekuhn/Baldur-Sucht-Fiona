@@ -36,8 +36,12 @@ namespace BaldurSuchtFiona
         }
 
         public void InitializeData(Game1 game){
-            Name = "Iron";
+            Name = "Keycard";
             LoadTexture(game,"collectables",(Value - 1 ) * 32,64,32,32);
+        }
+
+        public override void OnCollect(World world){
+
         }
     }
 }

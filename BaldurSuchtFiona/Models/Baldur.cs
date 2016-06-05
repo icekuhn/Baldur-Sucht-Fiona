@@ -59,6 +59,8 @@ namespace BaldurSuchtFiona.Models
             Weapons = 1;
             Keycards = 1;
             Texture = "sprite_player_3.png";
+            TextureName = "sprite_player_3.png";
+            MaxSpeed = 1f;
 		}
 
         public Baldur (Game1 game,Vector2 position) : base()
@@ -70,6 +72,8 @@ namespace BaldurSuchtFiona.Models
             Weapons = 1;
             Keycards = 1;
             Texture = "sprite_player_3.png";
+            TextureName = "sprite_player_3.png";
+            MaxSpeed = 1f;
         }
 
         public void InitializeData (Game1 game){

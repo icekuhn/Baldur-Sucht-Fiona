@@ -44,20 +44,20 @@ namespace BaldurSuchtFiona.Components
 
             List<string> requiredTilesetTextures = new List<string>();
             List<string> requiredObjektTextures = new List<string>();
-            foreach (var area in game.Simulation.World.Areas)
-            {
+
                 // Tile Texturen
-                foreach (var tile in area.Tiles.Values)
+            foreach (var tile in game.Simulation.World.Area.Tiles.Values)
                     if (!requiredTilesetTextures.Contains(tile.Texture))
                         requiredTilesetTextures.Add(tile.Texture);
 
                 // Objekt Texturen
-                requiredObjektTextures.Add("sprite_player_3.png");
-                requiredObjektTextures.Add("collectables.png");
-                foreach (var objekt in area.Objects)
-                    if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
-                        requiredObjektTextures.Add(objekt.Texture);
-            }
+            requiredObjektTextures.Add("sprite_player_3.png");
+            requiredObjektTextures.Add("sprite_farmer.png");
+            requiredObjektTextures.Add("collectables.png");
+            foreach (var objekt in game.Simulation.World.Area.Objects)
+                if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
+                    requiredObjektTextures.Add(objekt.Texture);
+            
 
           
 
@@ -72,7 +72,7 @@ namespace BaldurSuchtFiona.Components
                     tilesetTextures.Add(textureName, texture);
                 }
             }            
-            var map = game.Simulation.World.Areas[0];
+            var map = game.Simulation.World.Area;
 
 
             // Objekt Texturen laden
@@ -91,37 +91,43 @@ namespace BaldurSuchtFiona.Components
             game.Simulation.Baldur = new Baldur(game,new Vector2(15, 12));
             map.Objects.Add(game.Simulation.Baldur);
 
-            var iron1 = new Iron(game,1,new Vector2(18, 15));
-            map.Objects.Add(iron1);
-
-            var iron2 = new Iron(game,2,new Vector2(13, 17));
-            map.Objects.Add(iron2);
-
-            var iron3 = new Iron(game,3,new Vector2(15, 19));
-            map.Objects.Add(iron3);
-
-            var flower1 = new Flower(game,1,new Vector2(19, 16));
-            map.Objects.Add(flower1);
-
-            var flower2 = new Flower(game,2,new Vector2(14, 14));
-            map.Objects.Add(flower2);
-
-            var flower3 = new Flower(game,3,new Vector2(19, 19));
+//            var iron1 = new Iron(game,1,new Vector2(18, 15));
+//            map.Objects.Add(iron1);
+//
+//            var iron2 = new Iron(game,2,new Vector2(13, 17));
+//            map.Objects.Add(iron2);
+//
+//            var iron3 = new Iron(game,3,new Vector2(19, 19));
+//            map.Objects.Add(iron3);
+//
+//            var flower1 = new Flower(game,1,new Vector2(19, 16));
+//            map.Objects.Add(flower1);
+//
+//            var flower2 = new Flower(game,2,new Vector2(14, 14));
+//            map.Objects.Add(flower2);
+//
+            var flower3 = new Flower(game,3,new Vector2(15,21));
             map.Objects.Add(flower3);
 
             var keycard1 = new Keycard(game,1,new Vector2(13, 18));
             map.Objects.Add(keycard1);
+
+            var farmer1 = new Farmer(game,new Vector2(14, 23));
+            map.Objects.Add(farmer1);
+
+            var farmer2 = new Farmer(game,new Vector2(16, 23));
+            map.Objects.Add(farmer2);
         }
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 areaSize = new Vector2(game.Simulation.World.Areas[0].Width, game.Simulation.World.Areas[0].Height); 
+            Vector2 areaSize = new Vector2(game.Simulation.World.Area.Width, game.Simulation.World.Area.Height); 
             Camera.SetFocus(game.Simulation.Baldur.Position, areaSize);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Area area = game.Simulation.World.Areas[0];
+            Area area = game.Simulation.World.Area;
 
             GraphicsDevice.Clear(area.Background);
 
@@ -186,7 +192,7 @@ namespace BaldurSuchtFiona.Components
                 if (!objektRenderer.TryGetValue(objekt, out renderer))
                 {
                     // Texturen nachladen beachten
-                        Texture2D texture = objektTextures[objekt.Texture];
+                    var texture = objektTextures[objekt.TextureName];
 
                         if(objekt is Character) {
                             renderer = new CharacterRenderer(objekt as Character, Camera, texture);

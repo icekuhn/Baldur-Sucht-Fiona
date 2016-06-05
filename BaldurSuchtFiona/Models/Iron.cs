@@ -39,6 +39,10 @@ namespace BaldurSuchtFiona.Models
             Name = "Iron";
             LoadTexture(game,"collectables.png",(Value - 1 ) * 32,0,32,32);
         }
+
+        public override void OnCollect(World world){
+
+        }
     }
 }
 

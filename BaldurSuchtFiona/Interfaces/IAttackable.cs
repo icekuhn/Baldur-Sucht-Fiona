@@ -9,6 +9,8 @@ namespace BaldurSuchtFiona.Interfaces
 		int Defense { get; set; }
 		TimeSpan TotalRestoration { get; }
 		TimeSpan Restoration { get; set; }
+
+        Action<Game1, IAttacker, IAttackable> OnHit { get; }
 	}
 }
 

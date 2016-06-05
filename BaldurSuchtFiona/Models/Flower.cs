@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
@@ -36,6 +37,13 @@ namespace BaldurSuchtFiona.Models
         public void InitializeData(Game1 game){
             Name = "Iron";
             LoadTexture(game,"collectables",(Value - 1 ) * 32,32,32,32);
+        }
+
+        public override void OnCollect(World world){
+            foreach (var farmer in world.Area.Objects.OfType<Farmer>())
+            {
+                farmer.GetAggressive();
+            }
         }
     }
 }

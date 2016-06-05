@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 
@@ -17,9 +18,9 @@ namespace BaldurSuchtFiona.Models
 
         public List<Objekt> Objects { get; private set; }
 
-        public List<Item> Items { get; private set; }   //zu viel
+        public List<Item> Items { get { return Objects.Where(o => o is Item) as List<Item>; }  }  
 
-        public List<Player> Players { get; private set; }   //zu viel
+        public List<Player> Players { get { return Objects.Where(o => o is Player) as List<Player>; }  } 
 
         public Layer[] Layers { get; private set; }
 
@@ -42,9 +43,7 @@ namespace BaldurSuchtFiona.Models
     	{
             Width = width;
             Height = height;
-            //Items = new List<Item>();
             Objects = new List<Objekt>();
-            Players = new List<Player>();
 
             Layers = new Layer[layers];
             for (int l = 0; l < layers; l++)

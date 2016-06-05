@@ -69,6 +69,37 @@ namespace BaldurSuchtFiona.Rendering
                         direction = Direction.South;
                     }
                 }
+                if (character is Farmer)
+                {
+                    if (character.Velocity.X > character.Velocity.Y)
+                    {
+                        // Rechts oben
+                        if (-character.Velocity.X > character.Velocity.Y)
+                        {
+                            // Links oben -> Oben
+                            direction = Direction.South;
+                        }
+                        else
+                        {
+                            // Rechts unten -> Rechts
+                            direction = Direction.West;
+                        }
+                    }
+                    else
+                    {
+                        // Links unten
+                        if (-character.Velocity.X > character.Velocity.Y)
+                        {
+                            // Links oben -> Links
+                            direction = Direction.East;
+                        }
+                        else
+                        {
+                            // Rechts unten -> Rechts
+                            direction = Direction.North;
+                        }
+                    }
+                };
 
                 // TODO: Angriff Animation
 
@@ -91,6 +122,8 @@ namespace BaldurSuchtFiona.Rendering
                 {
                     case Animation.Walk:
                         frameCount = 4;
+                        if (character is Farmer)
+                            frameCount = 3;
                         animationRow = 1;
                         break;
 
@@ -157,6 +190,14 @@ namespace BaldurSuchtFiona.Rendering
                                             FrameSize.X,
                                             FrameSize.Y
                                         );
+
+            if(character is Farmer)
+                sourceRectangle = new Rectangle(
+                    row * FrameSize.X,
+                    frame * FrameSize.Y,
+                    FrameSize.X,
+                    FrameSize.Y
+                );
 
             Rectangle destinationRectangle = new Rectangle(
               posX - (int)(ObjektOffset.X * scale.X) + 2, posY - (int)(ObjektOffset.Y * scale.Y),

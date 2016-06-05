@@ -15,12 +15,15 @@ namespace BaldurSuchtFiona.Models
         internal Vector2 move = Vector2.Zero;
         //public Texture2D Texture;
         public string Texture { get; set; }
+        public string TextureName { get; set; }
 		public string Name { get; set; }
 		public string Icon { get; set; }
 		public float Mass { get; set; }
 		public bool IsFixed { get; set; }
 		public Vector2 Position { get; set; }
 		public float Radius { get; set; }
+
+        public Action<Game1, Area, Object, GameTime> Update { get; set; }
 
 		public Objekt ()
         {
@@ -54,6 +57,10 @@ namespace BaldurSuchtFiona.Models
             DrawHeight = drawHeiht;
             //Texture = game.Content.Load<Texture2D>(texture);
             Texture = texture;
+            if (!Texture.EndsWith(".png"))
+                TextureName = Texture + ".png";
+            else
+                TextureName = Texture;
         }
 	}
 }
