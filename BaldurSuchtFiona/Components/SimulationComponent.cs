@@ -51,14 +51,8 @@ namespace BaldurSuchtFiona.Components
 		public override void Update (GameTime gameTime)
         {
             List<Action> transfers = new List<Action>();
-			if (!game.Input.Handled) 
-			{
-                World.Areas[0].Objects.OfType<Baldur>().First().Velocity = game.Input.Movement /10;
-			}
-			else 
-			{
-                World.Areas[0].Objects.OfType<Baldur>().First().Velocity = Vector2.Zero;
-			}
+            if (game.Input.Handled)
+                return;
 
             foreach (var area in World.Areas)
             {

@@ -7,6 +7,7 @@ namespace BaldurSuchtFiona.Models
     {
         public float MaxSpeed { get; set; }
         public Vector2 Velocity { get; set; }
+        public Vector2 DefaultPosition { get; set; }
 
         public Character(): base()
         {

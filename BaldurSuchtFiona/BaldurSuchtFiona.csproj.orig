@@ -49,7 +49,9 @@
     <Compile Include="Components\SceneComponent.cs" />
     <Compile Include="Components\ScreenComponent.cs" />
     <Compile Include="Components\SimulationComponent.cs" />
-    <Compile Include="Components\HudComponent.cs" />
+    <Compile Include="Components\HudComponent.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\Label.cs" />
@@ -60,10 +62,10 @@
     <Compile Include="Controls\VerticalListControl.cs" />
     <Compile Include="Controls\HorizontalListControl.cs" />
     <Compile Include="Controls\MenuList.cs" />
-    <Compile Include="Models\Object.cs" />
     <Compile Include="Interfaces\ICollidable.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Npc.cs" />
+    <Compile Include="Models\World.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Interfaces\ICollectable.cs" />
@@ -82,8 +84,22 @@
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Layer.cs" />
     <Compile Include="Models\Tile.cs" />
-    <Compile Include="Models\World.cs" />
     <Compile Include="Models\FileArea.cs" />
+    <Compile Include="Rendering\Camera.cs" />
+    <Compile Include="Models\Flower.cs" />
+    <Compile Include="Screens\ManualScreen.cs" />
+    <Compile Include="Screens\InfoScreen.cs" />
+    <Compile Include="Screens\HighScoreScreen.cs" />
+    <Compile Include="Models\Iron.cs" />
+    <Compile Include="Models\Character.cs" />
+<<<<<<< HEAD
+    <Compile Include="Rendering\CharacterRenderer.cs" />
+    <Compile Include="Rendering\ObjektRenderer.cs" />
+    <Compile Include="Rendering\SimpleObjektRenderer.cs" />
+    <Compile Include="Models\Objekt.cs" />
+=======
+    <Compile Include="Models\Keycard.cs" />
+>>>>>>> origin/develop
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -91,8 +107,12 @@
     <None Include="Content\Character_Armor_front.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\base.json" />
-    <None Include="Maps\base1.png" />
+    <None Include="Maps\base.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Maps\base1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\GameFont.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -108,6 +128,17 @@
     <None Include="Content\MenuItems.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\hudIcons.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\hudIcons.xnb" />
+    <None Include="Content\collectables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\collectables.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\sprite_player_3.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

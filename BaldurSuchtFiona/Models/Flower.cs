@@ -1,11 +1,41 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona.Models
 {
     internal class Flower : Item
     {
-        public Flower()
+        public int Value { get; set; }
+
+        public Flower(Game1 game)
         {
+            Value = 1;
+            InitializeData(game);
+        }
+
+        public Flower (Game1 game,Vector2 position) : base()
+        {
+            Position = position;
+            Value = 1;
+            InitializeData(game);
+        }
+
+        public Flower(Game1 game,int value)
+        {
+            Value = value;
+            InitializeData(game);
+        }
+
+        public Flower(Game1 game,int value,Vector2 position)
+        {
+            Position = position;
+            Value = value;
+            InitializeData(game);
+        }
+
+        public void InitializeData(Game1 game){
+            Name = "Iron";
+            LoadTexture(game,"collectables",(Value - 1 ) * 32,32,32,32);
         }
     }
 }

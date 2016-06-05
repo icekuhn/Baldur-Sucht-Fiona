@@ -97,6 +97,7 @@ namespace BaldurSuchtFiona.Components
             var iron2 = new Iron(game,2,new Vector2(13, 17));
             map.Objects.Add(iron2);
 
+<<<<<<< Updated upstream
             var iron3 = new Iron(game,3,new Vector2(15, 19));
             map.Objects.Add(iron3);
 
@@ -111,6 +112,10 @@ namespace BaldurSuchtFiona.Components
 
             var keycard1 = new Keycard(game,1,new Vector2(13, 18));
             map.Objects.Add(keycard1);
+=======
+            //var fighter = new Fighter(game, new Vector2(15, 27));
+            //map.Objects.Add(fighter);
+>>>>>>> Stashed changes
         }
 
         public override void Update(GameTime gameTime)
