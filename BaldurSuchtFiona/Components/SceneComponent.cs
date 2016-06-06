@@ -112,8 +112,8 @@ namespace BaldurSuchtFiona.Components
             var keycard1 = new Keycard(game,1,new Vector2(13, 18));
             map.Objects.Add(keycard1);
 
-            var farmer1 = new Farmer(game,new Vector2(14, 23));
-            map.Objects.Add(farmer1);
+//            var farmer1 = new Farmer(game,new Vector2(14, 23));
+//            map.Objects.Add(farmer1);
 
             var farmer2 = new Farmer(game,new Vector2(16, 23));
             map.Objects.Add(farmer2);
@@ -137,7 +137,7 @@ namespace BaldurSuchtFiona.Components
 
             for (int l = 0; l < area.Layers.Length; l++) {
                     RenderLayer(area, area.Layers[l], offset);
-                if (l == 3)
+                if (l == 4)
                 {
                     RendererObjekts(area, offset, gameTime);
                 }
@@ -185,7 +185,7 @@ namespace BaldurSuchtFiona.Components
 
             // Objekte in Reihenfolge rendern
             // foreach (var objekt in area.Objects.OrderBy(i => i.Position.Y))
-               foreach (var objekt in area.Objects)
+            foreach (var objekt in area.Objects.OrderBy(o => o.Position.Y))
             {
                 // Renderer ermitteln
                 ObjektRenderer renderer;

@@ -107,12 +107,6 @@
     <None Include="Content\Character_Armor_front.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Maps\base.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Maps\base1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Content\GameFont.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -140,6 +134,8 @@
     </None>
     <None Include="Content\sprite_player_3.png" />
     <None Include="Content\sprite_farmer.png" />
+    <None Include="Maps\base.json" />
+    <None Include="Maps\base1.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

@@ -25,6 +25,8 @@ namespace BaldurSuchtFiona.Models
 
         public Action<Game1, IAttacker, IAttackable> OnHit { get; set; }
 
+        public abstract void CheckCollectableInteraction(Objekt Item);
+
 		public Enemy () : base()
         {
             AttackRange = 1f;

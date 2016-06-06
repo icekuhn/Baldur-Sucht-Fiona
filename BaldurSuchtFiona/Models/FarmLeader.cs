@@ -7,7 +7,11 @@ namespace BaldurSuchtFiona.Models
 		public FarmLeader () : base()
 		{
 			Defense = 8;
-		}
+        }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+
+        }
 	}
 }
 

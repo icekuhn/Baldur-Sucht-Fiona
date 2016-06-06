@@ -82,7 +82,7 @@ namespace BaldurSuchtFiona.Rendering
                         else
                         {
                             // Rechts unten -> Rechts
-                            direction = Direction.West;
+                            direction = Direction.East;
                         }
                     }
                     else
@@ -91,7 +91,7 @@ namespace BaldurSuchtFiona.Rendering
                         if (-character.Velocity.X > character.Velocity.Y)
                         {
                             // Links oben -> Links
-                            direction = Direction.East;
+                            direction = Direction.West;
                         }
                         else
                         {

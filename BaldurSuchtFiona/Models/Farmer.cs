@@ -38,6 +38,11 @@ namespace BaldurSuchtFiona.Models
             Ai = new AggressiveAi(this, AttackRadius);
             IsPeaceMode = false;
         }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+            if (Ai != null)
+                Ai.StopWalking();
+        }
 	}
 }
 

@@ -6,7 +6,11 @@ namespace BaldurSuchtFiona.Models
 	{
 		public Miner () : base()
 		{
-		}
+        }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+
+        }
 	}
 }
 

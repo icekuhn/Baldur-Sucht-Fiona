@@ -24,6 +24,10 @@ namespace BaldurSuchtFiona.Models
             Name = "Fighter";
             Texture = "sprite_player_3.png";
         }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+
+        }
 	}
 }
 

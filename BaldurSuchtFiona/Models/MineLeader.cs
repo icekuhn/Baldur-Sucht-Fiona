@@ -7,7 +7,11 @@ namespace BaldurSuchtFiona.Models
 		public MineLeader ()
 		{
 			Defense = 10;
-		}
+        }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+
+        }
 	}
 }
 

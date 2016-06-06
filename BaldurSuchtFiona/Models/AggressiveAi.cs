@@ -16,10 +16,18 @@ namespace BaldurSuchtFiona
 
         private float range;
 
+        private Vector2? center;
+
+        private TimeSpan delay;
+
+        protected Random Random { get; private set; }
+
         public AggressiveAi(Character host, float range) : base(host) 
         {
             this.range = range;
             attacker = (IAttacker)host;
+            Random = new Random();
+            delay = TimeSpan.Zero;
         }
 
         public override void OnUpdate(Area area, GameTime gameTime)
@@ -53,6 +61,26 @@ namespace BaldurSuchtFiona
                 {
                     WalkTo(target.Position, 0.6f);
                 }
+            }
+            else
+            {
+                if (!center.HasValue)
+                    center = Host.Position;
+
+                if (!Walking)
+                {
+                    if (delay > TimeSpan.Zero)
+                    {
+                        delay -= gameTime.ElapsedGameTime;
+                        return;
+                    }
+
+                    Vector2 variation = new Vector2(
+                        (float)(Random.NextDouble() * 2 - 1.0), 
+                        (float)(Random.NextDouble() * 2 - 1.0));
+                    WalkTo(center.Value + variation * 2 * range, 0.4f);
+                    delay = TimeSpan.FromSeconds(2);
+                } 
             }
         }
     }

@@ -7,7 +7,11 @@ namespace BaldurSuchtFiona.Models
 		public Boss ()
 		{
 			Defense = 20;
-		}
+        }
+
+        public override void CheckCollectableInteraction(Objekt Item){
+
+        }
 	}
 }
 

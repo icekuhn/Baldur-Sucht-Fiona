@@ -122,6 +122,12 @@ namespace BaldurSuchtFiona.Components
                                     item.Position = Vector2.Zero;
                                 });
                         }
+
+                        if (character is Enemy && item is ICollectable)
+                        {
+                            if ((character as Enemy).Ai != null)
+                                (character as Enemy).CheckCollectableInteraction(item);
+                        }
                     }
 
 
@@ -130,6 +136,7 @@ namespace BaldurSuchtFiona.Components
 
             foreach (var item in area.Objects)
             {
+                var hadCollision = false;
                 bool collision = false;
                 int loops = 0;
                 if (item.Update != null)
@@ -195,8 +202,10 @@ namespace BaldurSuchtFiona.Components
                             }
                         }
                     }
+
                     if (collision)
                     {
+                        hadCollision = true;
                         if (minAxis == 1)
                             item.move *= new Vector2(minImpact, 1f);
 
@@ -207,7 +216,7 @@ namespace BaldurSuchtFiona.Components
                 }
                 while(collision && loops < 2);
 
-                if (item is Enemy && collision)
+                if (item is Enemy && hadCollision)
                 {
                     if ((item as Enemy).Ai != null)
                         (item as Enemy).Ai.StopWalking();
@@ -217,20 +226,33 @@ namespace BaldurSuchtFiona.Components
                 item.move = Vector2.Zero;
 
 
-                if (item is IAttacker)
+                if (item is IAttacker )
                 {
                     IAttacker attacker = item as IAttacker;
-                    if (attacker.IsAttacking && attacker.Recovery <= TimeSpan.Zero)
+                    if (item is IAttackable)
                     {
-                        foreach (var attackable in attacker.AttackableItems)
+                        if (!((item as IAttackable).CurrentHitpoints <= 0))
                         {
-                            attackable.CurrentHitpoints -= attacker.AttackValue;
-                            if (attackable.OnHit != null)
-                                attackable.OnHit(game, attacker, attackable);
-                        }
+                            if (attacker.IsAttacking && attacker.Recovery <= TimeSpan.Zero)
+                            {
+                                foreach (var attackable in attacker.AttackableItems)
+                                {
+                                    attackable.CurrentHitpoints -= attacker.AttackValue;
+                                    if (attackable is Farmer)
+                                    {
+                                        var farmer = attackable as Farmer;
+                                        if (farmer.IsPeaceMode)
+                                            farmer.GetAggressive();
+                                    }
+                                    if (attackable.OnHit != null)
+                                        attackable.OnHit(game, attacker, attackable);
+                                }
 
-                        attacker.Recovery = attacker.TotalRecovery;
+                                attacker.Recovery = attacker.TotalRecovery;
+                            }
+                        }
                     }
+
                     attacker.IsAttacking = false;
                 }
             }
