@@ -11,10 +11,7 @@ namespace BaldurSuchtFiona.Components
 {
 	public class SimulationComponent : GameComponent
 	{
-        private bool isRunning;
 		private Game1 game;
-		public World World { get; set; }
-		public Baldur Baldur { get; set; }
 
         private float gap = 0.00001f;
 		public Vector2 Position {
@@ -31,21 +28,7 @@ namespace BaldurSuchtFiona.Components
 		public SimulationComponent (Game1 game) : base(game)
 		{
 			this.game = game;
-			NewGame();
-		}
-
-		public void NewGame()
-		{
-			World = new World();
-
-            Area area = LoadFromJson("base");
-
-            World.Area = area; 
-
-            if (isRunning)
-                game.Scene.ReloadContent();
-            else
-                isRunning = true;
+            this.game.StartGame();
 		}
 
 		public override void Update (GameTime gameTime)
@@ -54,7 +37,7 @@ namespace BaldurSuchtFiona.Components
             if (game.Input.Handled)
                 return;
 
-            var area = game.Simulation.World.Area;
+            var area = game.World.Area;
             foreach (var character in area.Objects.OfType<Character>())
             {
                 if (character is IAttackable && (character as IAttackable).CurrentHitpoints <= 0)
@@ -118,7 +101,7 @@ namespace BaldurSuchtFiona.Components
                                 {
                                     area.Objects.Remove(item);
                                     (character as ICollector).Inventory.Add(item as Item);
-                                    (item as ICollectable).OnCollect(World);
+                                    (item as ICollectable).OnCollect(game.World);
                                     item.Position = Vector2.Zero;
                                 });
                         }
@@ -265,73 +248,6 @@ namespace BaldurSuchtFiona.Components
             base.Update(gameTime);
 		}
 
-		private Area LoadFromJson(string name)
-		{
-			string rootPath = Path.Combine(Environment.CurrentDirectory, "Maps");
-			using (Stream stream = File.OpenRead(rootPath + "\\" + name + ".json"))
-			{
-                using (StreamReader sr = new StreamReader(stream))
-                {
-                    string json = sr.ReadToEnd();
-                    FileArea result = JsonConvert.DeserializeObject<FileArea>(json);
-        
-                    Area area = new Area(result.layers.Length, result.width, result.height);
-                    area.Name = name;
-
-                    area.Background = new Color(128,128,128);
-                    if (!string.IsNullOrEmpty(result.backgroundcolor))
-                    {
-                        area.Background = new Color(
-                            Convert.ToInt32(result.backgroundcolor.Substring(1, 2), 16),
-                            Convert.ToInt32(result.backgroundcolor.Substring(3, 2), 16),
-                            Convert.ToInt32(result.backgroundcolor.Substring(1, 2), 16));
-                    }
-
-                    for (int i = 0; i < result.tilesets.Length; i++)
-                    {
-                        FileTileset tileset = result.tilesets[i];
-
-                        int start = tileset.firstgid;
-                        int perRow = tileset.imagewidth / tileset.tilewidth;
-                        int width = tileset.tilewidth;
-
-                        for (int j = 0; j < tileset.tilecount; j++)
-                        {
-                            int x = j % perRow;
-                            int y = j / perRow;
-                         
-                            bool block = false;
-                            if (tileset.tileproperties != null)
-                            {
-                                FileTileProperty property;
-                                if (tileset.tileproperties.TryGetValue(j, out property))
-                                    block = property.blocked;
-                            }
-
-                            Tile tile = new Tile()
-                            {
-                                Texture = tileset.image,
-                                SourceRectangle = new Rectangle(x * width, y * width, width, width),
-                                Blocked = block
-                            };
-
-                            area.Tiles.Add(start + j, tile);
-                        }
-                    }
-
-                    for (int l = 0; l < result.layers.Length; l++)
-                    {
-                        FileLayer layer = result.layers[l];
-                        for (int i = 0; i < layer.data.Length; i++)
-                        {
-                            int x = i % area.Width;
-                            int y = i / area.Width;
-                            area.Layers[l].Tiles[x, y] = layer.data[i];
-                        }
-                    }
-                    return area;
-                }
-			}
-		}
+		
 	}
 }

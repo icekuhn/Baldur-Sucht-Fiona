@@ -14,7 +14,6 @@ namespace BaldurSuchtFiona.Components
         private readonly Game1 game;
 
         private SpriteBatch spriteBatch;
-        private Texture2D pixel;
         private Dictionary<string, Texture2D> tilesetTextures;
         private Dictionary<string, Texture2D> objektTextures;
         private Dictionary<Objekt, ObjektRenderer> objektRenderer;
@@ -29,8 +28,15 @@ namespace BaldurSuchtFiona.Components
             objektRenderer = new Dictionary<Objekt, ObjektRenderer>();
         }
 
-        public void ReloadContent(){
-            LoadContent();
+        public void SetContent(Dictionary<string, Texture2D> _tilesetTextures,Dictionary<string, Texture2D> _objektTextures){
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Camera = new Camera(GraphicsDevice.Viewport.Bounds.Size);
+            tilesetTextures = _tilesetTextures;
+            objektTextures = _objektTextures;
+        }
+
+        public GraphicsDevice GetGraphicsDevice(){
+            return GraphicsDevice;
         }
 
         protected override void LoadContent()
@@ -38,96 +44,18 @@ namespace BaldurSuchtFiona.Components
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Camera = new Camera(GraphicsDevice.Viewport.Bounds.Size);
 
-            pixel = new Texture2D(GraphicsDevice, 1, 1);
-            pixel.SetData(new [] { Color.White });
-
-
-            List<string> requiredTilesetTextures = new List<string>();
-            List<string> requiredObjektTextures = new List<string>();
-
-                // Tile Texturen
-            foreach (var tile in game.Simulation.World.Area.Tiles.Values)
-                    if (!requiredTilesetTextures.Contains(tile.Texture))
-                        requiredTilesetTextures.Add(tile.Texture);
-
-                // Objekt Texturen
-            requiredObjektTextures.Add("sprite_player_3.png");
-            requiredObjektTextures.Add("sprite_farmer.png");
-            requiredObjektTextures.Add("collectables.png");
-            foreach (var objekt in game.Simulation.World.Area.Objects)
-                if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
-                    requiredObjektTextures.Add(objekt.Texture);
-            
-
-          
-
-            // Tileset Texturen laden
-            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
-            tilesetTextures.Clear();
-            foreach (var textureName in requiredTilesetTextures)
-            {
-                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
-                {
-                    Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
-                    tilesetTextures.Add(textureName, texture);
-                }
-            }            
-            var map = game.Simulation.World.Area;
-
-
-            // Objekt Texturen laden
-            mapPath = Path.Combine(Environment.CurrentDirectory, "Content");
-            objektTextures.Clear();
-            foreach (var textureName in requiredObjektTextures)
-            {
-                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
-                {
-                    Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
-                    objektTextures.Add(textureName, texture);
-                }
-            }     
-
-
-            game.Simulation.Baldur = new Baldur(game,new Vector2(15, 12));
-            map.Objects.Add(game.Simulation.Baldur);
-
-//            var iron1 = new Iron(game,1,new Vector2(18, 15));
-//            map.Objects.Add(iron1);
-//
-//            var iron2 = new Iron(game,2,new Vector2(13, 17));
-//            map.Objects.Add(iron2);
-//
-//            var iron3 = new Iron(game,3,new Vector2(19, 19));
-//            map.Objects.Add(iron3);
-//
-//            var flower1 = new Flower(game,1,new Vector2(19, 16));
-//            map.Objects.Add(flower1);
-//
-//            var flower2 = new Flower(game,2,new Vector2(14, 14));
-//            map.Objects.Add(flower2);
-//
-            var flower3 = new Flower(game,3,new Vector2(15,21));
-            map.Objects.Add(flower3);
-
-            var keycard1 = new Keycard(game,1,new Vector2(13, 18));
-            map.Objects.Add(keycard1);
-
-//            var farmer1 = new Farmer(game,new Vector2(14, 23));
-//            map.Objects.Add(farmer1);
-
-            var farmer2 = new Farmer(game,new Vector2(16, 23));
-            map.Objects.Add(farmer2);
+            game.LoadBaseObjekts();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 areaSize = new Vector2(game.Simulation.World.Area.Width, game.Simulation.World.Area.Height); 
-            Camera.SetFocus(game.Simulation.Baldur.Position, areaSize);
+            Vector2 areaSize = new Vector2(game.World.Area.Width, game.World.Area.Height); 
+            Camera.SetFocus(game.Baldur.Position, areaSize);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Area area = game.Simulation.World.Area;
+            Area area = game.World.Area;
 
             GraphicsDevice.Clear(area.Background);
 

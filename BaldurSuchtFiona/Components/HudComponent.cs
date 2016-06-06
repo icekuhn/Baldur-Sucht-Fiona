@@ -34,14 +34,14 @@ namespace BaldurSuchtFiona.Components
 
 		public override void Draw(GameTime gameTime)
 		{
-            int maxHitPoints = game.Simulation.Baldur.MaxHitpoints;
-            int currentHitPoints = game.Simulation.Baldur.CurrentHitpoints;
-            int flowers = game.Simulation.Baldur.Flowers;
-            int ores = game.Simulation.Baldur.Ores;
-            int potions = game.Simulation.Baldur.Potions;
-            int weapons = game.Simulation.Baldur.Weapons;
-            int keycards = game.Simulation.Baldur.Keycards;
-            int amors = game.Simulation.Baldur.Defense;
+            int maxHitPoints = game.Baldur.MaxHitpoints;
+            int currentHitPoints = game.Baldur.CurrentHitpoints;
+            int flowers = game.Baldur.Flowers;
+            int ores = game.Baldur.Ores;
+            int potions = game.Baldur.Potions;
+            int weapons = game.Baldur.Weapons;
+            int keycards = game.Baldur.Keycards;
+            int amors = game.Baldur.Defense;
 
             spriteBatch.Begin();
             spriteBatch.DrawString (gameFont, String.Format ("Spielzeit: {0}", gameTime.TotalGameTime.ToString()), new Vector2 (12, 12), Color.White);
