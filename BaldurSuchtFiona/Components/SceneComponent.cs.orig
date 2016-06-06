@@ -14,6 +14,7 @@ namespace BaldurSuchtFiona.Components
         private readonly Game1 game;
 
         private SpriteBatch spriteBatch;
+        private Texture2D pixel;
         private Dictionary<string, Texture2D> tilesetTextures;
         private Dictionary<string, Texture2D> objektTextures;
         private Dictionary<Objekt, ObjektRenderer> objektRenderer;
@@ -28,15 +29,8 @@ namespace BaldurSuchtFiona.Components
             objektRenderer = new Dictionary<Objekt, ObjektRenderer>();
         }
 
-        public void SetContent(Dictionary<string, Texture2D> _tilesetTextures,Dictionary<string, Texture2D> _objektTextures){
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            Camera = new Camera(GraphicsDevice.Viewport.Bounds.Size);
-            tilesetTextures = _tilesetTextures;
-            objektTextures = _objektTextures;
-        }
-
-        public GraphicsDevice GetGraphicsDevice(){
-            return GraphicsDevice;
+        public void ReloadContent(){
+            LoadContent();
         }
 
         protected override void LoadContent()
@@ -44,18 +38,95 @@ namespace BaldurSuchtFiona.Components
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Camera = new Camera(GraphicsDevice.Viewport.Bounds.Size);
 
-            game.LoadBaseObjekts();
+            pixel = new Texture2D(GraphicsDevice, 1, 1);
+            pixel.SetData(new [] { Color.White });
+
+
+            List<string> requiredTilesetTextures = new List<string>();
+            List<string> requiredObjektTextures = new List<string>();
+            foreach (var area in game.Simulation.World.Areas)
+            {
+                // Tile Texturen
+                foreach (var tile in area.Tiles.Values)
+                    if (!requiredTilesetTextures.Contains(tile.Texture))
+                        requiredTilesetTextures.Add(tile.Texture);
+
+                // Objekt Texturen
+                requiredObjektTextures.Add("sprite_player_3.png");
+                requiredObjektTextures.Add("collectables.png");
+                foreach (var objekt in area.Objects)
+                    if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
+                        requiredObjektTextures.Add(objekt.Texture);
+            }
+
+          
+
+            // Tileset Texturen laden
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            tilesetTextures.Clear();
+            foreach (var textureName in requiredTilesetTextures)
+            {
+                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
+                {
+                    Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
+                    tilesetTextures.Add(textureName, texture);
+                }
+            }            
+            var map = game.Simulation.World.Areas[0];
+
+
+            // Objekt Texturen laden
+            mapPath = Path.Combine(Environment.CurrentDirectory, "Content");
+            objektTextures.Clear();
+            foreach (var textureName in requiredObjektTextures)
+            {
+                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
+                {
+                    Texture2D texture = Texture2D.FromStream(GraphicsDevice, stream);
+                    objektTextures.Add(textureName, texture);
+                }
+            }     
+
+
+            game.Simulation.Baldur = new Baldur(game,new Vector2(15, 12));
+            map.Objects.Add(game.Simulation.Baldur);
+
+            var iron1 = new Iron(game,1,new Vector2(18, 15));
+            map.Objects.Add(iron1);
+
+            var iron2 = new Iron(game,2,new Vector2(13, 17));
+            map.Objects.Add(iron2);
+
+<<<<<<< Updated upstream
+            var iron3 = new Iron(game,3,new Vector2(15, 19));
+            map.Objects.Add(iron3);
+
+            var flower1 = new Flower(game,1,new Vector2(19, 16));
+            map.Objects.Add(flower1);
+
+            var flower2 = new Flower(game,2,new Vector2(14, 14));
+            map.Objects.Add(flower2);
+
+            var flower3 = new Flower(game,3,new Vector2(19, 19));
+            map.Objects.Add(flower3);
+
+            var keycard1 = new Keycard(game,1,new Vector2(13, 18));
+            map.Objects.Add(keycard1);
+=======
+            //var fighter = new Fighter(game, new Vector2(15, 27));
+            //map.Objects.Add(fighter);
+>>>>>>> Stashed changes
         }
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 areaSize = new Vector2(game.World.Area.Width, game.World.Area.Height); 
-            Camera.SetFocus(game.Baldur.Position, areaSize);
+            Vector2 areaSize = new Vector2(game.Simulation.World.Areas[0].Width, game.Simulation.World.Areas[0].Height); 
+            Camera.SetFocus(game.Simulation.Baldur.Position, areaSize);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Area area = game.World.Area;
+            Area area = game.Simulation.World.Areas[0];
 
             GraphicsDevice.Clear(area.Background);
 
@@ -65,7 +136,7 @@ namespace BaldurSuchtFiona.Components
 
             for (int l = 0; l < area.Layers.Length; l++) {
                     RenderLayer(area, area.Layers[l], offset);
-                if (l == 4)
+                if (l == 3)
                 {
                     RendererObjekts(area, offset, gameTime);
                 }
@@ -113,14 +184,14 @@ namespace BaldurSuchtFiona.Components
 
             // Objekte in Reihenfolge rendern
             // foreach (var objekt in area.Objects.OrderBy(i => i.Position.Y))
-            foreach (var objekt in area.Objects.OrderBy(o => o.Position.Y))
+               foreach (var objekt in area.Objects)
             {
                 // Renderer ermitteln
                 ObjektRenderer renderer;
                 if (!objektRenderer.TryGetValue(objekt, out renderer))
                 {
                     // Texturen nachladen beachten
-                    var texture = objektTextures[objekt.TextureName];
+                        Texture2D texture = objektTextures[objekt.Texture];
 
                         if(objekt is Character) {
                             renderer = new CharacterRenderer(objekt as Character, Camera, texture);

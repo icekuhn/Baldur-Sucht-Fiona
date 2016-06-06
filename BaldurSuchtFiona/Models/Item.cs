@@ -9,6 +9,8 @@ namespace BaldurSuchtFiona.Models
 		public Item ()
 		{
 		}
+
+        public abstract void OnCollect(World world);
 	}
 }
 

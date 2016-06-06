@@ -10,11 +10,13 @@ namespace BaldurSuchtFiona
     {
         // Anzahl der Frames
         private int frameCount;
+        private Objekt _objekt;
 
         public SimpleObjektRenderer(Objekt objekt, Camera camera, Texture2D texture)
             : base (objekt, camera, texture, new Point(32, 32), 70, new Point(16,26), 1f)
         {
             frameCount = 1;
+            _objekt = objekt;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Point offset, GameTime gameTime)
@@ -32,7 +34,8 @@ namespace BaldurSuchtFiona
 
             Vector2 scale = new Vector2(Camera.Scale / FrameSize.X, Camera.Scale / FrameSize.Y) * FrameScale;
 
-            Rectangle sourceRectangle = new Rectangle( frame * FrameSize.X, 0, FrameSize.X, FrameSize.Y);
+            //Rectangle sourceRectangle = new Rectangle( frame * FrameSize.X, 0, FrameSize.X, FrameSize.Y);
+            Rectangle sourceRectangle = new Rectangle( _objekt.DrawX,_objekt.DrawY, FrameSize.X, FrameSize.Y);
 
             Rectangle destinationRectangle = new Rectangle(
                 posX - (int)(ObjektOffset.X * scale.X), posY - (int)(ObjektOffset.Y * scale.Y),

@@ -7,9 +7,29 @@ namespace BaldurSuchtFiona.Models
 {
 	public class Baldur : Player
 	{
-        public int Flowers { get; set; }
+        public int Flowers { get {
+                var flowerValue = 0;
+                foreach (var item in Inventory)
+                {
+                    if (!(item is Flower))
+                        continue;
 
-        public int Ores { get; set; }
+                    flowerValue += (item as Flower).Value;
+                };
+                return flowerValue;
+            }}
+
+        public int Ores { get {
+                var oreValue = 0;
+                foreach (var item in Inventory)
+                {
+                    if (!(item is Iron))
+                        continue;
+                    
+                    oreValue += (item as Iron).Value;
+                };
+                return oreValue;
+            }}
 
         public int Potions { get; set; }
 
@@ -17,15 +37,31 @@ namespace BaldurSuchtFiona.Models
 
         public int Keycards { get; set; }
 
+        public int KeycardCounter { get {
+                var highValue = 0;
+                foreach (var item in Inventory)
+                {
+                    if (!(item is Keycard))
+                        continue;
+
+                    var cardValue = (item as Keycard).Value;
+
+                    if (highValue < cardValue)
+                        highValue = cardValue;
+                }
+                return highValue;
+            }}
+
         public Baldur () : base()
 		{
             Radius = 0.25f;
-            Flowers = 0;
-            Ores = 0;
             Potions = 0;
             Weapons = 1;
             Keycards = 1;
             Texture = "sprite_player_3.png";
+            TextureName = "sprite_player_3.png";
+            MaxSpeed = 1f;
+            AttackValue = 50;
 		}
 
         public Baldur (Game1 game,Vector2 position) : base()
@@ -33,12 +69,13 @@ namespace BaldurSuchtFiona.Models
             Radius = 0.25f;
             Position = position;
             InitializeData (game);
-            Flowers = 0;
-            Ores = 0;
             Potions = 0;
             Weapons = 1;
             Keycards = 1;
             Texture = "sprite_player_3.png";
+            TextureName = "sprite_player_3.png";
+            MaxSpeed = 1f;
+            AttackValue = 50;
         }
 
         public void InitializeData (Game1 game){

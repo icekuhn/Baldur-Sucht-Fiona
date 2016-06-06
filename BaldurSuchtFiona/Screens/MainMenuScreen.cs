@@ -37,7 +37,7 @@ namespace BaldurSuchtFiona.Screens
             }
 
 			if (item == newGameItem) {
-				Manager.Game.Simulation.NewGame ();
+				Manager.Game.NewGame ();
 				Manager.CloseScreen ();
 			}
 

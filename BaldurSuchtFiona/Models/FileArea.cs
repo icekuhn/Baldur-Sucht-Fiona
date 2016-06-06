@@ -29,8 +29,10 @@ namespace BaldurSuchtFiona.Models
 	}
 		
 	public class FileTileProperty
-	{
-		public bool blocked { get; set; }
+    {
+        public bool blocked { get; set; }
+        public bool teleporter { get; set; }
+        public bool safeZone { get; set; }
 	}
 }
 

@@ -10,7 +10,11 @@ namespace BaldurSuchtFiona
 		public Healpot ()
 		{
 			HealthRestoration = 10;
-		}
+        }
+
+        public override void OnCollect(World world){
+            
+        }
 	}
 }
 
