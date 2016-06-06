@@ -23,8 +23,6 @@ namespace BaldurSuchtFiona.Models
 		public TimeSpan TotalRestoration { get; set; }
 		public TimeSpan Restoration { get; set; }
 
-        public Action<Game1, IAttacker, IAttackable> OnHit { get; set; }
-
         public abstract void CheckCollectableInteraction(Objekt Item);
 
 		public Enemy () : base()
@@ -39,5 +37,7 @@ namespace BaldurSuchtFiona.Models
 			Defense = 0;
             AttackableItems = new List<IAttackable>();
 		}
+
+        public abstract void OnHit(Game1 game, Character attacker,List<Action> transfers);
 	}
 }

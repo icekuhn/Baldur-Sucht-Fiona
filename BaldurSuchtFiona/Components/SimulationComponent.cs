@@ -37,9 +37,21 @@ namespace BaldurSuchtFiona.Components
             if (game.Input.Handled)
                 return;
 
+            var teleport = false;
+
             var area = game.World.Area;
             foreach (var character in area.Objects.OfType<Character>())
             {
+                if (!game.AllowTeleport)
+                {
+                    var teleporterDistance = game.World.Area.GetTeleportPosition() - game.Baldur.Position;
+                    if (teleporterDistance.Length() > 2)
+                    {
+                        game.AllowTeleport = true;
+                    }
+                        
+                }
+
                 if (character is IAttackable && (character as IAttackable).CurrentHitpoints <= 0)
                     continue;
 
@@ -136,10 +148,13 @@ namespace BaldurSuchtFiona.Components
                     float minImpact = 2f;
                     int minAxis = 0;
 
+
                     for (int x = minCellX; x <= maxCellX; x++)
                     {
                         for (int y = minCellY; y <= maxCellY; y++)
                         {
+                            if (area.IsTeleporter(x, y) && game.AllowTeleport)
+                                teleport = true;
                             if (!area.IsCellBlocked(x, y))
                                 continue;
 
@@ -221,14 +236,8 @@ namespace BaldurSuchtFiona.Components
                                 foreach (var attackable in attacker.AttackableItems)
                                 {
                                     attackable.CurrentHitpoints -= attacker.AttackValue;
-                                    if (attackable is Farmer)
-                                    {
-                                        var farmer = attackable as Farmer;
-                                        if (farmer.IsPeaceMode)
-                                            farmer.GetAggressive();
-                                    }
-                                    if (attackable.OnHit != null)
-                                        attackable.OnHit(game, attacker, attackable);
+                                    if(item is Character)
+                                        attackable.OnHit(game, item as Character,transfers);
                                 }
 
                                 attacker.Recovery = attacker.TotalRecovery;
@@ -245,9 +254,22 @@ namespace BaldurSuchtFiona.Components
             foreach (var transfer in transfers)
                 transfer();
 
+            if (teleport)
+            {
+                switch(game.World.Area.Name){
+                    case "base":
+                        game.LoadLevel(1);
+                        break;
+                    case "level1":
+                        game.LoadLevel(0);
+                        break;
+                    default:
+                        break;
+            }
             base.Update(gameTime);
 		}
 
 		
 	}
+}
 }

@@ -26,7 +26,6 @@ namespace BaldurSuchtFiona.Models
 		//ICollector
 		public List<Item> Inventory { get; set; }
 
-        public Action<Game1, IAttacker, IAttackable> OnHit { get; set; }
 
 		public Player () : base()
 		{
@@ -42,6 +41,10 @@ namespace BaldurSuchtFiona.Models
             Inventory = new List<Item>();
             AttackableItems = new List<IAttackable>();
 		}
+
+        public void OnHit(Game1 game,Character attacker,List<Action> transfers){
+
+        }
 	}
 }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using BaldurSuchtFiona.Models;
+using System.Collections.Generic;
 
 namespace BaldurSuchtFiona.Interfaces
 {
@@ -10,7 +12,7 @@ namespace BaldurSuchtFiona.Interfaces
 		TimeSpan TotalRestoration { get; }
 		TimeSpan Restoration { get; set; }
 
-        Action<Game1, IAttacker, IAttackable> OnHit { get; }
+        void OnHit(Game1 game, Character attacker,List<Action> transfers);
 	}
 }
 

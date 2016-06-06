@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace BaldurSuchtFiona.Models
 {
@@ -42,6 +43,19 @@ namespace BaldurSuchtFiona.Models
         public override void CheckCollectableInteraction(Objekt Item){
             if (Ai != null)
                 Ai.StopWalking();
+        }
+
+        public override void OnHit(Game1 game,Character attacker,List<Action> transfers){
+            if (IsPeaceMode)
+                GetAggressive();
+
+            var dropIron = new Iron(game,1,Position);
+
+            transfers.Add(() =>
+                {
+                    game.World.Area.Objects.Remove(this);
+                    game.World.Area.Objects.Add(dropIron);
+                });
         }
 	}
 }

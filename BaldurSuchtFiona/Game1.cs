@@ -17,8 +17,10 @@ namespace BaldurSuchtFiona
 	/// </summary>
 	public class Game1 : Game
     {
+        private bool isStarted;
         public World World { get; set; }
         public Baldur Baldur { get; set; }
+        public bool AllowTeleport { get; set; }
 
 		private GraphicsDeviceManager graphics;
 
@@ -86,24 +88,37 @@ namespace BaldurSuchtFiona
 
         public void StartGame()
         {
+            var startPosition = new Vector2(15, 12);
+            this.Baldur = new Baldur(this,startPosition);
             World = new World();
+            isStarted = true;
             Area area = LoadFromJson("base");
             World.Area = area; 
+            AllowTeleport = true;
         }
 
         public void NewGame()
         {
+            isStarted = true;
             World = new World();
             LoadLevel(0);
+            AllowTeleport = true;
         }
 
         public void LoadLevel(int levelNumber){
+            AllowTeleport = false;
+            Area area;
             switch (levelNumber)
             {
                 case 0:
-                    Area area = LoadFromJson("base");
+                    area = LoadFromJson("base");
                     World.Area = area; 
                     LoadBaseObjekts();
+                    break;
+                case 1:
+                    area = LoadFromJson("level1");
+                    World.Area = area; 
+                    LoadLevel1Objekts();
                     break;
                 default:
                     throw new NotImplementedException();
@@ -113,6 +128,71 @@ namespace BaldurSuchtFiona
         }
 
         public void LoadBaseObjekts(){
+
+            var gd = Scene.GetGraphicsDevice();
+            List<string> requiredTilesetTextures = new List<string>();
+            List<string> requiredObjektTextures = new List<string>();
+
+            // Tile Texturen
+            foreach (var tile in this.World.Area.Tiles.Values)
+                if (!requiredTilesetTextures.Contains(tile.Texture))
+                    requiredTilesetTextures.Add(tile.Texture);
+
+            // Objekt Texturen
+            requiredObjektTextures.Add("sprite_player_3.png");
+            requiredObjektTextures.Add("sprite_farmer.png");
+            requiredObjektTextures.Add("collectables.png");
+            foreach (var objekt in this.World.Area.Objects)
+                if (!string.IsNullOrEmpty(objekt.Texture) && !requiredObjektTextures.Contains(objekt.Texture))
+                    requiredObjektTextures.Add(objekt.Texture);
+
+
+
+
+            // Tileset Texturen laden
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            Dictionary<string, Texture2D> tilesetTextures = new Dictionary<string, Texture2D>();
+            foreach (var textureName in requiredTilesetTextures)
+            {
+                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
+                {
+                    Texture2D texture = Texture2D.FromStream(gd, stream);
+                    tilesetTextures.Add(textureName, texture);
+                }
+            }            
+            var map = this.World.Area;
+
+
+
+            // Objekt Texturen laden
+            mapPath = Path.Combine(Environment.CurrentDirectory, "Content");
+            Dictionary<string, Texture2D>  objektTextures = new Dictionary<string, Texture2D>();
+            foreach (var textureName in requiredObjektTextures)
+            {
+                using (Stream stream = File.OpenRead(mapPath + "\\" + textureName))
+                {
+                    Texture2D texture = Texture2D.FromStream(gd, stream);
+                    objektTextures.Add(textureName, texture);
+                }
+            }     
+
+            var startPosition = new Vector2(15, 12);
+
+            if (!isStarted)
+            {
+                startPosition = this.World.Area.GetTeleportPosition();
+            }
+            else
+                isStarted = false;
+            
+            this.Baldur.Position = startPosition;
+            map.Objects.Add(this.Baldur);
+
+
+            Scene.SetContent(tilesetTextures,objektTextures);
+        }
+
+        public void LoadLevel1Objekts(){
 
             var gd = Scene.GetGraphicsDevice();
             List<string> requiredTilesetTextures = new List<string>();
@@ -161,39 +241,20 @@ namespace BaldurSuchtFiona
             }     
 
 
-            this.Baldur = new Baldur(this,new Vector2(15, 12));
+            this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
-            //            var iron1 = new Iron(this,1,new Vector2(18, 15));
-            //            map.Objects.Add(iron1);
-            //
-            //            var iron2 = new Iron(this,2,new Vector2(13, 17));
-            //            map.Objects.Add(iron2);
-            //
-            //            var iron3 = new Iron(this,3,new Vector2(19, 19));
-            //            map.Objects.Add(iron3);
-            //
-            //            var flower1 = new Flower(this,1,new Vector2(19, 16));
-            //            map.Objects.Add(flower1);
-            //
-            //            var flower2 = new Flower(this,2,new Vector2(14, 14));
-            //            map.Objects.Add(flower2);
-            //
-            var flower3 = new Flower(this,3,new Vector2(15,21));
-            map.Objects.Add(flower3);
+            var flower1 = new Flower(this,1,new Vector2(15,21));
+            map.Objects.Add(flower1);
 
-            var keycard1 = new Keycard(this,1,new Vector2(13, 18));
-            map.Objects.Add(keycard1);
+            var farmer1 = new Farmer(this,new Vector2(16, 23));
+            map.Objects.Add(farmer1);
 
-            //            var farmer1 = new Farmer(this,new Vector2(14, 23));
-            //            map.Objects.Add(farmer1);
-
-            var farmer2 = new Farmer(this,new Vector2(16, 23));
-            map.Objects.Add(farmer2);
-
-
-
-
+            if (Baldur.KeycardCounter == 0)
+            {
+                var keycard1 = new Keycard(this, 1, new Vector2(13, 18));
+                map.Objects.Add(keycard1);
+            }
 
             Scene.SetContent(tilesetTextures,objektTextures);
         }
@@ -234,18 +295,26 @@ namespace BaldurSuchtFiona
                             int y = j / perRow;
 
                             bool block = false;
+                            bool teleporter = false;
+                            bool safeZone = false;
                             if (tileset.tileproperties != null)
                             {
                                 FileTileProperty property;
                                 if (tileset.tileproperties.TryGetValue(j, out property))
+                                {
                                     block = property.blocked;
+                                    teleporter = property.teleporter;
+                                    safeZone = property.safeZone;
+                                }
                             }
 
                             Tile tile = new Tile()
                                 {
                                     Texture = tileset.image,
                                     SourceRectangle = new Rectangle(x * width, y * width, width, width),
-                                    Blocked = block
+                                    Blocked = block,
+                                    Teleporter = teleporter,
+                                    SafeZone = safeZone
                                 };
 
                             area.Tiles.Add(start + j, tile);

@@ -87,18 +87,26 @@ namespace BaldurSuchtFiona.Models
                     int y = j / perRow;
 
                     bool block = false;
+                    bool teleporter = false;
+                    bool safeZone = false;
                     if (tileset.tileproperties != null)
                     {
                         FileTileProperty property;
                         if (tileset.tileproperties.TryGetValue(j, out property))
+                        {
                             block = property.blocked;
+                            teleporter = property.teleporter;
+                            safeZone = property.safeZone;
+                        }
                     }
 
                     Tile tile = new Tile()
                         { 
                             Texture = tileset.image,
                             SourceRectangle = new Rectangle(x * width, y * width, width, width),
-                            Blocked = block
+                            Blocked = block,
+                            Teleporter = teleporter,
+                            SafeZone = safeZone
                         };
                     Tiles.Add(start + j, tile);
                 }
@@ -131,6 +139,65 @@ namespace BaldurSuchtFiona.Models
                     return true;
             }
             return false;
+        }
+
+        public bool IsTeleporter(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.Teleporter)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsSafeZone(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.SafeZone)
+                    return true;
+            }
+            return false;
+        }
+
+        public Vector2 GetTeleportPosition()
+        {
+            var tester = Tiles[172];
+            var vector = new Vector2();
+            foreach (var layer in this.Layers)
+            {
+                for (var i = 0; i < Width; i++)
+                {
+                    for (var j = 0; j < Height; j++)
+                    {
+                        var tileId = layer.Tiles[i, j];
+                        if (tileId == 0)
+                            continue;
+                        var tile = this.Tiles[tileId];
+                        if (tile != null)
+                        {
+                            if (tile.Teleporter)
+                            {
+                                vector = new Vector2(i,j);
+                            }
+                        }
+                    }
+                }
+            }
+            return vector;
         }
     }
 }

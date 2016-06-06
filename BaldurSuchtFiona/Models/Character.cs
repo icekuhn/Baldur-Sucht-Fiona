@@ -15,6 +15,10 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 3f;
             Radius = 0.4f;
         }
+
+        public void OnDeath(){
+
+        }
     }
 }
 
