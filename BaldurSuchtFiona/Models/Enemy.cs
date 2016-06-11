@@ -16,6 +16,8 @@ namespace BaldurSuchtFiona.Models
 		public TimeSpan Recovery { get; set; }
         public bool IsAttacking { get; set; }
         public bool IsPeaceMode{ get; set; }
+        public string AttackTexture{ get; set; }
+        public string AttackTextureName{ get; set; }
 		//IAttackable
 		public int MaxHitpoints{ get; set; }
 		public int CurrentHitpoints{ get; set; }
@@ -27,6 +29,8 @@ namespace BaldurSuchtFiona.Models
 
 		public Enemy () : base()
         {
+            AttackTexture = "attack2.png";
+            AttackTextureName = "attack2.png";
             AttackRange = 1f;
             AttackRadius = 5f;
 			AttackValue = 5;

@@ -9,15 +9,13 @@ namespace BaldurSuchtFiona.Rendering
 {
     internal class CharacterRenderer : ObjektRenderer
     {
+        private int _deathAnimationTime = 250;
         private Character character;
         private Animation animation;
         private Direction direction;
         private int frameCount;
         private int animationRow;
         private Texture2D pix;
-
-
-
 
         public CharacterRenderer(Character character, Camera camera, Texture2D texture)
             : base (character, camera, texture, new Point(32, 32), 25, new Point(16, 26), 1.25f)
@@ -32,84 +30,67 @@ namespace BaldurSuchtFiona.Rendering
             pix.SetData(new [] { Color.White });
         }
 
+        public CharacterRenderer(Character character, Camera camera, Texture2D texture, Texture2D attackTexture)
+            : base (character, camera, texture,attackTexture, new Point(32, 32), 25, new Point(16, 26), 1.25f)
+        {
+            this.character = character;
+            animation = Animation.Idle;
+            direction = Direction.South;
+            frameCount = 4;
+            animationRow = 1;
+
+            pix = new Texture2D(texture.GraphicsDevice, 1, 1);
+            pix.SetData(new [] { Color.White });
+        }
+
         public override void Draw(SpriteBatch spriteBatch, Point offset, GameTime gameTime)
         {
+            if (character == null) return;
            // nächste Animation ermitteln
+            var renderAttack = false;
             Animation nextAnimation = Animation.Idle;
             if (character.Velocity.Length() > 0f)
             {
                 nextAnimation = Animation.Walk;
 
+                var directionXLength = character.Velocity.X >= 0 ? character.Velocity.X : character.Velocity.X * -1;
+                var directionYLength = character.Velocity.Y >= 0 ? character.Velocity.Y : character.Velocity.Y * -1;
                 // -> Spieler bewegt sich -> Ausrichtung ermitteln
-                if (character.Velocity.X > character.Velocity.Y)
+                if (directionXLength > directionYLength)
                 {
-                    // Rechts oben
-                    if (-character.Velocity.X > character.Velocity.Y)
+                    if (character.Velocity.X >= 0)
                     {
-                        // Links oben -> Oben
-                        direction = Direction.North;
+                        direction = Direction.East;
                     }
                     else
                     {
-                        // Rechts unten -> Rechts
-                        direction = Direction.East;
+                        direction = Direction.West;
                     }
                 }
                 else
                 {
-                    // Links unten
-                    if (-character.Velocity.X > character.Velocity.Y)
+                    if (character.Velocity.Y >= 0)
                     {
-                        // Links oben -> Links
-                        direction = Direction.West;
-                    }
-                    else
-                    {
-                        // Rechts unten -> Rechts
                         direction = Direction.South;
                     }
-                }
-                if (character is Farmer)
-                {
-                    if (character.Velocity.X > character.Velocity.Y)
-                    {
-                        // Rechts oben
-                        if (-character.Velocity.X > character.Velocity.Y)
-                        {
-                            // Links oben -> Oben
-                            direction = Direction.South;
-                        }
-                        else
-                        {
-                            // Rechts unten -> Rechts
-                            direction = Direction.East;
-                        }
-                    }
                     else
                     {
-                        // Links unten
-                        if (-character.Velocity.X > character.Velocity.Y)
-                        {
-                            // Links oben -> Links
-                            direction = Direction.West;
-                        }
-                        else
-                        {
-                            // Rechts unten -> Rechts
-                            direction = Direction.North;
-                        }
+                        direction = Direction.North;
                     }
-                };
-
-                // TODO: Angriff Animation
-
-
-                // Sterbe Animation
-                if (character is IAttackable && (character as IAttackable).CurrentHitpoints <= 0)
-                {
-                    nextAnimation = Animation.Die;
-                    direction = Direction.North;
                 }
+            }
+
+            if (character is IAttackable && (character as IAttackable).CurrentHitpoints <= 0)
+            {
+                nextAnimation = Animation.Die;
+                direction = Direction.North;
+            }
+
+            if (character is IAttacker && nextAnimation != Animation.Die)
+            {
+                var attacker = character as IAttacker;
+                if (attacker.IsAttacking)
+                     nextAnimation = Animation.Hit;
             }
 
             // Animation setzen
@@ -122,24 +103,23 @@ namespace BaldurSuchtFiona.Rendering
                 {
                     case Animation.Walk:
                         frameCount = 4;
-                        if (character is Farmer)
-                            frameCount = 3;
                         animationRow = 1;
                         break;
-
                     case Animation.Die:
                         frameCount = 4;
-                        animationRow = 0;
+                        animationRow = 1;
+                        if (character is Baldur)
+                        {
+                            animationRow = 4;
+                        }
                         break;
-
                     case Animation.Idle:
                         frameCount = 4;
                         animationRow = 1;
                         break;
-
                     case Animation.Hit:
                         frameCount = 4;
-                        animationRow = 0;
+                        animationRow = 1;
                         break;
                 }
             }
@@ -147,29 +127,41 @@ namespace BaldurSuchtFiona.Rendering
             // Animationszeile ermitteln
             int row = animationRow + (int)direction;
 
-            if (animation == Animation.Die)
-            {
-                row = animationRow;
-            }
-
             // Frame ermitteln
             int frame = 0; // Idle
+            int attackFrame = 0; 
             switch (animation)
             {
                 case Animation.Walk:
                     // Animationsgeschwindigkeit <-> Laufgeschwindigkeit
                     //float speed = character.Velocity.Length() / character.MaxSpeed;
-                    float speed = (float)0.20;
+                    float speed = (float)0.20;                  
                     AnimationTime += (int)(gameTime.ElapsedGameTime.TotalMilliseconds * speed);
                     frame = (AnimationTime / FrameTime) % frameCount;
                     break;
-
                 case Animation.Hit:
-                    // TODO Angriff Animationsverlauf
+                    if (character is IAttacker)
+                    {
+                        if (character.Velocity.Length() > 0f)
+                        {
+                            float animationSpeed = (float)0.20;                  
+                            AnimationTime += (int)(gameTime.ElapsedGameTime.TotalMilliseconds * animationSpeed);
+                            frame = (AnimationTime / FrameTime) % frameCount;
+                        }
+                        var attacker = (character as IAttacker);
+                        double animationPosition = 1d - (attacker.Recovery.TotalMilliseconds / attacker.TotalRecovery.TotalMilliseconds);
+                        attackFrame = (int)(frameCount * animationPosition);
+                        renderAttack = true;
+                    }
                     break;
-
                 case Animation.Die:
-                    // TODO Sterbe Animationsvelauf
+                    row = animationRow;          
+                    AnimationTime += (int)(gameTime.ElapsedGameTime.TotalMilliseconds * (float)0.20);
+                    frame = AnimationTime < _deathAnimationTime ? (int)((AnimationTime / (_deathAnimationTime*1.0)) * frameCount) : frameCount;
+                    if (character is Baldur && AnimationTime >= _deathAnimationTime )
+                    {
+                        (character as Baldur).IsDead = true;
+                    }
                     break;
             }
 
@@ -191,21 +183,68 @@ namespace BaldurSuchtFiona.Rendering
                                             FrameSize.Y
                                         );
 
-            if(character is Farmer)
-                sourceRectangle = new Rectangle(
-                    row * FrameSize.X,
-                    frame * FrameSize.Y,
-                    FrameSize.X,
-                    FrameSize.Y
-                );
-
             Rectangle destinationRectangle = new Rectangle(
               posX - (int)(ObjektOffset.X * scale.X) + 2, posY - (int)(ObjektOffset.Y * scale.Y),
               (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
             );
+            if (renderAttack && direction == Direction.North)
+            {
+                posY -= 1;
+                Rectangle attackSourceRectangle = new Rectangle(
+                    attackFrame * FrameSize.X,
+                    row * FrameSize.Y,
+                    FrameSize.X,
+                    FrameSize.Y
+                );
+                Rectangle attackDestinationRectangle = new Rectangle(
+                    posX - (int)(ObjektOffset.X * scale.X) + 2, posY - (int)(ObjektOffset.Y * scale.Y),
+                    (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
+                );
+                spriteBatch.Draw(AttackTexture, attackDestinationRectangle, attackSourceRectangle, Color.White);
+                posY += 2;
+            }
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            if (renderAttack && direction != Direction.North)
+                
+            {
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
 
+                var posX2 = posX;
+                var posY2 = posY;
+
+                switch (direction)
+                {
+                    case Direction.East:
+                        posX2 += 1;
+                        break;
+                    case Direction.South:
+                        posY2 += 1;
+                        break;
+                    case Direction.West:
+                        posX2 -= 1;
+                        break;
+                }
+                Rectangle attackSourceRectangle = new Rectangle(
+                    attackFrame * FrameSize.X,
+                    row * FrameSize.Y,
+                    FrameSize.X,
+                    FrameSize.Y
+                );
+                Rectangle attackDestinationRectangle = new Rectangle(
+                    posX2 - (int)(ObjektOffset.X * scale.X) + 2, posY2 - (int)(ObjektOffset.Y * scale.Y),
+                    (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
+                );
+                if((direction == Direction.West && attackFrame <= 1) || (direction == Direction.East && attackFrame >= 2)){
+                    spriteBatch.Draw(AttackTexture, attackDestinationRectangle, attackSourceRectangle, Color.White);
+                    spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                }else{
+                    spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                    spriteBatch.Draw(AttackTexture, attackDestinationRectangle, attackSourceRectangle, Color.White);
+                }
+            }else
+            {
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            }
         }
     }
 
@@ -226,7 +265,4 @@ namespace BaldurSuchtFiona.Rendering
         South = 1,
         East = 2,
     }
-
 }
-
-

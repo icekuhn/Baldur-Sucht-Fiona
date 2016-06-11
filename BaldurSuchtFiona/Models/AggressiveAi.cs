@@ -64,6 +64,7 @@ namespace BaldurSuchtFiona
             }
             else
             {
+                attacker.IsAttacking = false;
                 if (!center.HasValue)
                     center = Host.Position;
 

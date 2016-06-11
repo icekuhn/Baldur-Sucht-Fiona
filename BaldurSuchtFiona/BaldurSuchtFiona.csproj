@@ -132,10 +132,14 @@
     <None Include="Content\collectables.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\sprite_player_3.png" />
-    <None Include="Content\sprite_farmer.png" />
     <None Include="Maps\base.json" />
     <None Include="Maps\base1.png" />
+    <None Include="Content\sprite_player_3.png" />
+    <None Include="Content\sprite_miner.png" />
+    <None Include="Content\sprite_farmer.png" />
+    <None Include="Content\attack3.png" />
+    <None Include="Content\attack2.png" />
+    <None Include="Content\attack1.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

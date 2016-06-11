@@ -13,6 +13,8 @@ namespace BaldurSuchtFiona.Interfaces
 		TimeSpan Recovery { get; set; }
 		bool IsAttacking { get; set; }
         bool IsPeaceMode{ get; set; }
+        string AttackTexture { get; set; }
+        string AttackTextureName { get; set; }
 	}
 }
 

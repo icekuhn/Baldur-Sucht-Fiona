@@ -44,7 +44,7 @@ namespace BaldurSuchtFiona.Components
             int amors = game.Baldur.Defense;
 
             spriteBatch.Begin();
-            spriteBatch.DrawString (gameFont, String.Format ("Spielzeit: {0}", gameTime.TotalGameTime.ToString()), new Vector2 (12, 12), Color.White);
+            spriteBatch.DrawString (gameFont, String.Format ("Spielzeit: {0}", game.GameTime.ToString()), new Vector2 (12, 12), Color.White);
             spriteBatch.Draw(HudIcons, new Vector2(GraphicsDevice.Viewport.Width - 92f, 4), Color.White);
             spriteBatch.DrawString (gameFont, String.Format ("{0}/{1}", currentHitPoints.ToString(), maxHitPoints.ToString()), new Vector2(GraphicsDevice.Viewport.Width - 58f, 12), Color.White);
             spriteBatch.DrawString (gameFont, ores.ToString(), new Vector2(GraphicsDevice.Viewport.Width - 58f, 44), Color.White);

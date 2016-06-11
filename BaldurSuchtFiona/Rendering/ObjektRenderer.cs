@@ -17,6 +17,9 @@ namespace BaldurSuchtFiona
         // Referenz auf Textur
         protected Texture2D Texture { get; private set; }
 
+        // Referenz auf Textur
+        protected Texture2D AttackTexture { get; private set; }
+
         // Größenangabe eines Frames in Pixel
         protected Point FrameSize { get; private set; }
 
@@ -37,6 +40,17 @@ namespace BaldurSuchtFiona
             this.Objekt = objekt;
             this.Camera = camera;
             this.Texture = texture;
+            this.FrameSize = frameSize;
+            this.FrameTime = frameTime;
+            this.ObjektOffset = objektOffset;
+            this.FrameScale = frameScale;
+        }
+
+        public ObjektRenderer(Objekt objekt, Camera camera, Texture2D texture, Texture2D attackTexture, Point frameSize, int frameTime, Point objektOffset, float frameScale){
+            this.Objekt = objekt;
+            this.Camera = camera;
+            this.Texture = texture;
+            this.AttackTexture = attackTexture;
             this.FrameSize = frameSize;
             this.FrameTime = frameTime;
             this.ObjektOffset = objektOffset;

@@ -17,6 +17,8 @@ namespace BaldurSuchtFiona.Models
 		public TimeSpan Recovery { get; set; }
         public bool IsAttacking { get; set; }
         public bool IsPeaceMode{ get; set; }
+        public string AttackTexture{ get; set; }
+        public string AttackTextureName{ get; set; }
 		//IAttackable
 		public int MaxHitpoints{ get; set; }
 		public int CurrentHitpoints{ get; set; }
@@ -30,14 +32,12 @@ namespace BaldurSuchtFiona.Models
 		public Player () : base()
 		{
 			AttackRange = 1f;
-			AttackValue = 15;
-			TotalRecovery = new TimeSpan (0, 0, 0, 0, 800);
+			AttackValue = 10;
+			TotalRecovery = new TimeSpan (0, 0, 0, 0, 500);
 			Recovery = new TimeSpan (0, 0, 0, 0, 0);
 			MaxHitpoints = 100;
 			CurrentHitpoints = 100;
 			Defense = 0;
-			TotalRecovery = new TimeSpan (0, 0, 0, 5);
-			Recovery = new TimeSpan (0, 0, 0, 0);
             Inventory = new List<Item>();
             AttackableItems = new List<IAttackable>();
 		}

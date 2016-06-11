@@ -91,7 +91,15 @@ namespace BaldurSuchtFiona.Components
             if (baldur != null)
             {
                 baldur.Velocity = (bewegung / 10) * baldur.MaxSpeed;
-                baldur.IsAttacking = attack;
+                if (attack)
+                {
+                    baldur.IsAttacking = true;
+                    baldur.ContinueAttack = true;    
+                }
+                else
+                {
+                    baldur.ContinueAttack = false;                    
+                }
             }
 
 			Movement = bewegung;

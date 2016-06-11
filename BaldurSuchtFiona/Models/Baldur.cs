@@ -6,7 +6,10 @@ using Microsoft.Xna.Framework;
 namespace BaldurSuchtFiona.Models
 {
 	public class Baldur : Player
-	{
+    {
+        public bool IsDead { get; set;}
+        public bool ContinueAttack { get; set; }
+
         public int Flowers { get {
                 var flowerValue = 0;
                 foreach (var item in Inventory)
@@ -60,8 +63,10 @@ namespace BaldurSuchtFiona.Models
             Keycards = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
+            AttackTexture = "attack1.png";
+            AttackTextureName = "attack1.png";
             MaxSpeed = 1f;
-            AttackValue = 50;
+            AttackValue = 25;
 		}
 
         public Baldur (Game1 game,Vector2 position) : base()
@@ -74,8 +79,10 @@ namespace BaldurSuchtFiona.Models
             Keycards = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
+            AttackTexture = "attack1.png";
+            AttackTextureName = "attack1.png";
             MaxSpeed = 1f;
-            AttackValue = 50;
+            AttackValue = 25;
         }
 
         public void InitializeData (Game1 game){

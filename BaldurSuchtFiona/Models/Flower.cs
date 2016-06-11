@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
-    internal class Flower : Item
+    public class Flower : Item
     {
         public int Value { get; set; }
 
@@ -40,7 +40,7 @@ namespace BaldurSuchtFiona.Models
         }
 
         public override void OnCollect(World world){
-            foreach (var farmer in world.Area.Objects.OfType<Farmer>())
+            foreach (var farmer in world.Area.Objects.OfType<Farmer>().Where(f => f.Flower == this))
             {
                 farmer.GetAggressive();
             }

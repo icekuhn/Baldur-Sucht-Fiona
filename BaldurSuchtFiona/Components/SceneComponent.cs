@@ -122,12 +122,24 @@ namespace BaldurSuchtFiona.Components
                     // Texturen nachladen beachten
                     var texture = objektTextures[objekt.TextureName];
 
-                        if(objekt is Character) {
-                            renderer = new CharacterRenderer(objekt as Character, Camera, texture);
-                        } else {
-                            renderer = new SimpleObjektRenderer(objekt, Camera, texture);
+                    if(objekt is Character) {
+                        if (objekt is Player)
+                        {
+                            var player = objekt as Player;
+                            renderer = new CharacterRenderer(objekt as Character, Camera, texture, objektTextures[player.AttackTextureName]);
+                        }else if (objekt is Enemy)
+                        {
+                            var enemy = objekt as Enemy;
+                            renderer = new CharacterRenderer(objekt as Character, Camera, texture,objektTextures[enemy.AttackTextureName]);
                         }
-                            objektRenderer.Add(objekt, renderer);
+                        else
+                        {
+                            renderer = new CharacterRenderer(objekt as Character, Camera, texture);                            
+                        }
+                    } else {
+                        renderer = new SimpleObjektRenderer(objekt, Camera, texture);
+                    }
+                    objektRenderer.Add(objekt, renderer);
                 }
 
                 renderer.Draw(spriteBatch, offset, gameTime);

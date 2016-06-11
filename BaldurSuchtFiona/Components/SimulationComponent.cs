@@ -33,6 +33,12 @@ namespace BaldurSuchtFiona.Components
 
 		public override void Update (GameTime gameTime)
         {
+            game.GameTime += gameTime.ElapsedGameTime;
+            if (this.game.Baldur.IsDead)
+            {
+                this.game.Respawn();
+            }
+
             List<Action> transfers = new List<Action>();
             if (game.Input.Handled)
                 return;
@@ -90,21 +96,24 @@ namespace BaldurSuchtFiona.Components
                     if (overlap > 0f)
                     {
                         Vector2 resolution = distance * (overlap / distance.Length());
-                        if (item.IsFixed && !character.IsFixed || !item.IsFixed && character is Enemy)
-                        {
-                            character.move -= resolution;
-                            if ((item as Enemy).Ai != null)
-                                (item as Enemy).Ai.StopWalking();
-                        }
-                        else if (!item.IsFixed && character.IsFixed)
+                        if (!item.IsFixed && character.IsFixed)
                         {
                             item.move += resolution;
                         }
                         else if (!item.IsFixed && !character.IsFixed || item.IsFixed && character.IsFixed)
                         {
-                            float totalMass = item.Mass + character.Mass;
-                            character.move -= resolution * (item.Mass / totalMass);
-                            item.move += resolution * (character.Mass / totalMass);
+                            character.move -= resolution;
+                            if (character is Enemy)
+                            {
+                                if ((character as Enemy).Ai != null)
+                                    (character as Enemy).Ai.StopWalking();
+                            }
+                            else
+                            {
+                                float totalMass = item.Mass + character.Mass;
+                                character.move -= resolution * (item.Mass / totalMass);
+                                item.move += resolution * (character.Mass / totalMass);
+                            }
                         }
 
                         if (item is ICollectable && character is ICollector)
@@ -233,19 +242,39 @@ namespace BaldurSuchtFiona.Components
                         {
                             if (attacker.IsAttacking && attacker.Recovery <= TimeSpan.Zero)
                             {
-                                foreach (var attackable in attacker.AttackableItems)
+                                if (attacker is Baldur)
                                 {
-                                    attackable.CurrentHitpoints -= attacker.AttackValue;
-                                    if(item is Character)
-                                        attackable.OnHit(game, item as Character,transfers);
-                                }
+                                    var baldur = attacker as Baldur;
+                                    if (baldur.ContinueAttack)
+                                    {
+                                        foreach (var attackable in attacker.AttackableItems)
+                                        {
+                                            attackable.CurrentHitpoints -= attacker.AttackValue;
+                                            if(item is Character)
+                                                attackable.OnHit(game, item as Character,transfers);
+                                        }
 
-                                attacker.Recovery = attacker.TotalRecovery;
+                                        attacker.Recovery = attacker.TotalRecovery;                                        
+                                    }
+                                    else
+                                    {
+                                        baldur.IsAttacking = false;
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (var attackable in attacker.AttackableItems)
+                                    {
+                                        attackable.CurrentHitpoints -= attacker.AttackValue;
+                                        if(item is Character)
+                                            attackable.OnHit(game, item as Character,transfers);
+                                    }
+
+                                    attacker.Recovery = attacker.TotalRecovery;
+                                }
                             }
                         }
                     }
-
-                    attacker.IsAttacking = false;
                 }
             }
 

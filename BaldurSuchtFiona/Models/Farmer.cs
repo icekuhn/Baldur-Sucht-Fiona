@@ -6,6 +6,7 @@ namespace BaldurSuchtFiona.Models
 {
 	public class Farmer : Enemy
     {
+        public Flower Flower { get; set; }
 
         public Farmer () : base()
         {
@@ -15,6 +16,7 @@ namespace BaldurSuchtFiona.Models
             IsPeaceMode = true;
             MaxSpeed = 0.5f;
             AttackRange = 0.25f;
+            AttackValue = 10;
         }
 
         public Farmer (Game1 game,Vector2 position) : base()
@@ -27,10 +29,30 @@ namespace BaldurSuchtFiona.Models
             IsPeaceMode = true;
             MaxSpeed = 0.5f;
             AttackRange = 0.25f;
+            AttackValue = 10;
+            InitializeData (game);
+        }
+
+        public Farmer (Game1 game,Vector2 position,Flower flower) : base()
+        {
+            Radius = 0.25f;
+            Position = position;
+            Texture = "sprite_farmer.png";
+            TextureName = "sprite_farmer.png";
+            IsPeaceMode = true;
+            MaxSpeed = 0.5f;
+            AttackRange = 0.25f;
+            AttackValue = 10;
+            Flower = flower;
+            InitializeData (game);
         }
 
         public void InitializeData (Game1 game){
-            Ai = new WalkingAi(this, MaxSpeed);
+            if(Flower != null)
+                Ai = new WalkingAi(this, MaxSpeed,Flower.Position,AttackRadius-1);
+            else
+                Ai = new WalkingAi(this, MaxSpeed);
+                
             Name = "Miner";
             //  LoadTexture(game,"Character_Armor_front");
         }
@@ -49,13 +71,17 @@ namespace BaldurSuchtFiona.Models
             if (IsPeaceMode)
                 GetAggressive();
 
-            var dropIron = new Iron(game,1,Position);
-
-            transfers.Add(() =>
-                {
-                    game.World.Area.Objects.Remove(this);
-                    game.World.Area.Objects.Add(dropIron);
-                });
+            if (CurrentHitpoints <= 0)
+            {
+                IsAttacking = false;
+            }
+//            var dropIron = new Iron(game,1,Position);
+//
+//            transfers.Add(() =>
+//                {
+//                    game.World.Area.Objects.Remove(this);
+//                    game.World.Area.Objects.Add(dropIron);
+//                });
         }
 	}
 }
