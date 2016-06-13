@@ -40,7 +40,7 @@ namespace BaldurSuchtFiona.Components
             int ores = game.Baldur.Ores;
             int potions = game.Baldur.Potions;
             int weapons = game.Baldur.Weapons;
-            int keycards = game.Baldur.Keycards;
+            int keycards = game.Baldur.KeycardCounter;
             int amors = game.Baldur.Defense;
 
             spriteBatch.Begin();

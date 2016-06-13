@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BaldurSuchtFiona.Interfaces;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
@@ -41,7 +42,10 @@ namespace BaldurSuchtFiona.Models
         }
 
         public override void OnCollect(World world){
-
+            foreach (var miner in world.Area.Objects.OfType<Miner>())
+            {
+                miner.GetAggressive();
+            }
         }
     }
 }

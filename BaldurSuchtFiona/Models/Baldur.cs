@@ -38,8 +38,6 @@ namespace BaldurSuchtFiona.Models
 
         public int Weapons { get; set; }
 
-        public int Keycards { get; set; }
-
         public int KeycardCounter { get {
                 var highValue = 0;
                 foreach (var item in Inventory)
@@ -60,7 +58,6 @@ namespace BaldurSuchtFiona.Models
             Radius = 0.25f;
             Potions = 0;
             Weapons = 1;
-            Keycards = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";
@@ -76,7 +73,6 @@ namespace BaldurSuchtFiona.Models
             InitializeData (game);
             Potions = 0;
             Weapons = 1;
-            Keycards = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";

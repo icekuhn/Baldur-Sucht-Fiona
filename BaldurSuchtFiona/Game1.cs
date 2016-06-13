@@ -136,6 +136,11 @@ namespace BaldurSuchtFiona
                     World.Area = area; 
                     LoadLevel1Objekts();
                     break;
+                case 2:
+                    area = LoadFromJson("level2");
+                    World.Area = area; 
+                    LoadLevel2Objekts();
+                    break;
                 default:
                     throw new NotImplementedException();
                     
@@ -156,6 +161,7 @@ namespace BaldurSuchtFiona
             // Objekt Texturen
             requiredObjektTextures.Add("sprite_player_3.png");
             requiredObjektTextures.Add("sprite_farmer.png");
+            requiredObjektTextures.Add("sprite_miner.png");
             requiredObjektTextures.Add("collectables.png");
             requiredObjektTextures.Add("attack1.png");
             requiredObjektTextures.Add("attack2.png");
@@ -206,6 +212,12 @@ namespace BaldurSuchtFiona
                 isStarted = false;
             
             this.Baldur.Position = startPosition;
+
+            if (this.Baldur.KeycardCounter < 1)
+            {
+                var keycard = new Keycard(this, 1, new Vector2(19, 29));
+                map.Objects.Add(keycard);
+            }
             map.Objects.Add(this.Baldur);
         }
 
@@ -213,6 +225,59 @@ namespace BaldurSuchtFiona
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
             LoadDefaultObjekts(mapPath);   
 
+
+            var map = this.World.Area;
+
+            this.Baldur.Position = this.World.Area.GetTeleportPosition();
+            map.Objects.Add(this.Baldur);
+
+            var flower1 = new Flower(this,1,new Vector2(10,18.5f));
+            map.Objects.Add(flower1);
+
+            var farmer1 = new Farmer(this,new Vector2(9, 19),flower1);
+            map.Objects.Add(farmer1);
+
+            var flower2 = new Flower(this,1,new Vector2(16,18.5f));
+            map.Objects.Add(flower2);
+
+            var farmer2 = new Farmer(this,new Vector2(17, 17),flower2);
+            map.Objects.Add(farmer2);
+
+            var flower3 = new Flower(this,1,new Vector2(13,12.5f));
+            map.Objects.Add(flower3);
+
+            var farmer3 = new Farmer(this,new Vector2(10, 12),flower3);
+            map.Objects.Add(farmer3);
+
+            var iron1 = new Iron(this,1,new Vector2(18.5f,3));
+            map.Objects.Add(iron1);
+
+            var iron2 = new Iron(this,1,new Vector2(34.5f,5));
+            map.Objects.Add(iron2);
+
+            var miner1 = new Miner(this,new Vector2(28, 3));
+            map.Objects.Add(miner1);
+
+            var miner2 = new Miner(this,new Vector2(32, 7));
+            map.Objects.Add(miner2);
+
+            var miner3 = new Miner(this,new Vector2(27, 8));
+            map.Objects.Add(miner3);
+
+            var miner4 = new Miner(this,new Vector2(29, 2));
+            map.Objects.Add(miner4);
+
+
+            if (Baldur.KeycardCounter < 2)
+            {
+                var keycard1 = new Keycard(this, 2, new Vector2(30.5f, 3.1f));
+                map.Objects.Add(keycard1);
+            }
+        }
+
+        public void LoadLevel2Objekts(){
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            LoadDefaultObjekts(mapPath);   
 
             var map = this.World.Area;
 
@@ -249,10 +314,10 @@ namespace BaldurSuchtFiona
             var farmer5 = new Farmer(this,new Vector2(14, 13),flower5);
             map.Objects.Add(farmer5);
 
-            if (Baldur.KeycardCounter == 0)
+            if (Baldur.KeycardCounter < 3)
             {
-                var keycard1 = new Keycard(this, 1, new Vector2(14.5f, 27.3f));
-                map.Objects.Add(keycard1);
+                var farmLeader = new FarmLeader(this, new Vector2(14.5f, 26.3f));
+                map.Objects.Add(farmLeader);
             }
         }
 
@@ -266,7 +331,7 @@ namespace BaldurSuchtFiona
                     string json = sr.ReadToEnd();
                     FileArea result = JsonConvert.DeserializeObject<FileArea>(json);
 
-                    Area area = new Area(result.layers.Length, result.width, result.height);
+                    Area area = new Area(result);
                     area.Name = name;
 
                     area.Background = new Color(128,128,128);
@@ -278,56 +343,6 @@ namespace BaldurSuchtFiona
                             Convert.ToInt32(result.backgroundcolor.Substring(1, 2), 16));
                     }
 
-                    for (int i = 0; i < result.tilesets.Length; i++)
-                    {
-                        FileTileset tileset = result.tilesets[i];
-
-                        int start = tileset.firstgid;
-                        int perRow = tileset.imagewidth / tileset.tilewidth;
-                        int width = tileset.tilewidth;
-
-                        for (int j = 0; j < tileset.tilecount; j++)
-                        {
-                            int x = j % perRow;
-                            int y = j / perRow;
-
-                            bool block = false;
-                            bool teleporter = false;
-                            bool safeZone = false;
-                            if (tileset.tileproperties != null)
-                            {
-                                FileTileProperty property;
-                                if (tileset.tileproperties.TryGetValue(j, out property))
-                                {
-                                    block = property.blocked;
-                                    teleporter = property.teleporter;
-                                    safeZone = property.safeZone;
-                                }
-                            }
-
-                            Tile tile = new Tile()
-                                {
-                                    Texture = tileset.image,
-                                    SourceRectangle = new Rectangle(x * width, y * width, width, width),
-                                    Blocked = block,
-                                    Teleporter = teleporter,
-                                    SafeZone = safeZone
-                                };
-
-                            area.Tiles.Add(start + j, tile);
-                        }
-                    }
-
-                    for (int l = 0; l < result.layers.Length; l++)
-                    {
-                        FileLayer layer = result.layers[l];
-                        for (int i = 0; i < layer.data.Length; i++)
-                        {
-                            int x = i % area.Width;
-                            int y = i / area.Width;
-                            area.Layers[l].Tiles[x, y] = layer.data[i];
-                        }
-                    }
                     return area;
                 }
             }

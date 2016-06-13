@@ -89,6 +89,8 @@ namespace BaldurSuchtFiona.Models
                     bool block = false;
                     bool teleporter = false;
                     bool safeZone = false;
+                    bool isInteractable = false;
+                    string actionId = null;
                     if (tileset.tileproperties != null)
                     {
                         FileTileProperty property;
@@ -97,6 +99,8 @@ namespace BaldurSuchtFiona.Models
                             block = property.blocked;
                             teleporter = property.teleporter;
                             safeZone = property.safeZone;
+                            isInteractable = property.isInteractable;
+                            actionId = property.actionId;
                         }
                     }
 
@@ -106,7 +110,9 @@ namespace BaldurSuchtFiona.Models
                             SourceRectangle = new Rectangle(x * width, y * width, width, width),
                             Blocked = block,
                             Teleporter = teleporter,
-                            SafeZone = safeZone
+                            SafeZone = safeZone,
+                            IsInteractable = isInteractable,
+                            ActionId = actionId
                         };
                     Tiles.Add(start + j, tile);
                 }
@@ -169,6 +175,79 @@ namespace BaldurSuchtFiona.Models
 
                 if (tile.SafeZone)
                     return true;
+            }
+            return false;
+        }
+
+        public bool IsInteractable(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.IsInteractable)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsPotionStation(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.ActionId != null)
+                {
+                    if (tile.ActionId == "potionStation")
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsWorkbench(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.ActionId != null)
+                {
+                    if (tile.ActionId == "workbench")
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsBed(int x, int y)
+        {
+            for (int l = 0; l < Layers.Length; l++)
+            {
+                int tileId = Layers[l].Tiles[x, y];
+                if (tileId == 0)
+                    continue;
+
+                Tile tile = Tiles[tileId];
+
+                if (tile.ActionId != null)
+                {
+                    if (tile.ActionId == "bed")
+                        return true;
+                }
             }
             return false;
         }

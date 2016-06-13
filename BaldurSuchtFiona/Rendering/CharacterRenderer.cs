@@ -174,6 +174,8 @@ namespace BaldurSuchtFiona.Rendering
             //spriteBatch.Draw(pix, new Rectangle(posX, posY, 2, 2), Color.Red);
             //spriteBatch.Draw(pix, new Rectangle(posX - radius, posY - radius, radius + radius, radius + radius), Color.Red);
            
+            var sizeScale = (character is Boss) ? 1.5f : 1;
+
             Vector2 scale = new Vector2(Camera.Scale / FrameSize.X, Camera.Scale / FrameSize.Y) * FrameScale;
 
             Rectangle sourceRectangle = new Rectangle(
@@ -185,7 +187,7 @@ namespace BaldurSuchtFiona.Rendering
 
             Rectangle destinationRectangle = new Rectangle(
               posX - (int)(ObjektOffset.X * scale.X) + 2, posY - (int)(ObjektOffset.Y * scale.Y),
-              (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
+                (int)(FrameSize.X * scale.X * sizeScale), (int)(FrameSize.Y * scale.Y * sizeScale)
             );
             if (renderAttack && direction == Direction.North)
             {
@@ -198,7 +200,7 @@ namespace BaldurSuchtFiona.Rendering
                 );
                 Rectangle attackDestinationRectangle = new Rectangle(
                     posX - (int)(ObjektOffset.X * scale.X) + 2, posY - (int)(ObjektOffset.Y * scale.Y),
-                    (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
+                    (int)(FrameSize.X * scale.X * sizeScale), (int)(FrameSize.Y * scale.Y * sizeScale)
                 );
                 spriteBatch.Draw(AttackTexture, attackDestinationRectangle, attackSourceRectangle, Color.White);
                 posY += 2;
@@ -232,7 +234,7 @@ namespace BaldurSuchtFiona.Rendering
                 );
                 Rectangle attackDestinationRectangle = new Rectangle(
                     posX2 - (int)(ObjektOffset.X * scale.X) + 2, posY2 - (int)(ObjektOffset.Y * scale.Y),
-                    (int)(FrameSize.X * scale.X), (int)(FrameSize.Y * scale.Y)
+                    (int)(FrameSize.X * scale.X * sizeScale), (int)(FrameSize.Y * scale.Y * sizeScale)
                 );
                 if((direction == Direction.West && attackFrame <= 1) || (direction == Direction.East && attackFrame >= 2)){
                     spriteBatch.Draw(AttackTexture, attackDestinationRectangle, attackSourceRectangle, Color.White);

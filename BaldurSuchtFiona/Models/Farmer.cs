@@ -53,7 +53,7 @@ namespace BaldurSuchtFiona.Models
             else
                 Ai = new WalkingAi(this, MaxSpeed);
                 
-            Name = "Miner";
+            Name = "Farmer";
             //  LoadTexture(game,"Character_Armor_front");
         }
 

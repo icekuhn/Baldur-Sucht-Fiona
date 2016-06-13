@@ -140,6 +140,10 @@
     <None Include="Content\attack3.png" />
     <None Include="Content\attack2.png" />
     <None Include="Content\attack1.png" />
+    <None Include="Maps\farm.png" />
+    <None Include="Maps\level1.json" />
+    <None Include="Maps\level2.json" />
+    <None Include="Maps\mine.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

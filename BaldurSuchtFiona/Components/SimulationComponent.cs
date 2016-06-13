@@ -162,8 +162,26 @@ namespace BaldurSuchtFiona.Components
                     {
                         for (int y = minCellY; y <= maxCellY; y++)
                         {
-                            if (area.IsTeleporter(x, y) && game.AllowTeleport)
-                                teleport = true;
+                            
+                            if(item is Baldur){
+                                if(area.IsInteractable(x, y)){
+                                    if(area.IsPotionStation(x, y)){
+                                        //todo: PotionScreens
+                                        throw new NotImplementedException("Potion Screen muss hier eingebaut werden");
+                                    }
+                                    if(area.IsWorkbench(x, y)){
+                                        //todo: PotionScreens
+                                        throw new NotImplementedException("Workbench Screen muss hier eingebaut werden");
+                                    }
+                                    if(area.IsBed(x, y)){
+                                        //todo: PotionScreens
+                                        throw new NotImplementedException("Bed Screen muss hier eingebaut werden");
+                                    }
+                                }
+
+                                if (area.IsTeleporter(x, y) && game.AllowTeleport)
+                                    teleport = true;
+                            }
                             if (!area.IsCellBlocked(x, y))
                                 continue;
 
@@ -287,9 +305,22 @@ namespace BaldurSuchtFiona.Components
             {
                 switch(game.World.Area.Name){
                     case "base":
-                        game.LoadLevel(1);
+                        switch (game.Baldur.KeycardCounter)
+                        {
+                            case 1:
+                                game.LoadLevel(1);
+                                break;
+                            case 2:
+                                game.LoadLevel(2);
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case "level1":
+                        game.LoadLevel(0);
+                        break;
+                    case "level2":
                         game.LoadLevel(0);
                         break;
                     default:

@@ -10,6 +10,8 @@ namespace BaldurSuchtFiona.Models
         public bool Blocked { get; set; }
         public bool Teleporter { get; set; }
         public bool SafeZone { get; set; }
+        public bool IsInteractable { get; set; }
+        public string ActionId{ get; set; }
 
 		public Tile ()
 		{

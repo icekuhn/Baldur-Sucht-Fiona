@@ -40,7 +40,7 @@ namespace BaldurSuchtFiona.Models
 			CurrentHitpoints = 100;
 			Defense = 0;
             AttackableItems = new List<IAttackable>();
-		}
+        }
 
         public abstract void OnHit(Game1 game, Character attacker,List<Action> transfers);
 	}

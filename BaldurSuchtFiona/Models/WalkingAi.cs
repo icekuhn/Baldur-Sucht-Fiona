@@ -61,10 +61,10 @@ namespace BaldurSuchtFiona
                 float movingDistance;
                 do
                 {
-                    var distanceDestionationFromCenterX = moveDestionation.X - movingCenter.Value.X;
+                    var distanceDestionationFromCenterX = moveDestionation.X - center.Value.X;
                     if (distanceDestionationFromCenterX < 0)
                         distanceDestionationFromCenterX = distanceDestionationFromCenterX * -1;
-                    var distanceDestionationFromCenterY = moveDestionation.Y - movingCenter.Value.Y;
+                    var distanceDestionationFromCenterY = moveDestionation.Y - center.Value.Y;
                     if (distanceDestionationFromCenterY < 0)
                         distanceDestionationFromCenterY = distanceDestionationFromCenterY * -1;
                     var distanceDestionationFromCenter = new Vector2();
@@ -72,7 +72,7 @@ namespace BaldurSuchtFiona
                     distanceDestionationFromCenter.Y = distanceDestionationFromCenterY;
 
                     movingDistance = distanceDestionationFromCenter.Length();
-                } while (movingDistance > movingRadius);
+                } while (movingDistance > movingRadius && movingRadius != 0);
 
                 variation = new Vector2(
                     (float)(Random.NextDouble() * 2), 
