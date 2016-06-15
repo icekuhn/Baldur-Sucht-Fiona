@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BaldurSuchtFiona.Screens;
 using System.Collections.Generic;
 using BaldurSuchtFiona.Rendering;
+using System.IO;
 
 namespace BaldurSuchtFiona.Components
 {
@@ -17,11 +18,17 @@ namespace BaldurSuchtFiona.Components
 
 		public SpriteFont Font { get; private set; }
 
+        public Texture2D CollectableIcons { get; private set; }
+
 		public NineTileRenderer Panel { get; private set; }
 
 		public NineTileRenderer Button { get; private set; }
 
+        public NineTileRenderer Icon { get; private set; } 
+
 		public NineTileRenderer ButtonHovered { get; private set; }
+
+        public NineTileRenderer IconHovered { get; private set; } 
 
 		public NineTileRenderer Border { get; private set; }
 
@@ -51,11 +58,19 @@ namespace BaldurSuchtFiona.Components
 
 			Font = Game.Content.Load<SpriteFont>("GameFont");
 
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Content");
+            using (Stream stream = File.OpenRead(mapPath + "\\collectables.png"))
+            {
+                CollectableIcons = Texture2D.FromStream(GraphicsDevice, stream);
+            }
+
 			Texture2D texture = Game.Content.Load<Texture2D> ("MenuItems");
 			Panel = new NineTileRenderer (texture, new Rectangle (0, 0, 96, 96), new Point (30, 30));
 			Button = new NineTileRenderer (texture, new Rectangle (104, 8, 80, 80), new Point (20, 20));
 			ButtonHovered = new NineTileRenderer (texture, new Rectangle (200, 8, 80, 80), new Point (20, 20));
 			Border = new NineTileRenderer (texture, new Rectangle (296, 8, 80, 80), new Point (20, 20));
+            Icon =  new NineTileRenderer (texture, new Rectangle(104, 8, 80, 80), new Point (20, 20));
+            IconHovered = new NineTileRenderer (texture, new Rectangle (200, 8, 80, 80), new Point (20, 20));
 		}
 
 		public override void Update(GameTime gameTime) {

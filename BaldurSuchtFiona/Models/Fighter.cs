@@ -21,6 +21,8 @@ namespace BaldurSuchtFiona.Models
             InitializeData(game);
         }
 
+        //todo attack4.png als Schlaganimation zuweisen
+
         public void InitializeData(Game1 game){
             Name = "Fighter";
             Texture = "sprite_player_3.png";

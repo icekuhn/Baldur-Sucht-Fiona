@@ -15,6 +15,8 @@ namespace BaldurSuchtFiona.Components
 
         private Texture2D HudIcons;
 
+        private Texture2D CollectableIcons;
+
 		public HudComponent(Game1 game) : base(game)
 		{
 			this.game = game;
@@ -30,6 +32,10 @@ namespace BaldurSuchtFiona.Components
             {
                 HudIcons = Texture2D.FromStream(GraphicsDevice, stream);
             }
+            using (Stream stream = File.OpenRead(mapPath + "\\collectables.png"))
+            {
+                CollectableIcons = Texture2D.FromStream(GraphicsDevice, stream);
+            }
 		}
 
 		public override void Draw(GameTime gameTime)
@@ -39,12 +45,26 @@ namespace BaldurSuchtFiona.Components
             int flowers = game.Baldur.Flowers;
             int ores = game.Baldur.Ores;
             int potions = game.Baldur.Potions;
-            int weapons = game.Baldur.Weapons;
+            //int weapons = game.Baldur.WeaponCounter;
+            //int keycards = game.Baldur.KeycardCounter;
             int keycards = game.Baldur.KeycardCounter;
             int amors = game.Baldur.Defense;
 
             spriteBatch.Begin();
             spriteBatch.DrawString (gameFont, String.Format ("Spielzeit: {0}", game.GameTime.ToString()), new Vector2 (12, 12), Color.White);
+
+            Rectangle sourceRectangle = new Rectangle(0, 64, game.Baldur.KeycardCounter * 32, 32);
+            Rectangle destinationRectangle = new Rectangle(12, 25, game.Baldur.KeycardCounter * 32, 32);
+            spriteBatch.Draw(CollectableIcons, destinationRectangle, sourceRectangle, Color.White);
+
+            sourceRectangle = new Rectangle(0, 96, game.Baldur.WeaponCounter * 32, 32);
+            destinationRectangle = new Rectangle(12, 57, game.Baldur.WeaponCounter * 32, 32);
+            spriteBatch.Draw(CollectableIcons, destinationRectangle, sourceRectangle, Color.White);
+
+            sourceRectangle = new Rectangle(0, 128, game.Baldur.ArmorCounter * 32, 32);
+            destinationRectangle = new Rectangle(12, 89, game.Baldur.ArmorCounter * 32, 32);
+            spriteBatch.Draw(CollectableIcons, destinationRectangle, sourceRectangle, Color.White);
+
             spriteBatch.Draw(HudIcons, new Vector2(GraphicsDevice.Viewport.Width - 92f, 4), Color.White);
             spriteBatch.DrawString (gameFont, String.Format ("{0}/{1}", currentHitPoints.ToString(), maxHitPoints.ToString()), new Vector2(GraphicsDevice.Viewport.Width - 58f, 12), Color.White);
             spriteBatch.DrawString (gameFont, ores.ToString(), new Vector2(GraphicsDevice.Viewport.Width - 58f, 44), Color.White);

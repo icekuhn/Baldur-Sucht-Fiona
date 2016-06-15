@@ -100,6 +100,10 @@
     <Compile Include="Models\Ai.cs" />
     <Compile Include="Models\AggressiveAi.cs" />
     <Compile Include="Models\WalkingAi.cs" />
+    <Compile Include="Models\Amor.cs" />
+    <Compile Include="Models\Weapon.cs" />
+    <Compile Include="Screens\KeycardScreen.cs" />
+    <Compile Include="Controls\KeycardList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
