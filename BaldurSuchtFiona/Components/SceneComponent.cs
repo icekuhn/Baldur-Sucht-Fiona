@@ -145,5 +145,13 @@ namespace BaldurSuchtFiona.Components
                 renderer.Draw(spriteBatch, offset, gameTime);
             }
         }
+
+        public void ClearRenderer(){
+            objektRenderer.Clear();
+        }
+
+        public void RemoveBaldurFromRenderer(){
+            objektRenderer.Remove(game.Baldur);
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace BaldurSuchtFiona.Models
         private bool wepHasDropped;
         public FarmLeader () : base()
         {
+            AttackTexture = "attack2.png";
+            AttackTextureName = "attack2.png";
             Radius = 0.25f;
             Texture = "sprite_farmer.png";
             TextureName = "sprite_farmer.png";
@@ -21,17 +23,9 @@ namespace BaldurSuchtFiona.Models
             AttackValue = 20;
         }
 
-        public FarmLeader (Game1 game,Vector2 position) : base()
+        public FarmLeader (Game1 game,Vector2 position) : this()
         {
-            Radius = 0.25f;
             Position = position;
-            InitializeData (game);
-            Texture = "sprite_farmer.png";
-            TextureName = "sprite_farmer.png";
-            IsPeaceMode = true;
-            MaxSpeed = 0.8f;
-            AttackRange = 0.5f;
-            AttackValue = 20;
             InitializeData (game);
         }
 

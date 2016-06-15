@@ -8,6 +8,8 @@ namespace BaldurSuchtFiona.Models
 	{
         public Miner () : base()
         {
+            AttackTexture = "attack3.png";
+            AttackTextureName = "attack3.png";
             Radius = 0.25f;
             Texture = "sprite_miner.png";
             TextureName = "sprite_miner.png";
@@ -17,21 +19,11 @@ namespace BaldurSuchtFiona.Models
             AttackValue = 15;
         }
 
-        public Miner (Game1 game,Vector2 position) : base()
+        public Miner (Game1 game,Vector2 position) : this()
         {
-            Radius = 0.25f;
             Position = position;
             InitializeData (game);
-            Texture = "sprite_miner.png";
-            TextureName = "sprite_miner.png";
-            IsPeaceMode = true;
-            MaxSpeed = 0.4f;
-            AttackRange = 0.3f;
-            AttackValue = 15;
-            InitializeData (game);
         }
-
-        //todo attack3.png als Schlaganimation zuweisen
 
         public void InitializeData (Game1 game){
             Ai = new WalkingAi(this, MaxSpeed);

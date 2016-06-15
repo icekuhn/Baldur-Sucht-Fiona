@@ -108,10 +108,7 @@ namespace BaldurSuchtFiona.Rendering
                     case Animation.Die:
                         frameCount = 4;
                         animationRow = 1;
-                        if (character is Baldur)
-                        {
-                            animationRow = 4;
-                        }
+                        animationRow = 4;
                         break;
                     case Animation.Idle:
                         frameCount = 4;
@@ -157,7 +154,7 @@ namespace BaldurSuchtFiona.Rendering
                 case Animation.Die:
                     row = animationRow;          
                     AnimationTime += (int)(gameTime.ElapsedGameTime.TotalMilliseconds * (float)0.20);
-                    frame = AnimationTime < _deathAnimationTime ? (int)((AnimationTime / (_deathAnimationTime*1.0)) * frameCount) : frameCount;
+                    frame = AnimationTime < _deathAnimationTime ? (int)((AnimationTime / (_deathAnimationTime*1.0)) * frameCount) : frameCount - 1;
                     if (character is Baldur && AnimationTime >= _deathAnimationTime )
                     {
                         (character as Baldur).IsDead = true;

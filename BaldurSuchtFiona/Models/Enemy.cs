@@ -29,8 +29,6 @@ namespace BaldurSuchtFiona.Models
 
 		public Enemy () : base()
         {
-            AttackTexture = "attack2.png";
-            AttackTextureName = "attack2.png";
             AttackRange = 1f;
             AttackRadius = 5f;
 			AttackValue = 5;

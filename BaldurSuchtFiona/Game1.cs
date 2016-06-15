@@ -122,6 +122,7 @@ namespace BaldurSuchtFiona
         }
 
         public void LoadLevel(int levelNumber){
+            Scene.ClearRenderer();
             AllowTeleport = false;
             Area area;
             switch (levelNumber) {
@@ -134,12 +135,17 @@ namespace BaldurSuchtFiona
                 area = LoadFromJson ("level1");
                 World.Area = area;
                 LoadLevel1Objekts ();
-                break;
-            case 2:
-                area = LoadFromJson ("level2");
-                World.Area = area;
-                LoadLevel2Objekts ();
-                break;
+                    break;
+                case 2:
+                    area = LoadFromJson ("level2");
+                    World.Area = area;
+                    LoadLevel2Objekts ();
+                    break;
+                case 3:
+                    area = LoadFromJson ("level3");
+                    World.Area = area;
+                    LoadLevel3Objekts ();
+                    break;
             default:
                 area = LoadFromJson ("base");
                 World.Area = area;
@@ -338,6 +344,24 @@ namespace BaldurSuchtFiona
                 map.Objects.Add(farmLeader);
             }
 
+        }
+
+        public void LoadLevel3Objekts(){
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            LoadDefaultObjekts(mapPath);   
+
+            var map = this.World.Area;
+
+            this.Baldur.Position = this.World.Area.GetTeleportPosition();
+            map.Objects.Add(this.Baldur);
+
+
+
+            if (Baldur.KeycardCounter < 5)
+            {
+                var farmLeader = new MineLeader(this, new Vector2(45.5f, 25.5f));
+                map.Objects.Add(farmLeader);
+            }
         }
 
         private Area LoadFromJson(string name)

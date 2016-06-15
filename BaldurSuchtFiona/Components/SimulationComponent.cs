@@ -35,6 +35,13 @@ namespace BaldurSuchtFiona.Components
 		public override void Update (GameTime gameTime)
         {
             game.GameTime += gameTime.ElapsedGameTime;
+
+            if (this.game.Input.Heal && this.game.Baldur.CurrentHitpoints > 0 && this.game.Baldur.Potions > 0)
+            {
+                this.game.Baldur.Potions--;
+                this.game.Baldur.CurrentHitpoints = this.game.Baldur.MaxHitpoints;
+            }
+
             if (this.game.Baldur.IsDead)
             {
                 this.game.Respawn();
@@ -126,20 +133,13 @@ namespace BaldurSuchtFiona.Components
                                     (item as ICollectable).OnCollect(game.World);
                                     item.Position = Vector2.Zero;
                                 });
+
                             if (item is Weapon && character is Baldur)   //WIESO FUNKTIONIERT DAS NICHT?!?! //todo verbessern
                             {
-                                switch (game.Baldur.WeaponCounter)
-                                {
-                                    case '1':
-                                        game.Baldur.AttackTexture = "attack1.png";
-                                        break;
-                                    case '2':
-                                        game.Baldur.AttackTexture = "attack2.png";
-                                        break;
-                                    case '3':
-                                        game.Baldur.AttackTexture = "attack3.png";
-                                        break;
-                                }
+                                transfers.Add(() =>
+                                    {
+                                        (character as Baldur).ChangeAttackTexture();
+                                    });
                             }
                         }
 

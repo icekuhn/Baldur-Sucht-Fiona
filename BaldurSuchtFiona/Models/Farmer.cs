@@ -10,6 +10,8 @@ namespace BaldurSuchtFiona.Models
 
         public Farmer () : base()
         {
+            AttackTexture = "attack2.png";
+            AttackTextureName = "attack2.png";
             Radius = 0.25f;
             Texture = "sprite_farmer.png";
             TextureName = "sprite_farmer.png";
@@ -19,30 +21,15 @@ namespace BaldurSuchtFiona.Models
             AttackValue = 10;
         }
 
-        public Farmer (Game1 game,Vector2 position) : base()
+        public Farmer (Game1 game,Vector2 position) : this()
         {
-            Radius = 0.25f;
             Position = position;
-            InitializeData (game);
-            Texture = "sprite_farmer.png";
-            TextureName = "sprite_farmer.png";
-            IsPeaceMode = true;
-            MaxSpeed = 0.5f;
-            AttackRange = 0.25f;
-            AttackValue = 10;
             InitializeData (game);
         }
 
-        public Farmer (Game1 game,Vector2 position,Flower flower) : base()
+        public Farmer (Game1 game,Vector2 position,Flower flower) : this()
         {
-            Radius = 0.25f;
             Position = position;
-            Texture = "sprite_farmer.png";
-            TextureName = "sprite_farmer.png";
-            IsPeaceMode = true;
-            MaxSpeed = 0.5f;
-            AttackRange = 0.25f;
-            AttackValue = 10;
             Flower = flower;
             InitializeData (game);
         }

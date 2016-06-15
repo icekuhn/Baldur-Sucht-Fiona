@@ -7,6 +7,7 @@ namespace BaldurSuchtFiona.Models
 {
 	public class Baldur : Player
     {
+        private Game1 _game;
         public bool IsDead { get; set;}
         public bool ContinueAttack { get; set; }
 
@@ -78,7 +79,7 @@ namespace BaldurSuchtFiona.Models
         public Baldur () : base()
 		{
             Radius = 0.25f;
-            Potions = 0;
+            Potions = 4;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";
@@ -87,23 +88,35 @@ namespace BaldurSuchtFiona.Models
             AttackValue = 25;
 		}
 
-        public Baldur (Game1 game,Vector2 position) : base()
+        public Baldur (Game1 game,Vector2 position) : this()
         {
-            Radius = 0.25f;
             Position = position;
+            _game = game;
             InitializeData (game);
-            Potions = 0;
-            Texture = "sprite_player_3.png";
-            TextureName = "sprite_player_3.png";
-            AttackTexture = "attack1.png";
-            AttackTextureName = "attack1.png";
-            MaxSpeed = 1f;
-            AttackValue = 25;
         }
 
         public void InitializeData (Game1 game){
             Name = "Baldur";
           //  LoadTexture(game,"Character_Armor_front");
+        }
+
+        public void ChangeAttackTexture(){
+            switch (WeaponCounter)
+            {
+                case 1:
+                    AttackTexture = "attack1.png";
+                    AttackTextureName = "attack1.png";
+                    break;
+                case 2:
+                    AttackTexture = "attack2.png";
+                    AttackTextureName = "attack2.png";
+                    break;
+                case 3:
+                    AttackTexture = "attack3.png";
+                    AttackTextureName = "attack3.png";
+                    break;
+            }
+            _game.Scene.RemoveBaldurFromRenderer();
         }
 	}
 }
