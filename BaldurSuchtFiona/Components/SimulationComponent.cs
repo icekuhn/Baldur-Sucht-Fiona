@@ -6,6 +6,7 @@ using BaldurSuchtFiona.Models;
 using System.Collections.Generic;
 using System.Linq;
 using BaldurSuchtFiona.Interfaces;
+using BaldurSuchtFiona.Screens;
 
 namespace BaldurSuchtFiona.Components
 {
@@ -125,6 +126,21 @@ namespace BaldurSuchtFiona.Components
                                     (item as ICollectable).OnCollect(game.World);
                                     item.Position = Vector2.Zero;
                                 });
+                            if (item is Weapon && character is Baldur)   //WIESO FUNKTIONIERT DAS NICHT?!?! //todo verbessern
+                            {
+                                switch (game.Baldur.WeaponCounter)
+                                {
+                                    case '1':
+                                        game.Baldur.AttackTexture = "attack1.png";
+                                        break;
+                                    case '2':
+                                        game.Baldur.AttackTexture = "attack2.png";
+                                        break;
+                                    case '3':
+                                        game.Baldur.AttackTexture = "attack3.png";
+                                        break;
+                                }
+                            }
                         }
 
                         if (character is Enemy && item is ICollectable)
@@ -303,33 +319,34 @@ namespace BaldurSuchtFiona.Components
 
             if (teleport)
             {
-                switch(game.World.Area.Name){
-                    case "base":
-                        switch (game.Baldur.KeycardCounter)
-                        {
-                            case 1:
-                                game.LoadLevel(1);
-                                break;
-                            case 2:
-                                game.LoadLevel(2);
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    case "level1":
-                        game.LoadLevel(0);
-                        break;
-                    case "level2":
-                        game.LoadLevel(0);
-                        break;
-                    default:
-                        break;
-            }
+                game.Screen.ShowScreen (new KeycardScreen (game.Screen));
+//                switch(game.World.Area.Name){
+//                    case "base":
+//                        switch (game.Baldur.KeycardCounter)
+//                        {
+//                            case 1:
+//                                game.LoadLevel(1);
+//                                break;
+//                            case 2:
+//                                game.LoadLevel(2);
+//                                break;
+//                            default:
+//                                break;
+//                        }
+//                        break;
+//                    case "level1":
+//                        game.LoadLevel(0);
+//                        break;
+//                    case "level2":
+//                        game.LoadLevel(0);
+//                        break;
+//                    default:
+//                        break;
+//              }
             base.Update(gameTime);
-		}
+		    }
 
 		
-	}
-}
+	    }
+    }
 }

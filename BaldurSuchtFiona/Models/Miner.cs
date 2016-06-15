@@ -31,6 +31,8 @@ namespace BaldurSuchtFiona.Models
             InitializeData (game);
         }
 
+        //todo attack3.png als Schlaganimation zuweisen
+
         public void InitializeData (Game1 game){
             Ai = new WalkingAi(this, MaxSpeed);
 

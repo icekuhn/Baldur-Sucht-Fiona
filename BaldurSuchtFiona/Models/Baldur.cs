@@ -17,7 +17,7 @@ namespace BaldurSuchtFiona.Models
                     if (!(item is Flower))
                         continue;
 
-                    flowerValue += (item as Flower).Value;
+                    flowerValue += 1;
                 };
                 return flowerValue;
             }}
@@ -29,35 +29,56 @@ namespace BaldurSuchtFiona.Models
                     if (!(item is Iron))
                         continue;
                     
-                    oreValue += (item as Iron).Value;
+                    oreValue += 1;
                 };
                 return oreValue;
             }}
 
         public int Potions { get; set; }
 
-        public int Weapons { get; set; }
+        public int ArmorCounter { get {
+                var armValue = 0;
+                foreach (var item in Inventory)
+                {
+                    if (!(item is Armor))
+                        continue;
+
+                    armValue += 1;
+
+                };
+                return armValue;
+            }}
+
+        public int WeaponCounter { get {
+                var wepValue = 0;
+                foreach (var item in Inventory)
+                {
+                    if (!(item is Weapon))
+                        continue;
+
+                    wepValue += 1;
+
+                };
+                return wepValue;
+            }}
 
         public int KeycardCounter { get {
-                var highValue = 0;
+                var cardValue = 0;
                 foreach (var item in Inventory)
                 {
                     if (!(item is Keycard))
                         continue;
 
-                    var cardValue = (item as Keycard).Value;
+                    cardValue += 1;
 
-                    if (highValue < cardValue)
-                        highValue = cardValue;
                 }
-                return highValue;
+                return cardValue;
             }}
 
         public Baldur () : base()
 		{
             Radius = 0.25f;
             Potions = 0;
-            Weapons = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";
@@ -72,7 +93,6 @@ namespace BaldurSuchtFiona.Models
             Position = position;
             InitializeData (game);
             Potions = 0;
-            Weapons = 1;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";

@@ -124,26 +124,27 @@ namespace BaldurSuchtFiona
         public void LoadLevel(int levelNumber){
             AllowTeleport = false;
             Area area;
-            switch (levelNumber)
-            {
-                case 0:
-                    area = LoadFromJson("base");
-                    World.Area = area; 
-                    LoadBaseObjekts();
-                    break;
-                case 1:
-                    area = LoadFromJson("level1");
-                    World.Area = area; 
-                    LoadLevel1Objekts();
-                    break;
-                case 2:
-                    area = LoadFromJson("level2");
-                    World.Area = area; 
-                    LoadLevel2Objekts();
-                    break;
-                default:
-                    throw new NotImplementedException();
-                    
+            switch (levelNumber) {
+            case 0:
+                area = LoadFromJson ("base");
+                World.Area = area;
+                LoadBaseObjekts ();
+                break;
+            case 1:
+                area = LoadFromJson ("level1");
+                World.Area = area;
+                LoadLevel1Objekts ();
+                break;
+            case 2:
+                area = LoadFromJson ("level2");
+                World.Area = area;
+                LoadLevel2Objekts ();
+                break;
+            default:
+                area = LoadFromJson ("base");
+                World.Area = area;
+                LoadBaseObjekts ();
+                break;
             }
 
         }
@@ -213,10 +214,27 @@ namespace BaldurSuchtFiona
             
             this.Baldur.Position = startPosition;
 
+            if (this.Baldur.ArmorCounter < 1)
+            {
+                var armor = new Armor(this, 1);
+                Baldur.Inventory.Add(armor);
+            }
+
+            if (this.Baldur.WeaponCounter < 1)
+            {
+                var weapon = new Weapon(this, 1);
+                Baldur.Inventory.Add(weapon);
+            }
+
             if (this.Baldur.KeycardCounter < 1)
             {
-                var keycard = new Keycard(this, 1, new Vector2(19, 29));
-                map.Objects.Add(keycard);
+                var keycard = new Keycard(this, 1);
+                Baldur.Inventory.Add(keycard);
+            }
+
+            if (this.Baldur.KeycardCounter == 1) {
+                var keycard = new Keycard (this, 2, new Vector2(19, 19));
+                map.Objects.Add (keycard);
             }
             map.Objects.Add(this.Baldur);
         }
@@ -268,9 +286,9 @@ namespace BaldurSuchtFiona
             map.Objects.Add(miner4);
 
 
-            if (Baldur.KeycardCounter < 2)
+            if (Baldur.KeycardCounter < 3)
             {
-                var keycard1 = new Keycard(this, 2, new Vector2(30.5f, 3.1f));
+                var keycard1 = new Keycard(this, 3, new Vector2(30.5f, 3.1f));
                 map.Objects.Add(keycard1);
             }
         }
@@ -314,11 +332,12 @@ namespace BaldurSuchtFiona
             var farmer5 = new Farmer(this,new Vector2(14, 13),flower5);
             map.Objects.Add(farmer5);
 
-            if (Baldur.KeycardCounter < 3)
+            if (Baldur.KeycardCounter < 4)
             {
                 var farmLeader = new FarmLeader(this, new Vector2(14.5f, 26.3f));
                 map.Objects.Add(farmLeader);
             }
+
         }
 
         private Area LoadFromJson(string name)

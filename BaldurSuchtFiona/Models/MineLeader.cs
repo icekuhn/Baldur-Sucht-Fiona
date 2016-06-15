@@ -10,6 +10,8 @@ namespace BaldurSuchtFiona.Models
 			Defense = 10;
         }
 
+        //todo attack3.png als Schlaganimation zuweisen
+
         public override void CheckCollectableInteraction(Objekt Item){
 
         }

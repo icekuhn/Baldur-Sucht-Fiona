@@ -1,33 +1,34 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using System.Linq;
+using BaldurSuchtFiona.Models;
+using BaldurSuchtFiona.Interfaces;
 
-namespace BaldurSuchtFiona.Models
+namespace BaldurSuchtFiona
 {
-    public class Flower : Item
+    public class Weapon : Item,ICollectable
     {
         public int Value { get; set; }
 
-        public Flower(Game1 game)
+        public Weapon(Game1 game)
         {
             Value = 1;
             InitializeData(game);
         }
 
-        public Flower (Game1 game,Vector2 position) : base()
+        public Weapon (Game1 game,Vector2 position) : base()
         {
             Position = position;
             Value = 1;
             InitializeData(game);
         }
 
-        public Flower(Game1 game,int value)
+        public Weapon(Game1 game,int value)
         {
             Value = value;
             InitializeData(game);
         }
 
-        public Flower(Game1 game,int value,Vector2 position)
+        public Weapon(Game1 game,int value,Vector2 position)
         {
             Position = position;
             Value = value;
@@ -35,16 +36,12 @@ namespace BaldurSuchtFiona.Models
         }
 
         public void InitializeData(Game1 game){
-            Name = "Flower";
-            LoadTexture(game,"collectables",(Value - 1 ) * 32,32,32,32);
+            Name = "Weapon";
+            LoadTexture(game,"collectables",(Value - 1 ) * 32,96,32,32);
         }
 
         public override void OnCollect(World world){
-            foreach (var farmer in world.Area.Objects.OfType<Farmer>().Where(f => f.Flower == this))
-            {
-                farmer.GetAggressive();
-            }
+
         }
     }
 }
-

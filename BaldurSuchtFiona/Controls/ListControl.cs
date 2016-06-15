@@ -40,7 +40,7 @@ namespace BaldurSuchtFiona.Controls
 
 		public event ItemDelegate<T> OnSelectionChanged;
 
-		public event ItemDelegate<T> OnInteract;
+        public event ItemDelegate<T> OnInteract;
 
 		public delegate void ItemDelegate<V>(V item);
 	}

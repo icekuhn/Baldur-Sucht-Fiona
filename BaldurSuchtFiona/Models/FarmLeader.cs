@@ -7,7 +7,9 @@ namespace BaldurSuchtFiona.Models
     public class FarmLeader : Boss
 	{
         private Keycard keycardToDrop;
+        private Weapon weaponToDrop;
         private bool cardHasDropped;
+        private bool wepHasDropped;
         public FarmLeader () : base()
         {
             Radius = 0.25f;
@@ -36,7 +38,8 @@ namespace BaldurSuchtFiona.Models
         public void InitializeData (Game1 game){
             Ai = new WalkingAi(this, MaxSpeed);
 
-            keycardToDrop = new Keycard(game,3);
+            keycardToDrop = new Keycard(game,4);
+            weaponToDrop = new Weapon(game, 2);
             Name = "Farm Leader";
         }
 
@@ -63,6 +66,16 @@ namespace BaldurSuchtFiona.Models
                             game.World.Area.Objects.Add(keycardToDrop);
                         });
                     cardHasDropped = true;
+                }
+
+                if (!wepHasDropped)
+                {
+                    weaponToDrop.Position = this.Position;        
+                    transfers.Add(() =>
+                        {
+                        game.World.Area.Objects.Add(weaponToDrop);
+                        });
+                    wepHasDropped = true;
                 }
             }
         }
