@@ -4,6 +4,7 @@ using BaldurSuchtFiona.Components;
 using BaldurSuchtFiona.Models;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BaldurSuchtFiona.Screens
 {
@@ -20,7 +21,6 @@ namespace BaldurSuchtFiona.Screens
         {
             Speicher = new List<Item>();
 
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 20, 360, 30) });
             Flowers1 = 0;
             Flowers2 = 0;
             Flowers3 = 0;
@@ -33,9 +33,10 @@ namespace BaldurSuchtFiona.Screens
             }
             Potions = Flowers1 / 5 + Flowers2 + Flowers3 * 2;
 
+            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 20, 360, 30) });
             Controls.Add (new Label (manager) { Text = "Enter druecken um Heiltraenke aus deinen Pflanzen herzustellen:", Position = new Rectangle (30, 30, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 80, 360, 30) });
 
+            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 80, 360, 30) });
             Controls.Add (new Label (manager) { Text = String.Format (": {0}", Flowers1), Position = new Rectangle (70, 90, 0, 0) });
             Controls.Add (new Panel (manager) { Position = new Rectangle (20, 120, 360, 30) });
             Controls.Add (new Label (manager) { Text = String.Format (": {0}", Flowers2), Position = new Rectangle (70, 130, 0, 0) });
@@ -47,6 +48,17 @@ namespace BaldurSuchtFiona.Screens
             Controls.Add (new Panel (manager) { Position = new Rectangle (20, 240, 360, 30) });
             Controls.Add (new Label (manager) { Text = String.Format (": {0}", Potions), Position = new Rectangle (70, 250, 0, 0) });
 
+        }
+
+        public new void Draw (GameTime gameTime, SpriteBatch batch)
+        {
+            Manager.Panel.Draw (batch, Position);
+            // batch.Draw (Manager.Pixel, Position, Color.DarkBlue);
+            foreach (var control in Controls)
+                control.Draw (batch, Position.Location);
+            batch.Draw (Manager.CollectableIcons, new Vector2 ((Manager.GraphicsDevice.Viewport.Width) / 2, (Manager.GraphicsDevice.Viewport.Height / 2) - 30), new Rectangle (0, 32, 32, 32), Color.White);
+            batch.Draw (Manager.CollectableIcons, new Vector2 ((Manager.GraphicsDevice.Viewport.Width) / 2, (Manager.GraphicsDevice.Viewport.Height / 2)), new Rectangle (32, 32, 32, 32), Color.White);
+            batch.Draw (Manager.CollectableIcons, new Vector2 ((Manager.GraphicsDevice.Viewport.Width) / 2, (Manager.GraphicsDevice.Viewport.Height / 2) + 30), new Rectangle (64, 32, 32, 32), Color.White);
         }
 
         public override void Update (GameTime gametime)
