@@ -23,19 +23,31 @@ namespace BaldurSuchtFiona.Models
                 return flowerValue;
             }}
 
-        public int Ores { get {
+        public int Ores {
+            get {
                 var oreValue = 0;
-                foreach (var item in Inventory)
-                {
+                foreach (var item in Inventory) {
                     if (!(item is Iron))
                         continue;
-                    
+
                     oreValue += 1;
                 };
                 return oreValue;
             }}
 
-        public int Potions { get; set; }
+        public int Potions {
+            get {
+                var potValue = 0;
+                foreach (var item in Inventory) {
+                    if (!(item is Healpot))
+                        continue;
+
+                    potValue += 1;
+                };
+                return potValue;
+            }
+            set;
+        }
 
         public int ArmorCounter { get {
                 var armValue = 0;

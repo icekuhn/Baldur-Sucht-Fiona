@@ -182,8 +182,21 @@ namespace BaldurSuchtFiona.Components
                             if(item is Baldur){
                                 if(area.IsInteractable(x, y)){
                                     if(area.IsPotionStation(x, y)){
-                                        //todo: PotionScreens
-                                        throw new NotImplementedException("Potion Screen muss hier eingebaut werden");
+                                        int flowers1 = 0;
+                                        int flowers2 = 0;
+                                        int flowers3 = 0;
+                                        foreach (var itemIntern in game.Baldur.Inventory) {
+                                            if (!(itemIntern is Flower))
+                                                continue;
+                                            if ((itemIntern as Flower).Value == 1) { flowers1 += 1; }
+                                            if ((itemIntern as Flower).Value == 2) { flowers2 += 1; }
+                                            if ((itemIntern as Flower).Value == 3) { flowers3 += 1; }
+                                        }
+                                        if (flowers1 > 4 || flowers2 > 1 || flowers3 > 1) {
+                                            game.Screen.ShowScreen (new PotionScreen (game.Screen));
+                                        } else {
+                                            game.Screen.ShowScreen (new NoPotionScreen (game.Screen));
+                                        }
                                     }
                                     if(area.IsWorkbench(x, y)){
                                         //todo: PotionScreens
