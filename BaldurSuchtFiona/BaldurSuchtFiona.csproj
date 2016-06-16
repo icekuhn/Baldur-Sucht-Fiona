@@ -148,6 +148,7 @@
     <None Include="Maps\level1.json" />
     <None Include="Maps\level2.json" />
     <None Include="Maps\mine.png" />
+    <None Include="Maps\level4.json" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

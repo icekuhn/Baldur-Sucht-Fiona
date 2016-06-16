@@ -135,17 +135,22 @@ namespace BaldurSuchtFiona
                 area = LoadFromJson ("level1");
                 World.Area = area;
                 LoadLevel1Objekts ();
-                    break;
-                case 2:
-                    area = LoadFromJson ("level2");
-                    World.Area = area;
-                    LoadLevel2Objekts ();
-                    break;
-                case 3:
-                    area = LoadFromJson ("level3");
-                    World.Area = area;
-                    LoadLevel3Objekts ();
-                    break;
+                break;
+            case 2:
+                area = LoadFromJson ("level2");
+                World.Area = area;
+                LoadLevel2Objekts ();
+                break;
+            case 3:
+                area = LoadFromJson ("level3");
+                World.Area = area;
+                LoadLevel3Objekts ();
+                break;
+            case 4:
+                area = LoadFromJson ("level4");
+                World.Area = area;
+                LoadLevel4Objekts ();
+                break;
             default:
                 area = LoadFromJson ("base");
                 World.Area = area;
@@ -258,19 +263,19 @@ namespace BaldurSuchtFiona
             var flower1 = new Flower(this,1,new Vector2(10,18.5f));
             map.Objects.Add(flower1);
 
-            var farmer1 = new Farmer(this,new Vector2(9, 19),flower1);
+            var farmer1 = new Farmer(this,new Vector2(9, 19),new List<Flower>{flower1});
             map.Objects.Add(farmer1);
 
             var flower2 = new Flower(this,1,new Vector2(16,18.5f));
             map.Objects.Add(flower2);
 
-            var farmer2 = new Farmer(this,new Vector2(17, 17),flower2);
+            var farmer2 = new Farmer(this,new Vector2(17, 17),new List<Flower>{flower2});
             map.Objects.Add(farmer2);
 
             var flower3 = new Flower(this,1,new Vector2(13,12.5f));
             map.Objects.Add(flower3);
 
-            var farmer3 = new Farmer(this,new Vector2(10, 12),flower3);
+            var farmer3 = new Farmer(this,new Vector2(10, 12),new List<Flower>{flower3});
             map.Objects.Add(farmer3);
 
             var iron1 = new Iron(this,1,new Vector2(18.5f,3));
@@ -311,31 +316,31 @@ namespace BaldurSuchtFiona
             var flower1 = new Flower(this,1,new Vector2(11,8.5f));
             map.Objects.Add(flower1);
 
-            var farmer1 = new Farmer(this,new Vector2(10, 12),flower1);
+            var farmer1 = new Farmer(this,new Vector2(10, 12),new List<Flower>{flower1});
             map.Objects.Add(farmer1);
 
             var flower2 = new Flower(this,2,new Vector2(13,9.5f));
             map.Objects.Add(flower2);
 
-            var farmer2 = new Farmer(this,new Vector2(14, 5),flower2);
+            var farmer2 = new Farmer(this,new Vector2(14, 5),new List<Flower>{flower2});
             map.Objects.Add(farmer2);
 
             var flower3 = new Flower(this,1,new Vector2(15,8.5f));
             map.Objects.Add(flower3);
 
-            var farmer3 = new Farmer(this,new Vector2(16, 10),flower3);
+            var farmer3 = new Farmer(this,new Vector2(16, 10),new List<Flower>{flower3});
             map.Objects.Add(farmer3);
 
             var flower4 = new Flower(this,1,new Vector2(11,10.5f));
             map.Objects.Add(flower4);
 
-            var farmer4 = new Farmer(this,new Vector2(9, 13),flower4);
+            var farmer4 = new Farmer(this,new Vector2(9, 13),new List<Flower>{flower4});
             map.Objects.Add(farmer4);
 
             var flower5 = new Flower(this,1,new Vector2(15,10.5f));
             map.Objects.Add(flower5);
 
-            var farmer5 = new Farmer(this,new Vector2(14, 13),flower5);
+            var farmer5 = new Farmer(this,new Vector2(14, 13),new List<Flower>{flower5});
             map.Objects.Add(farmer5);
 
             if (Baldur.KeycardCounter < 4)
@@ -361,6 +366,23 @@ namespace BaldurSuchtFiona
             {
                 var farmLeader = new MineLeader(this, new Vector2(45.5f, 25.5f));
                 map.Objects.Add(farmLeader);
+            }
+        }
+
+        public void LoadLevel4Objekts(){
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            LoadDefaultObjekts(mapPath);   
+
+            var map = this.World.Area;
+
+            this.Baldur.Position = this.World.Area.GetTeleportPosition();
+            map.Objects.Add(this.Baldur);
+
+
+
+            if (Baldur.KeycardCounter < 6)
+            {
+                
             }
         }
 

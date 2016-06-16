@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
 	public class Farmer : Enemy
     {
-        public Flower Flower { get; set; }
+        public List<Flower> Flowers { get; set; }
 
         public Farmer () : base()
         {
@@ -19,6 +20,7 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 0.5f;
             AttackRange = 0.25f;
             AttackValue = 10;
+            Flowers = new List<Flower>();
         }
 
         public Farmer (Game1 game,Vector2 position) : this()
@@ -27,16 +29,16 @@ namespace BaldurSuchtFiona.Models
             InitializeData (game);
         }
 
-        public Farmer (Game1 game,Vector2 position,Flower flower) : this()
+        public Farmer (Game1 game,Vector2 position,List<Flower> flowers) : this()
         {
             Position = position;
-            Flower = flower;
+            Flowers = flowers;
             InitializeData (game);
         }
 
         public void InitializeData (Game1 game){
-            if(Flower != null)
-                Ai = new WalkingAi(this, MaxSpeed,Flower.Position,AttackRadius-1);
+            if(Flowers.Any())
+                Ai = new WalkingAi(this, MaxSpeed,Flowers.First().Position,AttackRadius-1);
             else
                 Ai = new WalkingAi(this, MaxSpeed);
                 

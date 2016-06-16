@@ -40,7 +40,7 @@ namespace BaldurSuchtFiona.Models
         }
 
         public override void OnCollect(World world){
-            foreach (var farmer in world.Area.Objects.OfType<Farmer>().Where(f => f.Flower == this))
+            foreach (var farmer in world.Area.Objects.OfType<Farmer>().Where(f => f.Flowers.Contains(this)))
             {
                 farmer.GetAggressive();
             }

@@ -67,7 +67,7 @@ namespace BaldurSuchtFiona.Screens
                 Manager.CloseScreen ();
             }
 
-            if (item == Keycard5) {
+            if (item == Keycard6) {
                 Manager.Game.LoadLevel (5);
                 Manager.CloseScreen ();
             }
