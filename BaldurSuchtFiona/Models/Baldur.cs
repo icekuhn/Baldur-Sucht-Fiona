@@ -2,6 +2,7 @@
 using BaldurSuchtFiona;
 using BaldurSuchtFiona.Models;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
@@ -46,7 +47,6 @@ namespace BaldurSuchtFiona.Models
                 };
                 return potValue;
             }
-            set;
         }
 
         public int ArmorCounter { get {
@@ -91,13 +91,15 @@ namespace BaldurSuchtFiona.Models
         public Baldur () : base()
 		{
             Radius = 0.25f;
-            Potions = 4;
             Texture = "sprite_player_3.png";
             TextureName = "sprite_player_3.png";
             AttackTexture = "attack1.png";
             AttackTextureName = "attack1.png";
             MaxSpeed = 1f;
             AttackValue = 25;
+            Inventory.Add(new Healpot ());
+            Inventory.Add(new Healpot ());
+            Inventory.Add(new Healpot ());
 		}
 
         public Baldur (Game1 game,Vector2 position) : this()
@@ -110,6 +112,15 @@ namespace BaldurSuchtFiona.Models
         public void InitializeData (Game1 game){
             Name = "Baldur";
           //  LoadTexture(game,"Character_Armor_front");
+        }
+
+        public void UseHealPotion(){
+            var healpotion = Inventory.OfType<Healpot> ().FirstOrDefault ();
+            if (healpotion == null)
+                return;
+            CurrentHitpoints += healpotion.HealthRestoration;
+            if (CurrentHitpoints > MaxHitpoints)
+                CurrentHitpoints = MaxHitpoints;
         }
 
         public void ChangeAttackTexture(){

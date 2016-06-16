@@ -38,8 +38,7 @@ namespace BaldurSuchtFiona.Components
 
             if (this.game.Input.Heal && this.game.Baldur.CurrentHitpoints > 0 && this.game.Baldur.Potions > 0)
             {
-                this.game.Baldur.Potions--;
-                this.game.Baldur.CurrentHitpoints = this.game.Baldur.MaxHitpoints;
+                this.game.Baldur.UseHealPotion();
             }
 
             if (this.game.Baldur.IsDead)
