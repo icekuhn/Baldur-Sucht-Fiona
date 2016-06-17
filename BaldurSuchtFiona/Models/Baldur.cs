@@ -14,25 +14,37 @@ namespace BaldurSuchtFiona.Models
 
         public int Flowers { get {
                 var flowerValue = 0;
+                int flowers1 = 0;
+                int flowers2 = 0;
+                int flowers3 = 0;
                 foreach (var item in Inventory)
                 {
                     if (!(item is Flower))
                         continue;
 
-                    flowerValue += 1;
-                };
+                    if ((item as Flower).Value == 1) { flowers1 += 1; }
+                    if ((item as Flower).Value == 2) { flowers2 += 1; }
+                    if ((item as Flower).Value == 3) { flowers3 += 1; }
+                }
+                flowerValue = flowers1 + flowers2 * 5 + flowers3 * 10; 
                 return flowerValue;
             }}
 
         public int Ores {
             get {
                 var oreValue = 0;
+                int ores1 = 0;
+                int ores2 = 0;
+                int ores3 = 0;
                 foreach (var item in Inventory) {
                     if (!(item is Iron))
                         continue;
 
-                    oreValue += 1;
-                };
+                    if ((item as Iron).Value == 1) { ores1 += 1; }
+                    if ((item as Iron).Value == 2) { ores2 += 1; }
+                    if ((item as Iron).Value == 3) { ores3 += 1; }
+                }
+                oreValue = ores1 + ores2 * 5 + ores3 * 10; 
                 return oreValue;
             }}
 

@@ -20,6 +20,8 @@ namespace BaldurSuchtFiona.Components
 
         public Texture2D CollectableIcons { get; private set; }
 
+        public Texture2D hudIcons { get; private set; }
+
 		public NineTileRenderer Panel { get; private set; }
 
 		public NineTileRenderer Button { get; private set; }
@@ -64,6 +66,10 @@ namespace BaldurSuchtFiona.Components
                 CollectableIcons = Texture2D.FromStream(GraphicsDevice, stream);
             }
 
+            using (Stream stream = File.OpenRead (mapPath + "\\hudIcons.png")) {
+                hudIcons = Texture2D.FromStream (GraphicsDevice, stream);
+            }
+
 			Texture2D texture = Game.Content.Load<Texture2D> ("MenuItems");
 			Panel = new NineTileRenderer (texture, new Rectangle (0, 0, 96, 96), new Point (30, 30));
 			Button = new NineTileRenderer (texture, new Rectangle (104, 8, 80, 80), new Point (20, 20));
@@ -97,7 +103,10 @@ namespace BaldurSuchtFiona.Components
             var list = screens.ToArray();
             Array.Reverse(list);
             foreach (var screen in list)
-				screen.Draw (gameTime, spriteBatch);
+                if (screen is PotionScreen) { (screen as PotionScreen).Draw (gameTime, spriteBatch); }
+                else if (screen is Armor2Screen) { (screen as Armor2Screen).Draw (gameTime, spriteBatch); }
+                else if (screen is Armor3Screen) { (screen as Armor3Screen).Draw (gameTime, spriteBatch); }            
+                else { screen.Draw (gameTime, spriteBatch); }
 			spriteBatch.End ();
 		}
 	}

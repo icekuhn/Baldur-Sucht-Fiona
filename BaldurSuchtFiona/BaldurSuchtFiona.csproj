@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -67,7 +66,6 @@
     <Compile Include="Models\Npc.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Models\Enemy.cs" />
-    <Compile Include="Models\Item.cs" />
     <Compile Include="Interfaces\ICollectable.cs" />
     <Compile Include="Interfaces\ICollector.cs" />
     <Compile Include="Models\Baldur.cs" />
@@ -97,6 +95,7 @@
     <Compile Include="Rendering\SimpleObjektRenderer.cs" />
     <Compile Include="Models\Objekt.cs" />
     <Compile Include="Models\Keycard.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Ai.cs" />
     <Compile Include="Models\AggressiveAi.cs" />
     <Compile Include="Models\WalkingAi.cs" />
@@ -106,6 +105,10 @@
     <Compile Include="Controls\KeycardList.cs" />
     <Compile Include="Screens\PotionScreen.cs" />
     <Compile Include="Screens\NoPotionScreen.cs" />
+    <Compile Include="Screens\Armor2Screen.cs" />
+    <Compile Include="Screens\Armor3Screen.cs" />
+    <Compile Include="Screens\ArmorEndScreen.cs" />
+    <Compile Include="Screens\LessIronScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
