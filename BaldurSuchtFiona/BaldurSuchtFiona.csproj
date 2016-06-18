@@ -116,6 +116,7 @@
     <Compile Include="Screens\ArmorEndScreen.cs" />
     <Compile Include="Screens\LessIronScreen.cs" />
     <Compile Include="Screens\BedScreen.cs" />
+    <Compile Include="Models\EndBoss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -150,7 +151,6 @@
     </None>
     <None Include="Maps\base.json" />
     <None Include="Maps\base1.png" />
-    <None Include="Content\sprite_player_3.png" />
     <None Include="Content\sprite_miner.png" />
     <None Include="Content\sprite_farmer.png" />
     <None Include="Content\attack3.png" />
@@ -162,6 +162,11 @@
     <None Include="Maps\mine.png" />
     <None Include="Maps\level4.json" />
     <None Include="Content\saveGame.xml" />
+    <None Include="Content\sprite_player_2.png" />
+    <None Include="Content\sprite_guard.png" />
+    <None Include="Content\sprite_boss.png" />
+    <None Include="Content\sprite_player_3.png" />
+    <None Include="Content\sprite_player_1.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

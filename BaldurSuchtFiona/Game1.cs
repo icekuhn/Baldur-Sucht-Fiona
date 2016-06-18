@@ -287,6 +287,11 @@ namespace BaldurSuchtFiona
                 World.Area = area;
                 LoadLevel4Objekts ();
                 break;
+            case 5:
+                area = LoadFromJson ("level5");
+                World.Area = area;
+                LoadLevel5Objekts ();
+                break;
             default:
                 area = LoadFromJson ("base");
                 World.Area = area;
@@ -518,7 +523,25 @@ namespace BaldurSuchtFiona
 
             if (Baldur.KeycardCounter < 6)
             {
-                
+                var keycard = new Keycard (this, 6, new Vector2(29.5f, 7.25f));
+                map.Objects.Add (keycard);
+            }
+        }
+
+        public void LoadLevel5Objekts(){
+            string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
+            LoadDefaultObjekts(mapPath);   
+
+            var map = this.World.Area;
+
+            this.Baldur.Position = this.World.Area.GetTeleportPosition();
+            map.Objects.Add(this.Baldur);
+
+
+
+            if (Baldur.KeycardCounter < 7)
+            {
+
             }
         }
 
