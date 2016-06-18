@@ -8,6 +8,9 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using BaldurSuchtFiona.Rendering;
+using System.Xml.Linq;
+using System.Xml;
+using System.Linq;
 
 
 namespace BaldurSuchtFiona
@@ -17,6 +20,7 @@ namespace BaldurSuchtFiona
 	/// </summary>
 	public class Game1 : Game
     {
+        private readonly string _saveGameFileLocation;
         private bool isStarted;
         public World World { get; set; }
         public Baldur Baldur { get; set; }
@@ -54,6 +58,7 @@ namespace BaldurSuchtFiona
 
 		public Game1 ()
 		{
+            _saveGameFileLocation = Path.Combine(Environment.CurrentDirectory, "Content","saveGame.xml");
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
 			graphics.IsFullScreen = false;
@@ -122,6 +127,134 @@ namespace BaldurSuchtFiona
             World = new World();
             LoadLevel(0);
             AllowTeleport = true;
+        }
+
+        public void SaveGame(){
+            int ores1 = 0;
+            int ores2 = 0;
+            int ores3 = 0;
+            int flower1 = 0;
+            int flower2 = 0;
+            int flower3 = 0;
+            foreach (var item in Baldur.Inventory) {
+                if ((item is Iron)) {
+                    if ((item as Iron).Value == 1) { ores1 += 1; }
+                    if ((item as Iron).Value == 2) { ores2 += 1; }
+                    if ((item as Iron).Value == 3) { ores3 += 1; }
+                }
+                if ((item is Flower)) {
+                    if ((item as Flower).Value == 1) { flower1 += 1; }
+                    if ((item as Flower).Value == 2) { flower2 += 1; }
+                    if ((item as Flower).Value == 3) { flower3 += 1; }
+                }
+            }
+
+            var doc = new XDocument();
+            doc.Add (new XElement("saveGameValue",
+                new XElement("Ores",
+                    new XElement("Ore1", ores1),
+                    new XElement("Ore2", ores2),
+                    new XElement("Ore3", ores3)),
+                new XElement("Flowers",
+                    new XElement("Flower1", flower1),
+                    new XElement("Flower2", flower2),
+                    new XElement("Flower3", flower3)),
+                new XElement("Potions",Baldur.Potions),
+                new XElement("Keycards",Baldur.KeycardCounter),
+                new XElement("Armor",Baldur.ArmorCounter),
+                new XElement("Weapon",Baldur.WeaponCounter),
+                new XElement("HitPoints",Baldur.CurrentHitpoints),
+                new XElement("GameTimeTicks",this.GameTime.Ticks)
+            ));
+
+
+            if (File.Exists (_saveGameFileLocation))
+                File.Delete (_saveGameFileLocation);
+
+            doc.Save (_saveGameFileLocation);
+        }
+
+        public void LoadGame(){
+            if (!File.Exists (_saveGameFileLocation))
+                throw new NotImplementedException ("SpeicherDatei nicht vorhanden.Wichtig zu prüfen");
+
+            var startPosition = new Vector2(15, 12);
+            this.Baldur = new Baldur(this,startPosition);
+            isStarted = true;
+            World = new World();
+            LoadLevel(0);
+            AllowTeleport = true;
+
+            Baldur.Position = new Vector2(17.8f,27.25f); 
+
+            var xdoc = XDocument.Load(_saveGameFileLocation);
+
+            var test = xdoc.Elements ();
+
+
+
+            var ores = xdoc.Root.Elements().FirstOrDefault(el => el.Name == "Ores");
+            var ores1 = ores.Elements().FirstOrDefault(el => el.Name == "Ore1").Value;
+            var ores2 = ores.Elements().FirstOrDefault(el => el.Name == "Ore2").Value;
+            var ores3 = ores.Elements().FirstOrDefault(el => el.Name == "Ore3").Value;
+            var flowers = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "Flowers");
+            var flower1 = flowers.Elements().FirstOrDefault(el => el.Name == "Flower1").Value;
+            var flower2 = flowers.Elements().FirstOrDefault(el => el.Name == "Flower2").Value;
+            var flower3 = flowers.Elements().FirstOrDefault(el => el.Name == "Flower3").Value;
+            var potions = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "Potions").Value;
+            var keycards = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "Keycards").Value;
+            var armor = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "Armor").Value;
+            var weapon = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "Weapon").Value;
+            var hitPoints = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "HitPoints").Value;
+            var gameTimeTicks = xdoc.Root.Elements ().FirstOrDefault (el => el.Name == "GameTimeTicks").Value;
+
+            int intReturnValue;
+
+            Baldur.Inventory.Clear ();
+
+            if(int.TryParse (ores1,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Iron(this,1));
+            if(int.TryParse (ores2,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Iron(this,2));
+            if(int.TryParse (ores3,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Iron(this,3));
+            
+            if(int.TryParse (flower1,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Flower(this,1));
+            if(int.TryParse (flower2,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Flower(this,2));
+            if(int.TryParse (flower3,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Flower(this,3));
+
+
+            if(int.TryParse (potions,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Healpot());
+
+            if(int.TryParse (keycards,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Keycard(this,i+1));
+            
+            if(int.TryParse (armor,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Armor(this,i+1));
+           
+            if(int.TryParse (weapon,out intReturnValue))
+                for (var i = 0; i < intReturnValue; i++) 
+                    Baldur.Inventory.Add (new Weapon(this,i+1));
+            
+            if(int.TryParse (hitPoints,out intReturnValue))
+                Baldur.CurrentHitpoints = intReturnValue;
+
+            long tickReturnValue;
+            if(long.TryParse (gameTimeTicks,out tickReturnValue))
+                this.GameTime = new TimeSpan(tickReturnValue);
         }
 
         public void LoadLevel(int levelNumber){

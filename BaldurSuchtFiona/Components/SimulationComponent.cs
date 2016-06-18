@@ -259,7 +259,7 @@ namespace BaldurSuchtFiona.Components
                                     if(area.IsBed(x, y)){
                                         if (game.AllowBedScreen)
                                         {
-                                            throw new NotImplementedException("Bed Screen muss hier eingebaut werden");
+                                            game.Screen.ShowScreen (new BedScreen (game.Screen));
                                             game.AllowBedScreen = false;
                                         }
                                     }
