@@ -21,6 +21,9 @@ namespace BaldurSuchtFiona
         public World World { get; set; }
         public Baldur Baldur { get; set; }
         public bool AllowTeleport { get; set; }
+        public bool AllowPotionScreen { get; set; }
+        public bool AllowWorkBenchScreen { get; set; }
+        public bool AllowBedScreen { get; set; }
         public TimeSpan GameTime{ get; set;}
 		private GraphicsDeviceManager graphics;
 

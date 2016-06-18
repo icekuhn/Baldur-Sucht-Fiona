@@ -63,6 +63,36 @@ namespace BaldurSuchtFiona.Components
                         
                 }
 
+                if (!game.AllowPotionScreen)
+                {
+                    var potStationDistance = game.World.Area.GetPotStationDistancePosition(game.Baldur);
+                    if (potStationDistance.Length() > 2)
+                    {
+                        game.AllowPotionScreen = true;
+                    }
+
+                }
+
+                if (!game.AllowWorkBenchScreen)
+                {
+                    var workBenchDistance = game.World.Area.GetWorkBenchDistancePosition(game.Baldur);
+                    if (workBenchDistance.Length() > 2)
+                    {
+                        game.AllowWorkBenchScreen = true;
+                    }
+
+                }
+
+                if (!game.AllowBedScreen)
+                {
+                    var bedDistance = game.World.Area.GetBedDistancePosition(game.Baldur);
+                    if (bedDistance.Length() > 2)
+                    {
+                        game.AllowBedScreen = true;
+                    }
+
+                }
+
                 if (character is IAttackable && (character as IAttackable).CurrentHitpoints <= 0)
                     continue;
 
@@ -179,48 +209,59 @@ namespace BaldurSuchtFiona.Components
                             if(item is Baldur){
                                 if(area.IsInteractable(x, y)){
                                     if(area.IsPotionStation(x, y)){
-                                        int flowers1 = 0;
-                                        int flowers2 = 0;
-                                        int flowers3 = 0;
-                                        foreach (var itemIntern in game.Baldur.Inventory) {
-                                            if (!(itemIntern is Flower))
-                                                continue;
-                                            if ((itemIntern as Flower).Value == 1) { flowers1 += 1; }
-                                            if ((itemIntern as Flower).Value == 2) { flowers2 += 1; }
-                                            if ((itemIntern as Flower).Value == 3) { flowers3 += 1; }
-                                        }
-                                        if (flowers1 > 4 || flowers2 > 1 || flowers3 > 1) {
-                                            game.Screen.ShowScreen (new PotionScreen (game.Screen));
-                                        } else {
-                                            game.Screen.ShowScreen (new NoPotionScreen (game.Screen));
+                                        if (game.AllowPotionScreen)
+                                        {
+                                            int flowers1 = 0;
+                                            int flowers2 = 0;
+                                            int flowers3 = 0;
+                                            foreach (var itemIntern in game.Baldur.Inventory) {
+                                                if (!(itemIntern is Flower))
+                                                    continue;
+                                                if ((itemIntern as Flower).Value == 1) { flowers1 += 1; }
+                                                if ((itemIntern as Flower).Value == 2) { flowers2 += 1; }
+                                                if ((itemIntern as Flower).Value == 3) { flowers3 += 1; }
+                                            }
+                                            if (flowers1 > 4 || flowers2 > 1 || flowers3 > 1) {
+                                                game.Screen.ShowScreen (new PotionScreen (game.Screen));
+                                            } else {
+                                                game.Screen.ShowScreen (new NoPotionScreen (game.Screen));
+                                            }
+                                            game.AllowPotionScreen = false;
                                         }
                                     }
                                     if(area.IsWorkbench(x, y)){
-                                        int ores1 = 0;
-                                        int ores2 = 0;
-                                        int ores3 = 0;
-                                        int irons = 0;
-                                        foreach (var itemIntern in game.Baldur.Inventory) {
-                                            if (!(itemIntern is Iron))
-                                                continue;
-                                            if ((itemIntern as Iron).Value == 1) { ores1 += 1; }
-                                            if ((itemIntern as Iron).Value == 2) { ores2 += 1; }
-                                            if ((itemIntern as Iron).Value == 3) { ores3 += 1; }
-                                        }
-                                        irons = ores1 * 1 + ores2 * 5 + ores3 * 10;
-                                        if (game.Baldur.ArmorCounter == 1 && irons > 20) {
-                                            game.Screen.ShowScreen (new Armor2Screen (game.Screen));
-                                        } else if (game.Baldur.ArmorCounter == 2 && irons > 30) {
-                                            game.Screen.ShowScreen (new Armor3Screen (game.Screen));
-                                        } else if (game.Baldur.ArmorCounter == 3) {
-                                            game.Screen.ShowScreen (new ArmorEndScreen (game.Screen));
-                                        } else {
-                                            game.Screen.ShowScreen (new LessIronScreen (game.Screen));
+                                        if (game.AllowWorkBenchScreen)
+                                        {
+                                            int ores1 = 0;
+                                            int ores2 = 0;
+                                            int ores3 = 0;
+                                            int irons = 0;
+                                            foreach (var itemIntern in game.Baldur.Inventory) {
+                                                if (!(itemIntern is Iron))
+                                                    continue;
+                                                if ((itemIntern as Iron).Value == 1) { ores1 += 1; }
+                                                if ((itemIntern as Iron).Value == 2) { ores2 += 1; }
+                                                if ((itemIntern as Iron).Value == 3) { ores3 += 1; }
+                                            }
+                                            irons = ores1 * 1 + ores2 * 5 + ores3 * 10;
+                                            if (game.Baldur.ArmorCounter == 1 && irons > 20) {
+                                                game.Screen.ShowScreen (new Armor2Screen (game.Screen));
+                                            } else if (game.Baldur.ArmorCounter == 2 && irons > 30) {
+                                                game.Screen.ShowScreen (new Armor3Screen (game.Screen));
+                                            } else if (game.Baldur.ArmorCounter == 3) {
+                                                game.Screen.ShowScreen (new ArmorEndScreen (game.Screen));
+                                            } else {
+                                                game.Screen.ShowScreen (new LessIronScreen (game.Screen));
+                                            }
+                                            game.AllowWorkBenchScreen = false;
                                         }
                                     }
                                     if(area.IsBed(x, y)){
-                                        //todo: PotionScreens
-                                        throw new NotImplementedException("Bed Screen muss hier eingebaut werden");
+                                        if (game.AllowBedScreen)
+                                        {
+                                            throw new NotImplementedException("Bed Screen muss hier eingebaut werden");
+                                            game.AllowBedScreen = false;
+                                        }
                                     }
                                 }
 
@@ -346,33 +387,11 @@ namespace BaldurSuchtFiona.Components
             foreach (var transfer in transfers)
                 transfer();
 
-            if (teleport)
+            if (teleport && game.AllowTeleport)
             {
+                game.AllowTeleport = false;
                 game.Screen.ShowScreen (new KeycardScreen (game.Screen));
-//                switch(game.World.Area.Name){
-//                    case "base":
-//                        switch (game.Baldur.KeycardCounter)
-//                        {
-//                            case 1:
-//                                game.LoadLevel(1);
-//                                break;
-//                            case 2:
-//                                game.LoadLevel(2);
-//                                break;
-//                            default:
-//                                break;
-//                        }
-//                        break;
-//                    case "level1":
-//                        game.LoadLevel(0);
-//                        break;
-//                    case "level2":
-//                        game.LoadLevel(0);
-//                        break;
-//                    default:
-//                        break;
-//              }
-            base.Update(gameTime);
+                base.Update(gameTime);
 		    }
 
 		

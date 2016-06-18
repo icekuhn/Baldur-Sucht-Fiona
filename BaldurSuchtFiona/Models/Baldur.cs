@@ -133,6 +133,7 @@ namespace BaldurSuchtFiona.Models
             CurrentHitpoints += healpotion.HealthRestoration;
             if (CurrentHitpoints > MaxHitpoints)
                 CurrentHitpoints = MaxHitpoints;
+            Inventory.Remove (healpotion);
         }
 
         public void ChangeAttackTexture(){

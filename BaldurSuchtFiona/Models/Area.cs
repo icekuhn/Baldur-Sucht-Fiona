@@ -254,7 +254,6 @@ namespace BaldurSuchtFiona.Models
 
         public Vector2 GetTeleportPosition()
         {
-            var tester = Tiles[172];
             var vector = new Vector2();
             foreach (var layer in this.Layers)
             {
@@ -277,6 +276,120 @@ namespace BaldurSuchtFiona.Models
                 }
             }
             return vector;
+        }
+
+        public Vector2 GetPotStationDistancePosition(Baldur baldur)
+        {
+            var potStationDistance = Vector2.Zero;
+            var vector = new Vector2 ();
+
+            foreach (var layer in this.Layers)
+            {
+                for (var i = 0; i < Width; i++)
+                {
+                    for (var j = 0; j < Height; j++)
+                    {
+                        var tileId = layer.Tiles[i, j];
+                        if (tileId == 0)
+                            continue;
+                        var tile = this.Tiles[tileId];
+                        if (tile != null)
+                        {
+                            if (tile.IsInteractable)
+                            {
+                                if (tile.ActionId == "potionStation") {
+                                    if (potStationDistance == Vector2.Zero) {
+                                        vector = new Vector2(i,j);
+                                        potStationDistance = vector - baldur.Position;
+                                    } else {
+                                        vector = new Vector2(i,j);
+                                        var currentPotStationDistance = vector - baldur.Position;
+                                        if (currentPotStationDistance.Length () < potStationDistance.Length ())
+                                            potStationDistance = currentPotStationDistance;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return potStationDistance;
+        }
+
+        public Vector2 GetWorkBenchDistancePosition(Baldur baldur)
+        {
+            var workBenchDistance = Vector2.Zero;
+            var vector = new Vector2 ();
+
+            foreach (var layer in this.Layers)
+            {
+                for (var i = 0; i < Width; i++)
+                {
+                    for (var j = 0; j < Height; j++)
+                    {
+                        var tileId = layer.Tiles[i, j];
+                        if (tileId == 0)
+                            continue;
+                        var tile = this.Tiles[tileId];
+                        if (tile != null)
+                        {
+                            if (tile.IsInteractable)
+                            {
+                                if (tile.ActionId == "workbench") {
+                                    if (workBenchDistance == Vector2.Zero) {
+                                        vector = new Vector2(i,j);
+                                        workBenchDistance = vector - baldur.Position;
+                                    } else {
+                                        vector = new Vector2(i,j);
+                                        var currentWorkBenchDistance = vector - baldur.Position;
+                                        if (currentWorkBenchDistance.Length () < workBenchDistance.Length ())
+                                            workBenchDistance = currentWorkBenchDistance;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return workBenchDistance;
+        }
+
+        public Vector2 GetBedDistancePosition(Baldur baldur)
+        {
+            var bedDistance = Vector2.Zero;
+            var vector = new Vector2 ();
+
+            foreach (var layer in this.Layers)
+            {
+                for (var i = 0; i < Width; i++)
+                {
+                    for (var j = 0; j < Height; j++)
+                    {
+                        var tileId = layer.Tiles[i, j];
+                        if (tileId == 0)
+                            continue;
+                        var tile = this.Tiles[tileId];
+                        if (tile != null)
+                        {
+                            if (tile.IsInteractable)
+                            {
+                                if (tile.ActionId == "bed") {
+                                    if (bedDistance == Vector2.Zero) {
+                                        vector = new Vector2(i,j);
+                                        bedDistance = vector - baldur.Position;
+                                    } else {
+                                        vector = new Vector2(i,j);
+                                        var currentBedDistance = vector - baldur.Position;
+                                        if (currentBedDistance.Length () < bedDistance.Length ())
+                                            bedDistance = currentBedDistance;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return bedDistance;
         }
     }
 }
