@@ -802,9 +802,96 @@ namespace BaldurSuchtFiona
             var farmer5 = new Farmer(this,new Vector2(42f, 16.5f),new List<Flower>{flower41, flower42, flower43, flower44, flower45, flower46, flower47, flower48, flower50, flower51, flower52, flower53, flower54, flower55, flower56, flower57, flower58, flower59, flower60, flower61 });
             map.Objects.Add(farmer5);
 
+
+            var flower71 = new Flower (this, 1, new Vector2 (3.4f, 24.9f));
+            map.Objects.Add (flower71);
+
+            var flower72 = new Flower (this, 1, new Vector2 (3.4f, 25.9f));
+            map.Objects.Add (flower72);
+
+            var flower73 = new Flower (this, 1, new Vector2 (3.4f, 26.9f));
+            map.Objects.Add (flower73);
+
+            var flower74 = new Flower (this, 1, new Vector2 (4.4f, 24.9f));
+            map.Objects.Add (flower74);
+
+            var flower75 = new Flower (this, 1, new Vector2 (4.4f, 26.9f));
+            map.Objects.Add (flower75);
+
+            var flower76 = new Flower (this, 1, new Vector2 (5.4f, 24.9f));
+            map.Objects.Add (flower76);
+
+            var flower77 = new Flower (this, 3, new Vector2 (5.4f, 25.9f));
+            map.Objects.Add (flower77);
+
+            var flower78 = new Flower (this, 1, new Vector2 (5.4f, 26.9f));
+            map.Objects.Add (flower78);
+
+            var flower79 = new Flower (this, 1, new Vector2 (6.4f, 24.9f));
+            map.Objects.Add (flower79);
+
+            var flower80 = new Flower (this, 3, new Vector2 (6.4f, 25.9f));
+            map.Objects.Add (flower80);
+
+            var flower81 = new Flower (this, 1, new Vector2 (6.4f, 26.9f));
+            map.Objects.Add (flower81);
+
+            var flower82 = new Flower (this, 1, new Vector2 (7.4f, 24.9f));
+            map.Objects.Add (flower82);
+
+            var flower83 = new Flower (this, 3, new Vector2 (7.4f, 25.9f));
+            map.Objects.Add (flower83);
+
+            var flower84 = new Flower (this, 1, new Vector2 (7.4f, 26.9f));
+            map.Objects.Add (flower84);
+
+            var flower85 = new Flower (this, 1, new Vector2 (8.4f, 24.9f));
+            map.Objects.Add (flower85);
+
+            var flower86 = new Flower (this, 3, new Vector2 (8.4f, 25.9f));
+            map.Objects.Add (flower86);
+
+            var flower87 = new Flower (this, 1, new Vector2 (8.4f, 26.9f));
+            map.Objects.Add (flower87);
+
+            var flower88 = new Flower (this, 1, new Vector2 (9.4f, 24.9f));
+            map.Objects.Add (flower88);
+
+            var flower89 = new Flower (this, 3, new Vector2 (9.4f, 25.9f));
+            map.Objects.Add (flower89);
+
+            var flower90 = new Flower (this, 1, new Vector2 (9.4f, 26.9f));
+            map.Objects.Add (flower90);
+
+            var flower91 = new Flower (this, 1, new Vector2 (10.4f, 24.9f));
+            map.Objects.Add (flower91);
+
+            var flower92 = new Flower (this, 3, new Vector2 (10.4f, 25.9f));
+            map.Objects.Add (flower92);
+
+            var flower93 = new Flower (this, 1, new Vector2 (10.4f, 26.9f));
+            map.Objects.Add (flower93);
+
+            var flower94 = new Flower (this, 1, new Vector2 (11.4f, 24.9f));
+            map.Objects.Add (flower94);
+
+            var flower95 = new Flower (this, 1, new Vector2 (11.4f, 25.9f));
+            map.Objects.Add (flower95);
+
+            var flower96 = new Flower (this, 1, new Vector2 (11.4f, 26.9f));
+            map.Objects.Add (flower96);
+
+
+            var farmer6 = new Farmer (this, new Vector2 (4.4f, 23.9f), new List<Flower> { flower71, flower72, flower73, flower74, flower75, flower76, flower77, flower78, flower79, flower80, flower81, flower82, flower83, flower84, flower85, flower86, flower87, flower88, flower89, flower90, flower91, flower92, flower93, flower94, flower95, flower96 });
+            map.Objects.Add (farmer6);
+
+            var farmer7 = new Farmer (this, new Vector2 (9.4f, 23.9f), new List<Flower> { flower71, flower72, flower73, flower74, flower75, flower76, flower77, flower78, flower79, flower80, flower81, flower82, flower83, flower84, flower85, flower86, flower87, flower88, flower89, flower90, flower91, flower92, flower93, flower94, flower95, flower96 });
+            map.Objects.Add (farmer7);
+
+
             if (Baldur.KeycardCounter < 4)
             {
-                var farmLeader = new FarmLeader(this, new Vector2(14.5f, 26.3f));
+                var farmLeader = new FarmLeader(this, new Vector2(34.4f, 6.9f));
                 map.Objects.Add(farmLeader);
             }
 
@@ -820,10 +907,165 @@ namespace BaldurSuchtFiona
             map.Objects.Add(this.Baldur);
 
 
+            var iron1 = new Iron (this, 1, new Vector2 (2.5f, 21.8f));
+            map.Objects.Add (iron1);
+
+            var iron2 = new Iron (this, 1, new Vector2 (3.5f, 21.8f));
+            map.Objects.Add (iron2);
+
+            var iron3 = new Iron (this, 1, new Vector2 (4.5f, 21.8f));
+            map.Objects.Add (iron3);
+
+            var iron4 = new Iron (this, 1, new Vector2 (2.5f, 22.8f));
+            map.Objects.Add (iron4);
+
+            var iron5 = new Iron (this, 1, new Vector2 (3.5f, 22.8f));
+            map.Objects.Add (iron5);
+
+            var iron6 = new Iron (this, 1, new Vector2 (4.5f, 22.8f));
+            map.Objects.Add (iron6);
+
+            var iron7 = new Iron (this, 1, new Vector2 (2.5f, 23.8f));
+            map.Objects.Add (iron7);
+
+            var iron8 = new Iron (this, 1, new Vector2 (3.5f, 23.8f));
+            map.Objects.Add (iron8);
+
+            var iron9 = new Iron (this, 1, new Vector2 (4.5f, 23.8f));
+            map.Objects.Add (iron9);
+
+            var miner1 = new Miner (this, new Vector2 (5.5f, 20.8f));
+            map.Objects.Add (miner1);
+
+
+            var iron11 = new Iron (this, 1, new Vector2 (18.5f, 10.8f));
+            map.Objects.Add (iron11);
+
+            var iron12 = new Iron (this, 1, new Vector2 (19.5f, 10.8f));
+            map.Objects.Add (iron12);
+
+            var iron13 = new Iron (this, 1, new Vector2 (20.5f, 10.8f));
+            map.Objects.Add (iron13);
+
+            var iron14 = new Iron (this, 1, new Vector2 (18.5f, 11.8f));
+            map.Objects.Add (iron14);
+
+            var iron15 = new Iron (this, 3, new Vector2 (19.5f, 11.8f));
+            map.Objects.Add (iron15);
+
+            var iron16 = new Iron (this, 1, new Vector2 (20.5f, 11.8f));
+            map.Objects.Add (iron16);
+
+            var iron17 = new Iron (this, 1, new Vector2 (18.5f, 12.8f));
+            map.Objects.Add (iron17);
+
+            var iron18 = new Iron (this, 3, new Vector2 (19.5f, 12.8f));
+            map.Objects.Add (iron18);
+
+            var iron19 = new Iron (this, 1, new Vector2 (20.5f, 12.8f));
+            map.Objects.Add (iron19);
+
+            var iron20 = new Iron (this, 1, new Vector2 (18.5f, 13.8f));
+            map.Objects.Add (iron20);
+
+            var iron21 = new Iron (this, 1, new Vector2 (19.5f, 13.8f));
+            map.Objects.Add (iron21);
+
+            var iron22 = new Iron (this, 1, new Vector2 (20.5f, 13.8f));
+            map.Objects.Add (iron22);
+
+            var miner2 = new Miner (this, new Vector2 (21.5f, 11.8f));
+            map.Objects.Add (miner2);
+
+            var miner3 = new Miner (this, new Vector2 (21.5f, 12.8f));
+            map.Objects.Add (miner3);
+
+
+            var iron25 = new Iron (this, 3, new Vector2 (28.5f, 16.8f));
+            map.Objects.Add (iron22);
+
+
+            var iron31 = new Iron (this, 1, new Vector2 (37.5f, 12.8f));
+            map.Objects.Add (iron31);
+
+            var iron32 = new Iron (this, 1, new Vector2 (38.5f, 12.8f));
+            map.Objects.Add (iron32);
+
+            var iron33 = new Iron (this, 1, new Vector2 (39.5f, 12.8f));
+            map.Objects.Add (iron33);
+
+            var iron34 = new Iron (this, 1, new Vector2 (37.5f, 13.8f));
+            map.Objects.Add (iron34);
+
+            var iron35 = new Iron (this, 3, new Vector2 (38.5f, 13.8f));
+            map.Objects.Add (iron35);
+
+            var iron36 = new Iron (this, 1, new Vector2 (39.5f, 13.8f));
+            map.Objects.Add (iron36);
+
+            var iron37 = new Iron (this, 1, new Vector2 (37.5f, 14.8f));
+            map.Objects.Add (iron37);
+
+            var iron38 = new Iron (this, 3, new Vector2 (38.5f, 14.8f));
+            map.Objects.Add (iron38);
+
+            var iron39 = new Iron (this, 1, new Vector2 (39.5f, 14.8f));
+            map.Objects.Add (iron39);
+
+            var iron40 = new Iron (this, 1, new Vector2 (37.5f, 15.8f));
+            map.Objects.Add (iron40);
+
+            var iron41 = new Iron (this, 1, new Vector2 (38.5f, 15.8f));
+            map.Objects.Add (iron41);
+
+            var iron42 = new Iron (this, 1, new Vector2 (39.5f, 15.8f));
+            map.Objects.Add (iron42);
+
+            var miner4 = new Miner (this, new Vector2 (36.5f, 13.8f));
+            map.Objects.Add (miner4);
+
+            var miner5 = new Miner (this, new Vector2 (36.5f, 14.8f));
+            map.Objects.Add (miner5);
+
+
+            var iron45 = new Iron (this, 3, new Vector2 (38.5f, 26.8f));
+            map.Objects.Add (iron45);
+
+
+            var iron51 = new Iron (this, 1, new Vector2 (44.5f, 14.8f));
+            map.Objects.Add (iron51);
+
+            var iron52 = new Iron (this, 1, new Vector2 (45.5f, 14.8f));
+            map.Objects.Add (iron52);
+
+            var iron53 = new Iron (this, 1, new Vector2 (46.5f, 14.8f));
+            map.Objects.Add (iron53);
+
+            var iron54 = new Iron (this, 1, new Vector2 (44.5f, 15.8f));
+            map.Objects.Add (iron54);
+
+            var iron55 = new Iron (this, 3, new Vector2 (45.5f, 15.8f));
+            map.Objects.Add (iron55);
+
+            var iron56 = new Iron (this, 1, new Vector2 (46.5f, 15.8f));
+            map.Objects.Add (iron56);
+
+            var iron57 = new Iron (this, 1, new Vector2 (44.5f, 16.8f));
+            map.Objects.Add (iron57);
+
+            var iron58 = new Iron (this, 1, new Vector2 (45.5f, 16.8f));
+            map.Objects.Add (iron58);
+
+            var iron59 = new Iron (this, 1, new Vector2 (46.5f, 16.8f));
+            map.Objects.Add (iron59);
+
+            var miner6 = new Miner (this, new Vector2 (47.5f, 15.8f));
+            map.Objects.Add (miner6);
+
 
             if (Baldur.KeycardCounter < 5)
             {
-                var farmLeader = new MineLeader(this, new Vector2(45.5f, 25.5f));
+                var farmLeader = new MineLeader(this, new Vector2(45.5f, 26.8f));
                 map.Objects.Add(farmLeader);
             }
         }
@@ -836,6 +1078,9 @@ namespace BaldurSuchtFiona
 
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
+
+
+
 
 
 
