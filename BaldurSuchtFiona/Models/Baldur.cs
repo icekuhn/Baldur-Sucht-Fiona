@@ -128,8 +128,10 @@ namespace BaldurSuchtFiona.Models
 
         public void UseHealPotion(){
             var healpotion = Inventory.OfType<Healpot> ().FirstOrDefault ();
-            if (healpotion == null)
+             if (healpotion == null) {
+                this.Position = this.Position;
                 return;
+            }
             CurrentHitpoints += healpotion.HealthRestoration;
             if (CurrentHitpoints > MaxHitpoints)
                 CurrentHitpoints = MaxHitpoints;

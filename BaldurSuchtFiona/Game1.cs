@@ -401,46 +401,228 @@ namespace BaldurSuchtFiona
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
-            var flower1 = new Flower(this,1,new Vector2(10,18.5f));
+            var flower1 = new Flower(this,2,new Vector2(9.5f,18f));
             map.Objects.Add(flower1);
 
-            var farmer1 = new Farmer(this,new Vector2(9, 19),new List<Flower>{flower1});
-            map.Objects.Add(farmer1);
+            var flower2 = new Flower (this, 1, new Vector2 (10.5f, 18f));
+            map.Objects.Add (flower2);
 
-            var flower2 = new Flower(this,1,new Vector2(16,18.5f));
-            map.Objects.Add(flower2);
+            var flower3 = new Flower (this, 1, new Vector2 (11.5f, 18f));
+            map.Objects.Add (flower3);
 
-            var farmer2 = new Farmer(this,new Vector2(17, 17),new List<Flower>{flower2});
+            var flower4 = new Flower (this, 1, new Vector2 (12.5f, 18f));
+            map.Objects.Add (flower4);
+
+            var flower5 = new Flower (this, 1, new Vector2 (13.5f, 18f));
+            map.Objects.Add (flower5);
+
+            var flower6 = new Flower (this, 1, new Vector2 (14.5f, 18f));
+            map.Objects.Add (flower6);
+
+            var flower7 = new Flower (this, 1, new Vector2 (15.5f, 18f));
+            map.Objects.Add (flower7);
+
+            var flower8 = new Flower (this, 1, new Vector2 (16.5f, 18f));
+            map.Objects.Add (flower8);
+
+            var flower9 = new Flower (this, 1, new Vector2 (10.5f, 19f));
+            map.Objects.Add (flower9);
+
+            var flower10 = new Flower (this, 1, new Vector2 (11.5f, 19f));
+            map.Objects.Add (flower10);
+
+            var flower11 = new Flower (this, 1, new Vector2 (12.5f, 19f));
+            map.Objects.Add (flower11);
+
+            var flower12 = new Flower (this, 1, new Vector2 (13.5f, 19f));
+            map.Objects.Add (flower12);
+
+            var flower13 = new Flower (this, 1, new Vector2 (14.5f, 19f));
+            map.Objects.Add (flower13);
+
+            var flower14 = new Flower (this, 1, new Vector2 (15.5f, 19f));
+            map.Objects.Add (flower14);
+
+            var flower15 = new Flower (this, 1, new Vector2 (16.5f, 19f));
+            map.Objects.Add (flower15);
+
+            var farmer1 = new Farmer (this, new Vector2 (9.5f, 20f), new List<Flower> {flower1, flower2, flower3, flower4, flower5, flower6, flower7, flower8, flower9, flower10, flower11, flower12, flower13, flower14, flower15});
+            map.Objects.Add (farmer1);
+
+
+            var flower21 = new Flower (this, 1, new Vector2 (9.5f, 16f));
+            map.Objects.Add (flower21);
+
+            var flower22 = new Flower (this, 1, new Vector2 (10.5f, 16f));
+            map.Objects.Add (flower22);
+
+            var flower23 = new Flower (this, 1, new Vector2 (11.5f, 16f));
+            map.Objects.Add (flower23);
+
+            var flower24 = new Flower (this, 1, new Vector2 (12.5f, 16f));
+            map.Objects.Add (flower24);
+
+            var flower25 = new Flower (this, 1, new Vector2 (13.5f, 16f));
+            map.Objects.Add (flower25);
+
+            var flower26 = new Flower (this, 1, new Vector2 (14.5f, 16f));
+            map.Objects.Add (flower26);
+
+            var flower27 = new Flower (this, 1, new Vector2 (15.5f, 16f));
+            map.Objects.Add (flower27);
+
+            var flower28 = new Flower (this, 1, new Vector2 (16.5f, 16f));
+            map.Objects.Add (flower28);
+
+            var flower29 = new Flower (this, 1, new Vector2 (9.5f, 15f));
+            map.Objects.Add (flower29);
+
+            var flower30 = new Flower (this, 1, new Vector2 (10.5f, 15f));
+            map.Objects.Add (flower30);
+                
+            var flower31 = new Flower (this, 1, new Vector2 (11.5f, 15f));
+            map.Objects.Add (flower31);
+
+            var flower32 = new Flower (this, 1, new Vector2 (12.5f, 15f));
+            map.Objects.Add (flower32);
+
+            var flower33 = new Flower (this, 1, new Vector2 (13.5f, 15f));
+            map.Objects.Add (flower33);
+
+            var flower34 = new Flower (this, 1, new Vector2 (14.5f, 15f));
+            map.Objects.Add (flower34);
+
+            var flower35 = new Flower (this, 1, new Vector2 (15.5f, 15f));
+            map.Objects.Add (flower35);
+
+            var flower36 = new Flower (this, 1, new Vector2 (16.5f, 15f));
+            map.Objects.Add (flower36);
+
+            var farmer2 = new Farmer(this,new Vector2(8.5f, 16f),new List<Flower>{flower21, flower22, flower23, flower24, flower25, flower26, flower27, flower28, flower29, flower30, flower31, flower32, flower33, flower34, flower35, flower36});
             map.Objects.Add(farmer2);
 
-            var flower3 = new Flower(this,1,new Vector2(13,12.5f));
-            map.Objects.Add(flower3);
 
-            var farmer3 = new Farmer(this,new Vector2(10, 12),new List<Flower>{flower3});
+            var flower41 = new Flower (this, 1, new Vector2 (9.5f, 13f));
+            map.Objects.Add (flower41);
+
+            var flower42 = new Flower (this, 1, new Vector2 (10.5f, 13f));
+            map.Objects.Add (flower42);
+
+            var flower43 = new Flower (this, 1, new Vector2 (11.5f, 13f));
+            map.Objects.Add (flower43);
+
+            var flower44 = new Flower (this, 1, new Vector2 (12.5f, 13f));
+            map.Objects.Add (flower44);
+
+            var flower45 = new Flower (this, 1, new Vector2 (13.5f, 13f));
+            map.Objects.Add (flower45);
+
+            var flower46 = new Flower (this, 1, new Vector2 (14.5f, 13f));
+            map.Objects.Add (flower46);
+
+            var flower47 = new Flower (this, 2, new Vector2 (16.5f, 13f));
+            map.Objects.Add (flower47);
+
+            var flower48 = new Flower (this, 1, new Vector2 (9.5f, 12f));
+            map.Objects.Add (flower48);
+
+            var flower49 = new Flower (this, 1, new Vector2 (10.5f, 12f));
+            map.Objects.Add (flower49);
+
+            var flower50 = new Flower (this, 1, new Vector2 (11.5f, 12f));
+            map.Objects.Add (flower50);
+
+            var flower51 = new Flower (this, 1, new Vector2 (12.5f, 12f));
+            map.Objects.Add (flower51);
+
+            var flower52 = new Flower (this, 1, new Vector2 (13.5f, 12f));
+            map.Objects.Add (flower52);
+
+            var flower53 = new Flower (this, 1, new Vector2 (14.5f, 12f));
+            map.Objects.Add (flower53);
+
+            var flower54 = new Flower (this, 1, new Vector2 (15.5f, 12f));
+            map.Objects.Add (flower54);
+
+            var flower55 = new Flower (this, 1, new Vector2 (16.5f, 12f));
+            map.Objects.Add (flower55);
+
+            var farmer3 = new Farmer(this,new Vector2(8.5f, 13f),new List<Flower>{flower41, flower42, flower43, flower44, flower45, flower46, flower47, flower48, flower49, flower50, flower51, flower52, flower53, flower54, flower55  });
             map.Objects.Add(farmer3);
 
-            var iron1 = new Iron(this,1,new Vector2(18.5f,3));
+            var iron1 = new Iron (this, 1, new Vector2 (38.5f, 2.8f));
             map.Objects.Add(iron1);
 
-            var iron2 = new Iron(this,1,new Vector2(34.5f,5));
+            var iron2 = new Iron (this, 1, new Vector2 (37.5f, 2.8f));
             map.Objects.Add(iron2);
 
-            var miner1 = new Miner(this,new Vector2(28, 3));
+            var iron3 = new Iron (this, 1, new Vector2 (36.5f, 2.8f));
+            map.Objects.Add (iron3);
+
+            var iron4 = new Iron (this, 1, new Vector2 (35.5f, 2.8f));
+            map.Objects.Add (iron4);
+
+            var iron5 = new Iron (this, 1, new Vector2 (38.5f, 3.8f));
+            map.Objects.Add (iron5);
+
+            var iron6 = new Iron (this, 1, new Vector2 (37.5f, 3.8f));
+            map.Objects.Add (iron6);
+
+            var iron7 = new Iron (this, 1, new Vector2 (36.5f, 3.8f));
+            map.Objects.Add (iron7);
+
+            var iron8 = new Iron (this, 1, new Vector2 (35.5f, 3.8f));
+            map.Objects.Add (iron8);
+
+
+            var iron11 = new Iron (this, 1, new Vector2 (22.5f, 5.8f));
+            map.Objects.Add (iron11);
+
+            var iron12 = new Iron (this, 1, new Vector2 (23.5f, 5.8f));
+            map.Objects.Add (iron12);
+
+            var iron13 = new Iron (this, 1, new Vector2 (24.5f, 5.8f));
+            map.Objects.Add (iron13);
+
+            var iron14 = new Iron (this, 1, new Vector2 (22.5f, 6.8f));
+            map.Objects.Add (iron14);
+
+            var iron15 = new Iron (this, 1, new Vector2 (23.5f, 6.8f));
+            map.Objects.Add (iron15);
+
+            var iron16 = new Iron (this, 1, new Vector2 (24.5f, 6.8f));
+            map.Objects.Add (iron16);
+
+            var iron17 = new Iron (this, 1, new Vector2 (22.5f, 7.8f));
+            map.Objects.Add (iron17);
+
+            var iron18 = new Iron (this, 1, new Vector2 (23.5f, 7.8f));
+            map.Objects.Add (iron18);
+
+            var iron19 = new Iron (this, 1, new Vector2 (24.5f, 7.8f));
+            map.Objects.Add (iron19);
+
+
+            var iron20 = new Iron (this, 2, new Vector2 (37.5f, 12.8f));
+            map.Objects.Add (iron20);
+
+
+            var miner1 = new Miner(this,new Vector2(34.5f, 4.8f));
             map.Objects.Add(miner1);
 
-            var miner2 = new Miner(this,new Vector2(32, 7));
+            var miner2 = new Miner(this,new Vector2(25.5f, 6.8f));
             map.Objects.Add(miner2);
 
-            var miner3 = new Miner(this,new Vector2(27, 8));
+            var miner3 = new Miner(this,new Vector2(35.5f, 12.8f));
             map.Objects.Add(miner3);
 
-            var miner4 = new Miner(this,new Vector2(29, 2));
+            var miner4 = new Miner(this,new Vector2(35.5f, 11.8f));
             map.Objects.Add(miner4);
 
 
             if (Baldur.KeycardCounter < 3)
             {
-                var keycard1 = new Keycard(this, 3, new Vector2(30.5f, 3.1f));
+                var keycard1 = new Keycard(this, 3, new Vector2(18.5f, 6.8f));
                 map.Objects.Add(keycard1);
             }
         }
@@ -454,34 +636,170 @@ namespace BaldurSuchtFiona
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
-            var flower1 = new Flower(this,1,new Vector2(11,8.5f));
-            map.Objects.Add(flower1);
+            var flower1 = new Flower (this, 1, new Vector2 (10f, 4.6f));
+            map.Objects.Add (flower1);
 
-            var farmer1 = new Farmer(this,new Vector2(10, 12),new List<Flower>{flower1});
+            var flower2 = new Flower (this, 1, new Vector2 (11f, 4.6f));
+            map.Objects.Add (flower2);
+
+            var flower3 = new Flower (this, 1, new Vector2 (12f, 4.6f));
+            map.Objects.Add (flower3);
+
+            var flower4 = new Flower (this, 1, new Vector2 (13f, 4.6f));
+            map.Objects.Add (flower4);
+
+            var flower5 = new Flower (this, 1, new Vector2 (14f, 4.6f));
+            map.Objects.Add (flower5);
+
+            var flower6 = new Flower (this, 1, new Vector2 (15f, 4.6f));
+            map.Objects.Add (flower6);
+
+            var flower7 = new Flower (this, 1, new Vector2 (16f, 4.6f));
+            map.Objects.Add (flower7);
+
+            var flower8 = new Flower (this, 1, new Vector2 (17f, 4.6f));
+            map.Objects.Add (flower8);
+
+            var farmer1 = new Farmer(this,new Vector2(10f, 5.6f),new List<Flower>{flower1, flower2, flower3, flower4, flower5, flower6, flower7, flower8 });
             map.Objects.Add(farmer1);
 
-            var flower2 = new Flower(this,2,new Vector2(13,9.5f));
-            map.Objects.Add(flower2);
 
-            var farmer2 = new Farmer(this,new Vector2(14, 5),new List<Flower>{flower2});
+            var flower11 = new Flower (this, 1, new Vector2 (11.5f, 8f));
+            map.Objects.Add(flower11);
+
+            var flower12 = new Flower (this, 1, new Vector2 (13.5f, 8f));
+            map.Objects.Add (flower12);
+
+            var flower13 = new Flower (this, 1, new Vector2 (15.5f, 8f));
+            map.Objects.Add (flower13);
+
+            var flower14 = new Flower (this, 1, new Vector2 (11.5f, 10f));
+            map.Objects.Add (flower14);
+
+            var flower15 = new Flower (this, 2, new Vector2 (13.5f, 10f));
+            map.Objects.Add (flower15);
+
+            var flower16 = new Flower (this, 1, new Vector2 (15.5f, 10f));
+            map.Objects.Add (flower16);
+
+            var flower17 = new Flower (this, 1, new Vector2 (11.5f, 12.5f));
+            map.Objects.Add (flower17);
+
+            var flower18 = new Flower (this, 1, new Vector2 (13.5f, 12.5f));
+            map.Objects.Add (flower18);
+
+            var flower19 = new Flower (this, 1, new Vector2 (15.5f, 12.5f));
+            map.Objects.Add (flower19);
+
+            var farmer2 = new Farmer(this,new Vector2(10.5f, 9.5f),new List<Flower>{flower11, flower12, flower13, flower14, flower15, flower16, flower17, flower18, flower19 });
             map.Objects.Add(farmer2);
 
-            var flower3 = new Flower(this,1,new Vector2(15,8.5f));
-            map.Objects.Add(flower3);
 
-            var farmer3 = new Farmer(this,new Vector2(16, 10),new List<Flower>{flower3});
+            var flower21 = new Flower (this, 1, new Vector2 (23f, 13f));
+            map.Objects.Add(flower21);
+
+            var flower22 = new Flower (this, 1, new Vector2 (25f, 13f));
+            map.Objects.Add (flower22);
+
+            var flower23 = new Flower (this, 1, new Vector2 (23f, 15f));
+            map.Objects.Add (flower23);
+
+            var flower24 = new Flower (this, 1, new Vector2 (25f, 15f));
+            map.Objects.Add (flower24);
+
+            var flower25 = new Flower (this, 1, new Vector2 (23f, 17f));
+            map.Objects.Add (flower25);
+
+            var flower26 = new Flower (this, 1, new Vector2 (25f, 17f));
+            map.Objects.Add (flower26);
+
+            var farmer3 = new Farmer(this,new Vector2(21f, 15f),new List<Flower>{flower21, flower22, flower23, flower24, flower25, flower26 });
             map.Objects.Add(farmer3);
 
-            var flower4 = new Flower(this,1,new Vector2(11,10.5f));
-            map.Objects.Add(flower4);
 
-            var farmer4 = new Farmer(this,new Vector2(9, 13),new List<Flower>{flower4});
+            var flower31 = new Flower (this, 2, new Vector2(40.5f, 25.8f));
+            map.Objects.Add(flower31);
+
+            var flower32 = new Flower (this, 2, new Vector2 (42.5f, 25.8f));
+            map.Objects.Add (flower32);
+
+            var flower33 = new Flower (this, 2, new Vector2 (43.5f, 25.8f));
+            map.Objects.Add (flower33);
+
+            var flower34 = new Flower (this, 2, new Vector2 (44.5f, 25.8f));
+            map.Objects.Add (flower34);
+
+            var flower35 = new Flower (this, 2, new Vector2 (45.5f, 25.8f));
+            map.Objects.Add (flower35);
+
+            var flower36 = new Flower (this, 2, new Vector2 (46.5f, 25.8f));
+            map.Objects.Add (flower36);
+
+            var farmer4 = new Farmer(this,new Vector2(35.5f, 25.8f),new List<Flower>{flower31, flower32, flower33, flower34, flower35, flower36 });
             map.Objects.Add(farmer4);
 
-            var flower5 = new Flower(this,1,new Vector2(15,10.5f));
-            map.Objects.Add(flower5);
 
-            var farmer5 = new Farmer(this,new Vector2(14, 13),new List<Flower>{flower5});
+            var flower41 = new Flower (this, 1, new Vector2 (47f, 9.3f));
+            map.Objects.Add(flower41);
+
+            var flower42 = new Flower (this, 1, new Vector2 (47f, 10.3f));
+            map.Objects.Add (flower42);
+
+            var flower43 = new Flower (this, 1, new Vector2 (47f, 11.3f));
+            map.Objects.Add (flower43);
+
+            var flower44 = new Flower (this, 1, new Vector2 (47f, 12.3f));
+            map.Objects.Add (flower44);
+
+            var flower45 = new Flower (this, 1, new Vector2 (47f, 13.3f));
+            map.Objects.Add (flower45);
+
+            var flower46 = new Flower (this, 1, new Vector2 (47f, 14.3f));
+            map.Objects.Add (flower46);
+
+            var flower47 = new Flower (this, 1, new Vector2 (47f, 15.3f));
+            map.Objects.Add (flower47);
+
+            var flower48 = new Flower (this, 1, new Vector2 (47f, 16.3f));
+            map.Objects.Add (flower48);
+
+            var flower50 = new Flower (this, 1, new Vector2 (47f, 17.3f));
+            map.Objects.Add (flower50);
+
+            var flower51 = new Flower (this, 1, new Vector2 (47f, 18.3f));
+            map.Objects.Add (flower51);
+
+            var flower52 = new Flower (this, 1, new Vector2 (47f, 19.3f));
+            map.Objects.Add (flower52);
+
+            var flower53 = new Flower (this, 1, new Vector2 (46f, 17.3f));
+            map.Objects.Add (flower53);
+
+            var flower54 = new Flower (this, 1, new Vector2 (46f, 18.3f));
+            map.Objects.Add (flower54);
+
+            var flower55 = new Flower (this, 1, new Vector2 (46f, 19.3f));
+            map.Objects.Add (flower55);
+
+            var flower56 = new Flower (this, 1, new Vector2 (45f, 18.3f));
+            map.Objects.Add (flower56);
+
+            var flower57 = new Flower (this, 1, new Vector2 (45f, 19.3f));
+            map.Objects.Add (flower57);
+
+            var flower58 = new Flower (this, 1, new Vector2 (44f, 19.3f));
+            map.Objects.Add (flower58);
+
+            var flower59 = new Flower (this, 1, new Vector2 (43f, 19.3f));
+            map.Objects.Add (flower59);
+
+            var flower60 = new Flower (this, 1, new Vector2 (42f, 19.3f));
+            map.Objects.Add (flower60);
+
+            var flower61 = new Flower (this, 1, new Vector2 (41f, 19.3f));
+            map.Objects.Add (flower61);
+
+            var farmer5 = new Farmer(this,new Vector2(42f, 16.5f),new List<Flower>{flower41, flower42, flower43, flower44, flower45, flower46, flower47, flower48, flower50, flower51, flower52, flower53, flower54, flower55, flower56, flower57, flower58, flower59, flower60, flower61 });
             map.Objects.Add(farmer5);
 
             if (Baldur.KeycardCounter < 4)
