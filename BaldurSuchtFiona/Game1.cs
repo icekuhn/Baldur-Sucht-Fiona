@@ -1080,11 +1080,41 @@ namespace BaldurSuchtFiona
             map.Objects.Add(this.Baldur);
 
 
+            var fighter1= new Fighter (this, new Vector2 (12.5f, 7.8f));
+            map.Objects.Add (fighter1);
+
+            var fighter2 = new Fighter (this, new Vector2 (13.5f, 7.8f));
+            map.Objects.Add (fighter2);
+
+            var fighter3 = new Fighter (this, new Vector2 (19.5f, 14.8f));
+            map.Objects.Add (fighter3);
+
+            var fighter4 = new Fighter (this, new Vector2 (19.5f, 14.8f));
+            map.Objects.Add (fighter4);
+
+            var fighter5 = new Fighter (this, new Vector2 (30.5f, 18.2f));
+            map.Objects.Add (fighter5);
+
+            var fighter6 = new Fighter (this, new Vector2 (31.5f, 18.2f));
+            map.Objects.Add (fighter6);
+
+            var fighter7 = new Fighter (this, new Vector2 (27.5f, 15.8f));
+            map.Objects.Add (fighter7);
+
+            var fighter8 = new Fighter (this, new Vector2 (28.5f, 5.8f));
+            map.Objects.Add (fighter8);
+
+            var fighter9 = new Fighter (this, new Vector2 (3.5f, 9.8f));
+            map.Objects.Add (fighter9);
+
+            var fighter10 = new Fighter (this, new Vector2 (35.5f, 11.2f));
+            map.Objects.Add (fighter10);
+
+            var fighter11 = new Fighter (this, new Vector2 (35.5f, 15.2f));
+            map.Objects.Add (fighter11);
 
 
-
-
-            if (Baldur.KeycardCounter < 6)
+            if (Baldur.KeycardCounter < 6) //todo: keycard zeigen, wenn alle tot sind
             {
                 var keycard = new Keycard (this, 6, new Vector2(29.5f, 7.25f));
                 map.Objects.Add (keycard);

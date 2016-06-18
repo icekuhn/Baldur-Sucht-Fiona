@@ -41,7 +41,7 @@ namespace BaldurSuchtFiona.Screens
                     Manager.Game.Input.Handled = true;
                 }
                 if (Manager.Game.Input.Interact) {
-                    int rest = 20;
+                    int rest = 30;
                     int ores1 = 0;
                     int ores2 = 0;
                     int ores3 = 0;

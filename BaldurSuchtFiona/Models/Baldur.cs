@@ -129,7 +129,7 @@ namespace BaldurSuchtFiona.Models
         public void UseHealPotion(){
             var healpotion = Inventory.OfType<Healpot> ().FirstOrDefault ();
              if (healpotion == null) {
-                this.Position = this.Position;
+                //this.Position = this.Position;
                 return;
             }
             CurrentHitpoints += healpotion.HealthRestoration;

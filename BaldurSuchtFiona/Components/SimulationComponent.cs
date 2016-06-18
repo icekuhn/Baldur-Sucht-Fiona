@@ -244,9 +244,9 @@ namespace BaldurSuchtFiona.Components
                                                 if ((itemIntern as Iron).Value == 3) { ores3 += 1; }
                                             }
                                             irons = ores1 * 1 + ores2 * 5 + ores3 * 10;
-                                            if (game.Baldur.ArmorCounter == 1 && irons > 20) {
+                                            if (game.Baldur.ArmorCounter == 1 && irons > 30) {
                                                 game.Screen.ShowScreen (new Armor2Screen (game.Screen));
-                                            } else if (game.Baldur.ArmorCounter == 2 && irons > 30) {
+                                            } else if (game.Baldur.ArmorCounter == 2 && irons > 50) {
                                                 game.Screen.ShowScreen (new Armor3Screen (game.Screen));
                                             } else if (game.Baldur.ArmorCounter == 3) {
                                                 game.Screen.ShowScreen (new ArmorEndScreen (game.Screen));
