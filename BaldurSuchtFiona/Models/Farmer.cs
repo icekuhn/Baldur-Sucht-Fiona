@@ -7,6 +7,7 @@ namespace BaldurSuchtFiona.Models
 {
 	public class Farmer : Enemy
     {
+        private Game1 _game;
         public List<Flower> Flowers { get; set; }
 
         public Farmer () : base()
@@ -26,12 +27,14 @@ namespace BaldurSuchtFiona.Models
 
         public Farmer (Game1 game,Vector2 position) : this()
         {
+            _game = game;
             Position = position;
             InitializeData (game);
         }
 
         public Farmer (Game1 game,Vector2 position,List<Flower> flowers) : this()
         {
+            _game = game;   
             Position = position;
             Flowers = flowers;
             InitializeData (game);
@@ -60,9 +63,21 @@ namespace BaldurSuchtFiona.Models
         public override void OnHit(Game1 game,Character attacker,List<Action> transfers){
             if (IsPeaceMode)
                 GetAggressive();
+            
+
 
             if (CurrentHitpoints <= 0)
             {
+                if (_game.World.Area.Objects.OfType<Farmer> ().Where (f=>f.CurrentHitpoints >= 0).Count () == 0 && _game.World.Area.Name == "level2") {
+                    if (_game.Baldur.KeycardCounter < 4)
+                    {
+                        transfers.Add(() =>
+                            {
+                                var farmLeader = new FarmLeader(_game, new Vector2(34.4f, 6.9f));
+                                _game.World.Area.Objects.Add(farmLeader);
+                            });
+                    }
+                }
                 IsAttacking = false;
             }
 //            var dropIron = new Iron(game,1,Position);

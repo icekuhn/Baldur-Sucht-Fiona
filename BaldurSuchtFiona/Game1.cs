@@ -88,7 +88,7 @@ namespace BaldurSuchtFiona
             }
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
-			graphics.IsFullScreen = false;
+			graphics.IsFullScreen = true;
 
 			Input = new InputComponent (this);
 			Input.UpdateOrder = 0;
@@ -987,14 +987,6 @@ namespace BaldurSuchtFiona
 
             var farmer7 = new Farmer (this, new Vector2 (9.4f, 23.9f), new List<Flower> { flower71, flower72, flower73, flower74, flower75, flower76, flower77, flower78, flower79, flower80, flower81, flower82, flower83, flower84, flower85, flower86, flower87, flower88, flower89, flower90, flower91, flower92, flower93, flower94, flower95, flower96 });
             map.Objects.Add (farmer7);
-
-
-            if (Baldur.KeycardCounter < 4)
-            {
-                var farmLeader = new FarmLeader(this, new Vector2(34.4f, 6.9f));
-                map.Objects.Add(farmLeader);
-            }
-
         }
 
         public void LoadLevel3Objekts(){
@@ -1161,13 +1153,6 @@ namespace BaldurSuchtFiona
 
             var miner6 = new Miner (this, new Vector2 (47.5f, 15.8f));
             map.Objects.Add (miner6);
-
-
-            if (Baldur.KeycardCounter < 5)
-            {
-                var mineLeader = new MineLeader(this, new Vector2(45.5f, 26.8f));
-                map.Objects.Add(mineLeader);
-            }
         }
 
         public void LoadLevel4Objekts(){

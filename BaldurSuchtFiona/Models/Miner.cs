@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
 	public class Miner : Enemy
-	{
+    {
+        private Game1 _game;
         public Miner () : base()
         {
             AttackTexture = "attack3.png";
@@ -22,6 +24,7 @@ namespace BaldurSuchtFiona.Models
 
         public Miner (Game1 game,Vector2 position) : this()
         {
+            _game = game;
             Position = position;
             InitializeData (game);
         }
@@ -45,8 +48,20 @@ namespace BaldurSuchtFiona.Models
             if (IsPeaceMode)
                 GetAggressive();
 
+
+
             if (CurrentHitpoints <= 0)
-            {
+            {            
+                if (_game.World.Area.Objects.OfType<Miner> ().Where (f=>f.CurrentHitpoints >= 0).Count () == 1 && _game.World.Area.Name == "level3") {
+                    if (_game.Baldur.KeycardCounter < 5)
+                    {
+                        transfers.Add(() =>
+                            {
+                                var mineLeader = new MineLeader(_game, new Vector2(45.5f, 26.8f));
+                                _game.World.Area.Objects.Add(mineLeader);
+                            });
+                    }
+                }
                 IsAttacking = false;
             }
         }

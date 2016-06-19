@@ -32,8 +32,7 @@ namespace BaldurSuchtFiona
             maxVolume = 0.3f;
 
             songs = new Dictionary<string, SoundEffect>();
-            //songs.Add("generalGameSound", game.Content.Load<SoundEffect>(""));
-            //songs.Add("menu", game.Content.Load<SoundEffect>(""));
+            songs.Add("generalGameSound", game.Content.Load<SoundEffect>("demo"));
         }
 
         public override void Update(GameTime gameTime)
@@ -91,7 +90,7 @@ namespace BaldurSuchtFiona
             if (songs.TryGetValue(song, out soundEffect))
             {
                 areaEffect = soundEffect;
-
+                //todo false weg machen
                 if (!menu && false)
                     nextEffect = soundEffect;
             }
