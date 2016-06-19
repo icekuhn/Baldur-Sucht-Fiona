@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
@@ -120,6 +121,8 @@
     <Compile Include="Components\SoundComponent.cs" />
     <Compile Include="Interfaces\IBoss.cs" />
     <Compile Include="Models\FollowingAi.cs" />
+    <Compile Include="Screens\WinningScreen.cs" />
+    <Compile Include="Screens\LoosingScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

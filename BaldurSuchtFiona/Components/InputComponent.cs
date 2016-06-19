@@ -3,11 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using BaldurSuchtFiona.Models;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BaldurSuchtFiona.Components
 {
 	public class InputComponent : GameComponent
 	{
+        private string lastInputKey;
 		private readonly Trigger upTrigger;
 		private readonly Trigger downTrigger;
 		private readonly Trigger leftTrigger;
@@ -83,6 +85,33 @@ namespace BaldurSuchtFiona.Components
 				heal |= keyboard.IsKeyDown (Keys.LeftControl);
 				attack |= keyboard.IsKeyDown (Keys.Space);
 
+            if (game.ShowWinningScreen) {
+                if (keyboard.IsKeyDown (Keys.Back) && game.WinnerName.Length > 0) {
+                    if (lastInputKey != "DELETE") {
+                        lastInputKey = "DELETE";
+                        game.WinnerName = game.WinnerName.Substring (0, game.WinnerName.Length - 1);
+                    }
+                } else {
+                    var keyChar =  keyboard.GetPressedKeys ().FirstOrDefault ();
+                    var key = keyChar.ToString ();
+                    if (!string.IsNullOrWhiteSpace (key)) {
+                        if (key.ToString ().Length == 1) {
+                            if (lastInputKey != key) {                        
+                                lastInputKey = key;
+                                if (game.WinnerName.Length < 5) {
+                                    var isCap = (keyboard.IsKeyDown (Keys.LeftShift) || keyboard.IsKeyDown (Keys.RightShift));
+                                    var charToAdd = isCap
+                                        ? key
+                                        : key.ToLower ();
+                                    game.WinnerName = string.Format ("{0}{1}", game.WinnerName, charToAdd);
+                                }
+                            }
+                        } else {
+                            lastInputKey = "";
+                        }
+                    }
+                }
+            }
 
 			if (bewegung.Length () > 1f)
 				bewegung.Normalize ();

@@ -43,7 +43,7 @@ namespace BaldurSuchtFiona
             {
                 var potentialTargets = area.Objects.
                     Where(i => (i.Position - Host.Position).LengthSquared() < range * range).
-                    Where(i => i.GetType() != Host.GetType()).                                
+                    Where(i => !(i is Enemy)).                                
                     OrderBy(i => (i.Position - Host.Position).LengthSquared()).               
                     OfType<IAttackable>().                                                   
                     Where(a => a.CurrentHitpoints > 0);  

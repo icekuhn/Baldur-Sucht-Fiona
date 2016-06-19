@@ -7,6 +7,7 @@ namespace BaldurSuchtFiona.Controls
 {
 	internal class Label : Control
 	{
+        public string Name { get; set;}
 		public string Text { get; set; }
 
 		public SpriteFont Font { get; set; }

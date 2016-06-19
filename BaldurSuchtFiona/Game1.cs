@@ -29,7 +29,13 @@ namespace BaldurSuchtFiona
         public bool AllowPotionScreen { get; set; }
         public bool AllowWorkBenchScreen { get; set; }
         public bool AllowBedScreen { get; set; }
+        public bool AllowNameInput { get; set; }
+        public bool IsFionaFollowing { get; set; }
+        public bool IsRunning { get; set; }
+        public bool ShowWinningScreen { get; set; }
         public TimeSpan GameTime{ get; set;}
+        public string WinnerName { get; set; }
+
 		private GraphicsDeviceManager graphics;
 
 		public InputComponent Input {
@@ -115,6 +121,8 @@ namespace BaldurSuchtFiona
 
         public void StartGame()
         {
+            IsRunning = true;
+            WinnerName = "";
             _lastLevelValue = 0;
             this.GameTime = new TimeSpan();
             var startPosition = new Vector2(15, 12);
@@ -128,6 +136,7 @@ namespace BaldurSuchtFiona
 
         public void Respawn()
         {
+            IsFionaFollowing = false;
             this.GameTime += new TimeSpan(0, 0, 30);
             this.Baldur.Position = new Vector2(15, 12);
             this.Baldur.Respwan ();
@@ -139,6 +148,25 @@ namespace BaldurSuchtFiona
 
         public void NewGame()
         {
+            WinnerName = "";
+            IsRunning = true;
+            _lastLevelValue = 1;
+            this.GameTime = new TimeSpan();
+            var startPosition = new Vector2(15, 12);
+            this.Baldur = new Baldur(this,startPosition);
+            isStarted = true;
+            World = new World();
+            LoadLevel(0);
+            AllowTeleport = true;
+        }
+
+        public void SaveHighScore()
+        {
+            //todo:Highscore speichern
+            WinnerName = "";
+            IsRunning = true;
+            IsFionaFollowing = false;
+            ShowWinningScreen = false;
             _lastLevelValue = 1;
             this.GameTime = new TimeSpan();
             var startPosition = new Vector2(15, 12);
@@ -376,6 +404,8 @@ namespace BaldurSuchtFiona
         }
 
         public void LoadBaseObjekts(){
+            if (IsFionaFollowing)
+                ShowWinningScreen = true;
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
             LoadDefaultObjekts(mapPath);
 
@@ -1131,20 +1161,22 @@ namespace BaldurSuchtFiona
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
-            var farmLeader = new FarmLeader(this, new Vector2 (20, 44));
-            farmLeader.GetAggressive ();
-            farmLeader.Ai.SetCenter (new Vector2 (20, 44));
-            map.Objects.Add(farmLeader);
-
-            var mineLeader = new MineLeader(this, new Vector2(20.5f, 28.5f));
-            mineLeader.GetAggressive ();
-            mineLeader.Ai.SetCenter (new Vector2(20.5f, 28.5f));
-            map.Objects.Add(mineLeader);
-
-            var endBoss = new EndBoss(this, new Vector2(12.5f, 13.5f));
-            endBoss.GetAggressive ();
-            endBoss.Ai.SetCenter (new Vector2(12.5f, 13.5f));
-            map.Objects.Add(endBoss);
+            var fiona = new Fiona(this, new Vector2 (20, 44));
+            map.Objects.Add(fiona);
+//            var farmLeader = new FarmLeader(this, new Vector2 (20, 44));
+//            farmLeader.GetAggressive ();
+//            farmLeader.Ai.SetCenter (new Vector2 (20, 44));
+//            map.Objects.Add(farmLeader);
+//
+//            var mineLeader = new MineLeader(this, new Vector2(20.5f, 28.5f));
+//            mineLeader.GetAggressive ();
+//            mineLeader.Ai.SetCenter (new Vector2(20.5f, 28.5f));
+//            map.Objects.Add(mineLeader);
+//
+//            var endBoss = new EndBoss(this, new Vector2(12.5f, 13.5f));
+//            endBoss.GetAggressive ();
+//            endBoss.Ai.SetCenter (new Vector2(12.5f, 13.5f));
+//            map.Objects.Add(endBoss);
         }
 
         private Area LoadFromJson(string name)
@@ -1172,6 +1204,10 @@ namespace BaldurSuchtFiona
                     return area;
                 }
             }
+        }
+
+        public long GetSlowestTimeToBeatHighscore(){
+            return new TimeSpan (1,0,0).Ticks;
         }
 
 	}

@@ -24,7 +24,7 @@ namespace BaldurSuchtFiona.Models
 
         public void InitializeData (Game1 game){
             Ai = new FollowingAi(this, MaxSpeed,game.Baldur,3f); 
-
+            game.IsFionaFollowing = true;
             Name = "Fiona";
             //  LoadTexture(game,"Character_Armor_front");
         }

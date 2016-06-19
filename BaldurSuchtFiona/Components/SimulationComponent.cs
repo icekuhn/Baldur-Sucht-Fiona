@@ -32,7 +32,19 @@ namespace BaldurSuchtFiona.Components
 
 		public override void Update (GameTime gameTime)
         {
-            game.GameTime += gameTime.ElapsedGameTime;
+            if (game.ShowWinningScreen) {
+                game.IsRunning = false;
+                var ticksToWin = game.GetSlowestTimeToBeatHighscore ();
+                if (game.GetSlowestTimeToBeatHighscore () > game.GameTime.Ticks) {
+                    game.AllowNameInput = true;
+                    game.Screen.ShowScreen (new WinningScreen (game.Screen));
+                } else {
+                    game.Screen.ShowScreen (new LoosingScreen (game.Screen));
+                }
+            }
+            if (game.IsRunning) {
+                game.GameTime += gameTime.ElapsedGameTime;
+            }
 
             if (this.game.Input.Heal && this.game.Baldur.CurrentHitpoints > 0 && this.game.Baldur.Potions > 0)
             {
@@ -129,8 +141,9 @@ namespace BaldurSuchtFiona.Components
                         item is IAttackable &&
                         distance.Length() - attacker.AttackRange - item.Radius < 0f)
                     {
-                        if((item is Enemy && attacker is Baldur) ||
-                            item is Baldur && attacker is Enemy)
+                        if(attacker is Enemy && !(item is Enemy))
+                            attacker.AttackableItems.Add(item as IAttackable);
+                        if(attacker is Baldur && item is Enemy)
                             attacker.AttackableItems.Add(item as IAttackable);
                     }
 
