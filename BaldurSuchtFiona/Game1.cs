@@ -22,6 +22,7 @@ namespace BaldurSuchtFiona
     {
         private int _lastLevelValue;
         private readonly string _saveGameFileLocation;
+        private readonly string _highScoreFileLocation;
         private bool isStarted;
         public World World { get; set; }
         public Baldur Baldur { get; set; }
@@ -76,6 +77,15 @@ namespace BaldurSuchtFiona
 		public Game1 ()
 		{
             _saveGameFileLocation = Path.Combine(Environment.CurrentDirectory, "Content","saveGame.xml");
+            if (!File.Exists (_saveGameFileLocation))
+                File.Create (_saveGameFileLocation);
+            _highScoreFileLocation = Path.Combine(Environment.CurrentDirectory, "Content","highScore.xml");
+            if (!File.Exists (_highScoreFileLocation)) {
+                var doc = new XDocument();
+                var highscores = new XElement ("Highscores","");
+                doc.Add (highscores);
+                doc.Save (_highScoreFileLocation);
+            }
 			graphics = new GraphicsDeviceManager (this);
 			Content.RootDirectory = "Content";
 			graphics.IsFullScreen = false;
@@ -162,7 +172,22 @@ namespace BaldurSuchtFiona
 
         public void SaveHighScore()
         {
-            //todo:Highscore speichern
+            var myHighscore = new HighScore ();
+            myHighscore.PlayerName = WinnerName;
+            myHighscore.Ticks = this.GameTime.Ticks;
+            var newHighscores = new List<HighScore> ();
+            var currentHighscores = GetHighscores();
+            var newHighscoreAdded = false;
+            foreach (var highscore in currentHighscores) {
+                if (myHighscore.Ticks > highscore.Ticks && !newHighscoreAdded) {
+                    newHighscores.Add (myHighscore);
+                    newHighscoreAdded = true;
+                }
+                newHighscores.Add (highscore);
+            }
+            if(!newHighscoreAdded)
+                newHighscores.Add (myHighscore);
+            SetHighscores(newHighscores);
             WinnerName = "";
             IsRunning = true;
             IsFionaFollowing = false;
@@ -222,10 +247,46 @@ namespace BaldurSuchtFiona
             doc.Save (_saveGameFileLocation);
         }
 
-        public void LoadGame(){
-            if (!File.Exists (_saveGameFileLocation))
-                throw new NotImplementedException ("SpeicherDatei nicht vorhanden.Wichtig zu prüfen");
+        public void SetHighscores(List<HighScore> highscoreList){
 
+            var doc = new XDocument();
+
+            var highscores = new XElement ("Highscores");
+
+            var highscoreCounter = 1;
+            foreach(var highscore in highscoreList){
+                if (highscoreCounter > 5)
+                    continue;
+                highscores.Add (new XElement ("Highscore"+highscoreCounter.ToString (),
+                    new XElement ("Name", highscore.PlayerName),
+                    new XElement ("Ticks", highscore.Ticks)));
+                highscoreCounter++;
+            };
+            doc.Add (highscores);
+            
+            if (File.Exists (_highScoreFileLocation))
+                File.Delete (_highScoreFileLocation);
+
+            doc.Save (_highScoreFileLocation);
+        }
+
+        public List<HighScore> GetHighscores(){
+            var highscoreList = new List<HighScore> ();
+            var xdoc = XDocument.Load(_highScoreFileLocation);
+            foreach(var highscore in xdoc.Root.Elements()){
+                var highscoreToAdd = new HighScore ();
+                highscoreToAdd.PlayerName = highscore.Elements ().FirstOrDefault(el => el.Name == "Name").Value;
+                var ticksValue = highscore.Elements ().FirstOrDefault(el => el.Name == "Ticks").Value;
+                long ticks;
+                if(long.TryParse (ticksValue,out ticks))
+                    highscoreToAdd.Ticks = ticks;
+                highscoreList.Add (highscoreToAdd);
+            };
+
+            return highscoreList.OrderByDescending (h => h.Ticks).ToList ();
+        }
+
+        public void LoadGame(){
             var startPosition = new Vector2(15, 12);
             this.Baldur = new Baldur(this,startPosition);
             isStarted = true;
@@ -406,6 +467,7 @@ namespace BaldurSuchtFiona
         public void LoadBaseObjekts(){
             if (IsFionaFollowing)
                 ShowWinningScreen = true;
+            IsFionaFollowing = false;
             string mapPath = Path.Combine(Environment.CurrentDirectory, "Maps");
             LoadDefaultObjekts(mapPath);
 
@@ -1204,10 +1266,6 @@ namespace BaldurSuchtFiona
                     return area;
                 }
             }
-        }
-
-        public long GetSlowestTimeToBeatHighscore(){
-            return new TimeSpan (1,0,0).Ticks;
         }
 
 	}

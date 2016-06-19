@@ -2,6 +2,7 @@
 using BaldurSuchtFiona.Controls;
 using BaldurSuchtFiona.Components;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Screens
 {
@@ -15,16 +16,22 @@ namespace BaldurSuchtFiona.Screens
 
             Controls.Add (new Panel (manager) { Position = new Rectangle (20, 20, 360, 30) });
             Controls.Add (new Label (manager) { Text = "HighScore", Position = new Rectangle (30, 30, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 80, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30, 90, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 120, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30, 130, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 160, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30, 170, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 200, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30, 210, 0, 0) });
-            Controls.Add (new Panel (manager) { Position = new Rectangle (20, 240, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30, 250, 0, 0) });
+            var highscoreCounter = 0;
+            var test = manager.Game.GetHighscores ();
+            foreach(var highscore in manager.Game.GetHighscores ().OrderBy(h => h.Ticks)){
+                highscoreCounter++;
+                if (highscoreCounter > 5)
+                    continue;
+                Controls.Add (new Panel (manager) { Position = new Rectangle (20, 40 + 40 * highscoreCounter, 360, 30) });
+                var timespan = new TimeSpan (highscore.Ticks);
+                Controls.Add (new Label (manager) {
+                    Text = highscore.PlayerName + " : " + timespan.Hours.ToString () + "h," + timespan.Minutes.ToString () + "min," + timespan.Seconds.ToString () + "sec",
+                    Position = new Rectangle (30, 50 + 40 * highscoreCounter, 0, 0)});
+            };
+            for (var i = highscoreCounter; i < 5; i++) {
+                Controls.Add (new Panel (manager) { Position = new Rectangle (20, 40 + 40 * (i+1), 360, 30) });
+                Controls.Add (new Label (manager) { Text = "leerer Eintrag : 0h,0min,0sec", Position = new Rectangle (30,50 + 40 * (i+1) , 0, 0) });
+            }
         }
 
         public override void Update(GameTime gametime) {

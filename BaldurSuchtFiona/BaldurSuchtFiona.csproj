@@ -123,6 +123,7 @@
     <Compile Include="Models\FollowingAi.cs" />
     <Compile Include="Screens\WinningScreen.cs" />
     <Compile Include="Screens\LoosingScreen.cs" />
+    <Compile Include="Models\HighScore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

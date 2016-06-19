@@ -33,9 +33,19 @@ namespace BaldurSuchtFiona.Components
 		public override void Update (GameTime gameTime)
         {
             if (game.ShowWinningScreen) {
+                game.ShowWinningScreen = false;
                 game.IsRunning = false;
-                var ticksToWin = game.GetSlowestTimeToBeatHighscore ();
-                if (game.GetSlowestTimeToBeatHighscore () > game.GameTime.Ticks) {
+                long ticksToWin;
+                var countTest = game.GetHighscores ().Count;
+                switch (game.GetHighscores ().Count) {
+                    case 5:
+                        ticksToWin = game.GetHighscores ().First ().Ticks;
+                        break;
+                    default:
+                        ticksToWin = new TimeSpan (1,0,0).Ticks;
+                        break;
+                }
+                if (ticksToWin > game.GameTime.Ticks) {
                     game.AllowNameInput = true;
                     game.Screen.ShowScreen (new WinningScreen (game.Screen));
                 } else {

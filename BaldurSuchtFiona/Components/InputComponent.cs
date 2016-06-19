@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using BaldurSuchtFiona.Models;
 using System.Linq;
 using System.Windows.Input;
+using BaldurSuchtFiona.Screens;
 
 namespace BaldurSuchtFiona.Components
 {
@@ -85,7 +86,7 @@ namespace BaldurSuchtFiona.Components
 				heal |= keyboard.IsKeyDown (Keys.LeftControl);
 				attack |= keyboard.IsKeyDown (Keys.Space);
 
-            if (game.ShowWinningScreen) {
+            if (game.Screen.screens.OfType<WinningScreen> ().Any ()) {
                 if (keyboard.IsKeyDown (Keys.Back) && game.WinnerName.Length > 0) {
                     if (lastInputKey != "DELETE") {
                         lastInputKey = "DELETE";
