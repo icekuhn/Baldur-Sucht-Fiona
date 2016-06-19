@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BaldurSuchtFiona
 {
-    public class EndBoss : Enemy
+    public class EndBoss : Enemy,IBoss
     {
         public EndBoss ()
         {
@@ -18,7 +18,7 @@ namespace BaldurSuchtFiona
             MaxSpeed = 0.5f;
             AttackRange = 0.3f;
             AttackValue = 45;
-            Defense = 10;
+            Defense = 35;
         }
 
         public EndBoss (Game1 game,Vector2 position) : this()
@@ -46,6 +46,10 @@ namespace BaldurSuchtFiona
             if (CurrentHitpoints <= 0)
             {
                 IsAttacking = false;   
+                transfers.Add (()=>{
+                    var fiona = new Fiona(game, new Vector2(25f, 9f));
+                    game.World.Area.Objects.Add(fiona);
+                });
             }
         }
     }

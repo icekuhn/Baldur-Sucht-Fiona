@@ -21,6 +21,7 @@ namespace BaldurSuchtFiona.Models
             AttackRange = 0.25f;
             AttackValue = 10;
             Flowers = new List<Flower>();
+            Defense = 0;
         }
 
         public Farmer (Game1 game,Vector2 position) : this()

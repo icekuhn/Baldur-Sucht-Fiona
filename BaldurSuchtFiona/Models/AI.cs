@@ -47,6 +47,8 @@ namespace BaldurSuchtFiona
             }
         }
 
+        public abstract void SetCenter (Vector2? center);
+
         public abstract void OnUpdate(Area area, GameTime gameTime);
 
         protected void WalkTo(Vector2 destination, float speed)

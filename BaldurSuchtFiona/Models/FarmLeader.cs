@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona.Models
 {
-    public class FarmLeader : Enemy,IBoss
+    public class FarmLeader : Farmer,IBoss
 	{
         private Keycard keycardToDrop;
         private Weapon weaponToDrop;
@@ -21,6 +21,7 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 0.8f;
             AttackRange = 0.5f;
             AttackValue = 20;
+            Defense = 15;
         }
 
         public FarmLeader (Game1 game,Vector2 position) : this()
@@ -31,7 +32,8 @@ namespace BaldurSuchtFiona.Models
 
         public void InitializeData (Game1 game){
             Ai = new WalkingAi(this, MaxSpeed);
-
+            if (game.Baldur.WeaponCounter >= 2)
+                wepHasDropped = true;
             keycardToDrop = new Keycard(game,4);
             weaponToDrop = new Weapon(game, 2);
             Name = "Farm Leader";

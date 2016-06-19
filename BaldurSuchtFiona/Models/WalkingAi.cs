@@ -32,6 +32,11 @@ namespace BaldurSuchtFiona
             delay = TimeSpan.Zero;
             movingCenter = mCenter;
             movingRadius = mRadius;
+        }        
+
+
+
+        public override void SetCenter(Vector2? center){
         }
 
         public override void OnUpdate(Area area, GameTime gameTime)
@@ -73,11 +78,6 @@ namespace BaldurSuchtFiona
 
                     movingDistance = distanceDestionationFromCenter.Length();
                 } while (movingDistance > movingRadius && movingRadius != 0);
-
-                variation = new Vector2(
-                    (float)(Random.NextDouble() * 2), 
-                    (float)(Random.NextDouble() * 2));
-                moveDestionation = center.Value + variation * 2 * range;
 
                 WalkTo(moveDestionation, 0.4f);
 

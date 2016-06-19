@@ -1,11 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BaldurSuchtFiona.Models
 {
 	public class Fighter : Enemy
     {
+        private Game1 _game;
+
         public Fighter () : base()
         {
             AttackTexture = "attack1.png";
@@ -17,9 +20,11 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 0.5f;
             AttackRange = 0.25f;
             AttackValue = 20;
+            Defense = 10;
         }
         public Fighter (Game1 game, Vector2 position) : this()
         {
+            _game = game;
             DefaultPosition = Position = position;
             InitializeData(game);
         }
@@ -36,7 +41,16 @@ namespace BaldurSuchtFiona.Models
         }
 
         public override void OnHit(Game1 game,Character attacker,List<Action> transfers){
-
+            if (_game.World.Area.Objects.OfType<Fighter> ().Where (f=>f.CurrentHitpoints >= 0).Count () == 1) {
+                if (_game.Baldur.KeycardCounter < 6) //todo: keycard zeigen, wenn alle tot sind
+                {
+                    transfers.Add(() =>
+                        {
+                            var keycard = new Keycard (_game, 5, this.Position);
+                            _game.World.Area.Objects.Add (keycard);
+                        });
+                }
+            }
         }
 	}
 }

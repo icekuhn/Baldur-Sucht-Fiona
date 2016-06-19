@@ -10,8 +10,8 @@ namespace BaldurSuchtFiona.Screens
     {
         private MenuList menu;
 
-        private ListItem SaveItem = new ListItem () { Text = "Diesen Spielstand Speichern" };
-        private ListItem LoadItem = new ListItem () { Text = "Letzten Spielstand Laden" };
+        private ListItem SaveItem = new ListItem () { Text = "Diesen Spielstand speichern" };
+        private ListItem LoadItem = new ListItem () { Text = "Letzten Spielstand laden" };
 
         public BedScreen (ScreenComponent manager) : base (manager, new Point (400, 300))
         {

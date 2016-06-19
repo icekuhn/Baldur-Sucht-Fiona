@@ -17,6 +17,7 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 0.4f;
             AttackRange = 0.3f;
             AttackValue = 15;
+            Defense = 5;
         }
 
         public Miner (Game1 game,Vector2 position) : this()

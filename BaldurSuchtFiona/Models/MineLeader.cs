@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona.Models
 {
-    public class MineLeader : Enemy,IBoss
+    public class MineLeader : Miner,IBoss
     {
         private Keycard keycardToDrop;
         private Weapon weaponToDrop;
@@ -22,7 +22,7 @@ namespace BaldurSuchtFiona.Models
             MaxSpeed = 0.5f;
             AttackRange = 0.3f;
             AttackValue = 25;
-			Defense = 10;
+			Defense = 20;
         }
 
         public MineLeader (Game1 game,Vector2 position) : this()
@@ -35,6 +35,8 @@ namespace BaldurSuchtFiona.Models
         public void InitializeData (Game1 game){
             Ai = new WalkingAi(this, MaxSpeed);
 
+            if (game.Baldur.WeaponCounter >= 3)
+                wepHasDropped = true;
             keycardToDrop = new Keycard(game,5);
             weaponToDrop = new Weapon(game, 3);
 

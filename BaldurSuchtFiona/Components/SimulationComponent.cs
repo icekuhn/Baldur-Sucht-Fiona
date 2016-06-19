@@ -53,6 +53,10 @@ namespace BaldurSuchtFiona.Components
             var area = game.World.Area;
             if (area == null)
                 return;
+            var fiona = area.Objects.OfType<Fiona> ().FirstOrDefault ();
+            if(fiona != null)
+                if (fiona.Ai != null)
+                    fiona.Ai.Update(area, gameTime);
             foreach (var character in area.Objects.OfType<Character>())
             {
                 if (!game.AllowTeleport)
@@ -123,10 +127,11 @@ namespace BaldurSuchtFiona.Components
 
                     if (attacker != null &&
                         item is IAttackable &&
-                        distance.Length() - attacker.AttackRange - item.Radius < 0f &&
-                        item.GetType() != attacker.GetType())
+                        distance.Length() - attacker.AttackRange - item.Radius < 0f)
                     {
-                        attacker.AttackableItems.Add(item as IAttackable);
+                        if((item is Enemy && attacker is Baldur) ||
+                            item is Baldur && attacker is Enemy)
+                            attacker.AttackableItems.Add(item as IAttackable);
                     }
 
                     float overlap = item.Radius + character.Radius - distance.Length();
@@ -183,7 +188,7 @@ namespace BaldurSuchtFiona.Components
                 }
             }
 
-            foreach (var item in area.Objects)
+                            foreach (var item in area.Objects)
             {
                 var hadCollision = false;
                 bool collision = false;
@@ -246,9 +251,9 @@ namespace BaldurSuchtFiona.Components
                                                 if ((itemIntern as Iron).Value == 3) { ores3 += 1; }
                                             }
                                             irons = ores1 * 1 + ores2 * 5 + ores3 * 10;
-                                            if (game.Baldur.ArmorCounter == 1 && irons > 30) {
+                                            if (game.Baldur.ArmorCounter == 1 && irons >= 30) {
                                                 game.Screen.ShowScreen (new Armor2Screen (game.Screen));
-                                            } else if (game.Baldur.ArmorCounter == 2 && irons > 50) {
+                                            } else if (game.Baldur.ArmorCounter == 2 && irons >= 70) {
                                                 game.Screen.ShowScreen (new Armor3Screen (game.Screen));
                                             } else if (game.Baldur.ArmorCounter == 3) {
                                                 game.Screen.ShowScreen (new ArmorEndScreen (game.Screen));
@@ -335,6 +340,12 @@ namespace BaldurSuchtFiona.Components
                         (item as Enemy).Ai.StopWalking();
                 }
 
+                if (item is Fiona && hadCollision)
+                {
+                    if ((item as Fiona).Ai != null)
+                        (item as Fiona).Ai.StopWalking();
+                }
+
                 item.Position += item.move;
                 item.move = Vector2.Zero;
 
@@ -355,7 +366,10 @@ namespace BaldurSuchtFiona.Components
                                     {
                                         foreach (var attackable in attacker.AttackableItems)
                                         {
-                                            attackable.CurrentHitpoints -= attacker.AttackValue;
+                                            var damage = (attacker.AttackValue - attackable.Defense) < 0 
+                                                ? 0 
+                                                : (attacker.AttackValue - attackable.Defense);
+                                            attackable.CurrentHitpoints -= damage;
                                             if(item is Character)
                                                 attackable.OnHit(game, item as Character,transfers);
                                         }
@@ -373,7 +387,10 @@ namespace BaldurSuchtFiona.Components
                                     {
                                         if (!(attackable is Baldur))
                                             continue;
-                                        attackable.CurrentHitpoints -= attacker.AttackValue;
+                                        var damage = (attacker.AttackValue - attackable.Defense) < 0 
+                                            ? 0 
+                                            : (attacker.AttackValue - attackable.Defense);
+                                        attackable.CurrentHitpoints -= damage;
                                         if(item is Character)
                                             attackable.OnHit(game, item as Character,transfers);
                                     }

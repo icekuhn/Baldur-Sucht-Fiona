@@ -103,8 +103,6 @@ namespace BaldurSuchtFiona.Models
         public Baldur () : base()
 		{
             Radius = 0.25f;
-            MaxSpeed = 1f;
-            AttackValue = 25;
             var armor = new Armor(1);
             Inventory.Add(armor);
             var weapon = new Weapon(1);
@@ -149,14 +147,17 @@ namespace BaldurSuchtFiona.Models
             case 1:
                 AttackTexture = "attack1.png";
                 AttackTextureName = "attack1.png";
+                AttackValue = 25;
                 break;
             case 2:
                 AttackTexture = "attack2.png";
                 AttackTextureName = "attack2.png";
+                AttackValue = 40;
                 break;
             case 3:
                 AttackTexture = "attack3.png";
                 AttackTextureName = "attack3.png";
+                AttackValue = 50;
                 break;
             }
             if (_game.Scene != null)
@@ -169,18 +170,42 @@ namespace BaldurSuchtFiona.Models
             case 1:
                 Texture = "sprite_player_1.png";
                 TextureName = "sprite_player_1.png";
+                Defense = 5;
+                MaxSpeed = 1f;
                 break;
             case 2:
                 Texture = "sprite_player_2.png";
                 TextureName = "sprite_player_2.png";
+                Defense = 10;
+                MaxSpeed = 1f;
                 break;
             case 3:
                 Texture = "sprite_player_3.png";
                 TextureName = "sprite_player_3.png";
+                Defense = 15;
+                MaxSpeed = 1f;
                 break;
             }
             if (_game.Scene != null)
                 _game.Scene.RemoveBaldurFromRenderer();
+        }
+
+        public void Respwan(){
+            CurrentHitpoints = MaxHitpoints;
+            IsDead = false;
+
+            var ironToRemove = Inventory.OfType<Iron> ().ToList ();
+            foreach (var itemToRemove in ironToRemove) {
+                Inventory.Remove (itemToRemove);
+            }
+            var flowersToRemove = Inventory.OfType<Flower> ().ToList ();
+            foreach (var itemToRemove in flowersToRemove) {
+                Inventory.Remove (itemToRemove);
+            }
+            var potsToRemove = Inventory.OfType<Iron> ().ToList ();
+            foreach (var itemToRemove in potsToRemove) {
+                Inventory.Remove (itemToRemove);
+            }
         }
 	}
 }

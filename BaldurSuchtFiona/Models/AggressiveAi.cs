@@ -16,7 +16,7 @@ namespace BaldurSuchtFiona
 
         private float range;
 
-        private Vector2? center;
+        public Vector2? Center{ get; set; }
 
         private TimeSpan delay;
 
@@ -28,6 +28,10 @@ namespace BaldurSuchtFiona
             attacker = (IAttacker)host;
             Random = new Random();
             delay = TimeSpan.Zero;
+        }
+
+        public override void SetCenter(Vector2? center){
+            Center = center;
         }
 
         public override void OnUpdate(Area area, GameTime gameTime)
@@ -65,8 +69,8 @@ namespace BaldurSuchtFiona
             else
             {
                 attacker.IsAttacking = false;
-                if (!center.HasValue)
-                    center = Host.Position;
+                if (!Center.HasValue)
+                    Center = Host.Position;
 
                 if (!Walking)
                 {
@@ -79,7 +83,7 @@ namespace BaldurSuchtFiona
                     Vector2 variation = new Vector2(
                         (float)(Random.NextDouble() * 2 - 1.0), 
                         (float)(Random.NextDouble() * 2 - 1.0));
-                    WalkTo(center.Value + variation * 2 * range, 0.4f);
+                    WalkTo(Center.Value + variation * 2 * range, 0.4f);
                     delay = TimeSpan.FromSeconds(2);
                 } 
             }

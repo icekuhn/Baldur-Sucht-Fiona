@@ -95,6 +95,7 @@
     <Compile Include="Screens\HighScoreScreen.cs" />
     <Compile Include="Models\Iron.cs" />
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\EndBoss.cs" />
     <Compile Include="Rendering\CharacterRenderer.cs" />
     <Compile Include="Rendering\ObjektRenderer.cs" />
     <Compile Include="Rendering\SimpleObjektRenderer.cs" />
@@ -115,10 +116,10 @@
     <Compile Include="Screens\ArmorEndScreen.cs" />
     <Compile Include="Screens\LessIronScreen.cs" />
     <Compile Include="Screens\BedScreen.cs" />
-    <Compile Include="Models\EndBoss.cs" />
     <Compile Include="Components\MusicComponent.cs" />
     <Compile Include="Components\SoundComponent.cs" />
     <Compile Include="Interfaces\IBoss.cs" />
+    <Compile Include="Models\FollowingAi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -158,12 +159,13 @@
     <None Include="Maps\mine.png" />
     <None Include="Maps\level4.json" />
     <None Include="Content\saveGame.xml" />
-    <None Include="Content\sprite_player_2.png" />
     <None Include="Content\sprite_guard.png" />
     <None Include="Content\sprite_boss.png" />
-    <None Include="Content\sprite_player_3.png" />
-    <None Include="Content\sprite_player_1.png" />
     <None Include="Content\collectables.png" />
+    <None Include="Content\sprite_player_3.png" />
+    <None Include="Content\sprite_player_2.png" />
+    <None Include="Content\sprite_player_1.png" />
+    <None Include="Content\sprite_fiona.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

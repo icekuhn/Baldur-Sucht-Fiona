@@ -130,8 +130,7 @@ namespace BaldurSuchtFiona
         {
             this.GameTime += new TimeSpan(0, 0, 30);
             this.Baldur.Position = new Vector2(15, 12);
-            this.Baldur.CurrentHitpoints = this.Baldur.MaxHitpoints;
-            this.Baldur.IsDead = false;
+            this.Baldur.Respwan ();
             World = new World();
             isStarted = true;
             LoadLevel(0);
@@ -271,6 +270,8 @@ namespace BaldurSuchtFiona
             _lastLevelValue = 1;
             LoadLevel(0);
             Baldur.Position = new Vector2(17.8f,27.25f); 
+            Baldur.ChangeAttackTexture ();
+            Baldur.ChangeCharacterTexture ();
         }
 
         public void LoadLevel(int levelNumber){
@@ -335,6 +336,7 @@ namespace BaldurSuchtFiona
             requiredObjektTextures.Add("sprite_player_1.png");
             requiredObjektTextures.Add("sprite_player_2.png");
             requiredObjektTextures.Add("sprite_player_3.png");
+            requiredObjektTextures.Add("sprite_fiona.png");
             requiredObjektTextures.Add("sprite_farmer.png");
             requiredObjektTextures.Add("sprite_miner.png");
             requiredObjektTextures.Add("sprite_guard.png");
@@ -1071,8 +1073,8 @@ namespace BaldurSuchtFiona
 
             if (Baldur.KeycardCounter < 5)
             {
-                var farmLeader = new MineLeader(this, new Vector2(45.5f, 26.8f));
-                map.Objects.Add(farmLeader);
+                var mineLeader = new MineLeader(this, new Vector2(45.5f, 26.8f));
+                map.Objects.Add(mineLeader);
             }
         }
 
@@ -1118,13 +1120,6 @@ namespace BaldurSuchtFiona
 
             var fighter11 = new Fighter (this, new Vector2 (35.5f, 15.2f));
             map.Objects.Add (fighter11);
-
-
-            if (Baldur.KeycardCounter < 6) //todo: keycard zeigen, wenn alle tot sind
-            {
-                var keycard = new Keycard (this, 5, new Vector2(29.5f, 7.25f));
-                map.Objects.Add (keycard);
-            }
         }
 
         public void LoadLevel5Objekts(){
@@ -1136,12 +1131,20 @@ namespace BaldurSuchtFiona
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
+            var farmLeader = new FarmLeader(this, new Vector2 (20, 44));
+            farmLeader.GetAggressive ();
+            farmLeader.Ai.SetCenter (new Vector2 (20, 44));
+            map.Objects.Add(farmLeader);
 
+            var mineLeader = new MineLeader(this, new Vector2(20.5f, 28.5f));
+            mineLeader.GetAggressive ();
+            mineLeader.Ai.SetCenter (new Vector2(20.5f, 28.5f));
+            map.Objects.Add(mineLeader);
 
-            if (Baldur.KeycardCounter < 7)
-            {
-
-            }
+            var endBoss = new EndBoss(this, new Vector2(12.5f, 13.5f));
+            endBoss.GetAggressive ();
+            endBoss.Ai.SetCenter (new Vector2(12.5f, 13.5f));
+            map.Objects.Add(endBoss);
         }
 
         private Area LoadFromJson(string name)

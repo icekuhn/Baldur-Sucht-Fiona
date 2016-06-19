@@ -21,7 +21,7 @@ namespace BaldurSuchtFiona.Screens
             Controls.Add (new Label (manager) { Text = "Ruestung herstellen:", Position = new Rectangle (30, 30, 0, 0) });
 
             Controls.Add (new Panel (manager) { Position = new Rectangle (20, 90, 360, 30) });
-            Controls.Add (new Label (manager) { Text = "Druecke Enter um aus 20 Erzen die naechste Ruestung herzustellen!", Position = new Rectangle (30, 100, 0, 0) });
+            Controls.Add (new Label (manager) { Text = "Druecke Enter um aus 30 Erzen die naechste Ruestung herzustellen!", Position = new Rectangle (30, 100, 0, 0) });
         }
 
         public new void Draw (GameTime gameTime, SpriteBatch batch)
