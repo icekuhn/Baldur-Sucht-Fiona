@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BaldurSuchtFiona.Models
 {
-    public class MineLeader : Boss
+    public class MineLeader : Enemy,IBoss
     {
         private Keycard keycardToDrop;
         private Weapon weaponToDrop;

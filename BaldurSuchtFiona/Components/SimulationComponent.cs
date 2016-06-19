@@ -51,6 +51,8 @@ namespace BaldurSuchtFiona.Components
             var teleport = false;
 
             var area = game.World.Area;
+            if (area == null)
+                return;
             foreach (var character in area.Objects.OfType<Character>())
             {
                 if (!game.AllowTeleport)

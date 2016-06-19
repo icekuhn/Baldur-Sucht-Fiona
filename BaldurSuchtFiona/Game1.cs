@@ -55,7 +55,17 @@ namespace BaldurSuchtFiona
 		public HudComponent Hud {
 			get;
 			set;
-		}
+        }
+
+        public MusicComponent Music { 
+            get;
+            set; 
+        }
+
+        public SoundComponent Sound { 
+            get; 
+            set; 
+        }
 
 		public Game1 ()
 		{
@@ -85,7 +95,15 @@ namespace BaldurSuchtFiona
 			Hud = new HudComponent (this);
 			Hud.UpdateOrder = 4;
 			Hud.DrawOrder = 1;
-			Components.Add (Hud);
+            Components.Add (Hud);
+
+            Music = new MusicComponent(this);
+            Music.UpdateOrder = 5;
+            Components.Add(Music);
+
+            Sound = new SoundComponent(this);
+            Sound.UpdateOrder = 6;
+            Components.Add(Sound);
 		}
 
 		protected override void Initialize ()
@@ -122,7 +140,7 @@ namespace BaldurSuchtFiona
 
         public void NewGame()
         {
-            _lastLevelValue = 0;
+            _lastLevelValue = 1;
             this.GameTime = new TimeSpan();
             var startPosition = new Vector2(15, 12);
             this.Baldur = new Baldur(this,startPosition);

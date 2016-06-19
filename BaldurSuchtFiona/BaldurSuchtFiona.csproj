@@ -83,7 +83,6 @@
     <Compile Include="Models\FarmLeader.cs" />
     <Compile Include="Models\MineLeader.cs" />
     <Compile Include="Models\Fighter.cs" />
-    <Compile Include="Models\Boss.cs" />
     <Compile Include="Models\Healpot.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Layer.cs" />
@@ -117,6 +116,9 @@
     <Compile Include="Screens\LessIronScreen.cs" />
     <Compile Include="Screens\BedScreen.cs" />
     <Compile Include="Models\EndBoss.cs" />
+    <Compile Include="Components\MusicComponent.cs" />
+    <Compile Include="Components\SoundComponent.cs" />
+    <Compile Include="Interfaces\IBoss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

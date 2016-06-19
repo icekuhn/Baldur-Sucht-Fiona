@@ -49,14 +49,17 @@ namespace BaldurSuchtFiona.Components
 
         public override void Update(GameTime gameTime)
         {
-            Vector2 areaSize = new Vector2(game.World.Area.Width, game.World.Area.Height); 
-            Camera.SetFocus(game.Baldur.Position, areaSize);
+            if(game.World.Area != null){
+                Vector2 areaSize = new Vector2(game.World.Area.Width, game.World.Area.Height); 
+                Camera.SetFocus(game.Baldur.Position, areaSize);
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
             Area area = game.World.Area;
-
+            if (area == null)
+                return;
             GraphicsDevice.Clear(area.Background);
 
             spriteBatch.Begin();

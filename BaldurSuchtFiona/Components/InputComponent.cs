@@ -86,21 +86,23 @@ namespace BaldurSuchtFiona.Components
 
 			if (bewegung.Length () > 1f)
 				bewegung.Normalize ();
+            if (game.World.Area != null) {
+                var baldur = (game.World.Area.Objects.FirstOrDefault(o => o is Baldur) as Baldur);
+                if (baldur != null)
+                {
+                    baldur.Velocity = (bewegung / 10) * baldur.MaxSpeed;
+                    if (attack)
+                    {
+                        baldur.IsAttacking = true;
+                        baldur.ContinueAttack = true;    
+                    }
+                    else
+                    {
+                        baldur.ContinueAttack = false;                    
+                    }
+                }
+            } 
 
-            var baldur = (game.World.Area.Objects.FirstOrDefault(o => o is Baldur) as Baldur);
-            if (baldur != null)
-            {
-                baldur.Velocity = (bewegung / 10) * baldur.MaxSpeed;
-                if (attack)
-                {
-                    baldur.IsAttacking = true;
-                    baldur.ContinueAttack = true;    
-                }
-                else
-                {
-                    baldur.ContinueAttack = false;                    
-                }
-            }
 
 			Movement = bewegung;
 			upTrigger.Value = up;

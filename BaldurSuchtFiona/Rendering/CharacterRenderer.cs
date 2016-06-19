@@ -171,7 +171,7 @@ namespace BaldurSuchtFiona.Rendering
             //spriteBatch.Draw(pix, new Rectangle(posX, posY, 2, 2), Color.Red);
             //spriteBatch.Draw(pix, new Rectangle(posX - radius, posY - radius, radius + radius, radius + radius), Color.Red);
            
-            var sizeScale = (character is Boss) ? 1.5f : 1;
+            var sizeScale = (character is IBoss) ? 1.5f : 1;
 
             Vector2 scale = new Vector2(Camera.Scale / FrameSize.X, Camera.Scale / FrameSize.Y) * FrameScale;
 

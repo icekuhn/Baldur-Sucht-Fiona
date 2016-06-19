@@ -7,8 +7,10 @@ namespace BaldurSuchtFiona.Models
 
 {
     public class Area
-        {
+    {
         public string Name { get; set; }
+
+        public string SongName { get; set; }
 
         public Color Background { get; set; }
 
