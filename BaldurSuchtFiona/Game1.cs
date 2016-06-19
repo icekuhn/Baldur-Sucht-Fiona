@@ -1208,22 +1208,20 @@ namespace BaldurSuchtFiona
             this.Baldur.Position = this.World.Area.GetTeleportPosition();
             map.Objects.Add(this.Baldur);
 
-            var fiona = new Fiona(this, new Vector2 (20, 44));
-            map.Objects.Add(fiona);
-//            var farmLeader = new FarmLeader(this, new Vector2 (20, 44));
-//            farmLeader.GetAggressive ();
-//            farmLeader.Ai.SetCenter (new Vector2 (20, 44));
-//            map.Objects.Add(farmLeader);
-//
-//            var mineLeader = new MineLeader(this, new Vector2(20.5f, 28.5f));
-//            mineLeader.GetAggressive ();
-//            mineLeader.Ai.SetCenter (new Vector2(20.5f, 28.5f));
-//            map.Objects.Add(mineLeader);
-//
-//            var endBoss = new EndBoss(this, new Vector2(12.5f, 13.5f));
-//            endBoss.GetAggressive ();
-//            endBoss.Ai.SetCenter (new Vector2(12.5f, 13.5f));
-//            map.Objects.Add(endBoss);
+            var farmLeader = new FarmLeader(this, new Vector2 (20, 44));
+            farmLeader.GetAggressive ();
+            farmLeader.Ai.SetCenter (new Vector2 (20, 44));
+            map.Objects.Add(farmLeader);
+
+            var mineLeader = new MineLeader(this, new Vector2(20.5f, 28.5f));
+            mineLeader.GetAggressive ();
+            mineLeader.Ai.SetCenter (new Vector2(20.5f, 28.5f));
+            map.Objects.Add(mineLeader);
+
+            var endBoss = new EndBoss(this, new Vector2(12.5f, 13.5f));
+            endBoss.GetAggressive ();
+            endBoss.Ai.SetCenter (new Vector2(12.5f, 13.5f));
+            map.Objects.Add(endBoss);
         }
 
         private Area LoadFromJson(string name)
