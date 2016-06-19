@@ -9,6 +9,12 @@ namespace BaldurSuchtFiona
     {
         public int Value { get; set; }
 
+        public Keycard(int value)
+        {
+            Value = value;
+            Name = "Keycard";
+        }
+
         public Keycard(Game1 game)
         {
             Value = 1;

@@ -9,6 +9,12 @@ namespace BaldurSuchtFiona
     {
         public int Value { get; set; }
 
+        public Armor(int value)
+        {
+            Value = value;
+            Name = "Armor";
+        }
+
         public Armor(Game1 game)
         {
             Value = 1;

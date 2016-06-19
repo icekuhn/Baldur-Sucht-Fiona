@@ -143,12 +143,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\hudIcons.xnb" />
-    <None Include="Content\collectables.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\collectables.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Maps\base.json" />
     <None Include="Maps\base1.png" />
     <None Include="Content\sprite_miner.png" />
@@ -167,6 +161,7 @@
     <None Include="Content\sprite_boss.png" />
     <None Include="Content\sprite_player_3.png" />
     <None Include="Content\sprite_player_1.png" />
+    <None Include="Content\collectables.png" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

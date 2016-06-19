@@ -135,6 +135,10 @@ namespace BaldurSuchtFiona.Models
         {
             for (int l = 0; l < Layers.Length; l++)
             {
+                var firstDimensionLength = Layers [l].Tiles.GetLength (0);
+                var secondDimensionLength = Layers [l].Tiles.GetLength (1);
+                if (x < 0 || y < 0 || x >= firstDimensionLength || y >= secondDimensionLength)
+                    return true;
                 int tileId = Layers[l].Tiles[x, y];
                 if (tileId == 0)
                     continue;

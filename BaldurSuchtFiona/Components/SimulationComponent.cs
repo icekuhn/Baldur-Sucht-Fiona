@@ -369,6 +369,8 @@ namespace BaldurSuchtFiona.Components
                                 {
                                     foreach (var attackable in attacker.AttackableItems)
                                     {
+                                        if (!(attackable is Baldur))
+                                            continue;
                                         attackable.CurrentHitpoints -= attacker.AttackValue;
                                         if(item is Character)
                                             attackable.OnHit(game, item as Character,transfers);

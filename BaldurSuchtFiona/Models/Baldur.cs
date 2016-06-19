@@ -103,12 +103,15 @@ namespace BaldurSuchtFiona.Models
         public Baldur () : base()
 		{
             Radius = 0.25f;
-            Texture = "sprite_player_3.png";
-            TextureName = "sprite_player_3.png";
-            AttackTexture = "attack1.png";
-            AttackTextureName = "attack1.png";
             MaxSpeed = 1f;
             AttackValue = 25;
+            var armor = new Armor(1);
+            Inventory.Add(armor);
+            var weapon = new Weapon(1);
+            Inventory.Add(weapon);
+            var keycard = new Keycard(1);
+            Inventory.Add(keycard);
+
             Inventory.Add(new Healpot ());
             Inventory.Add(new Healpot ());
             Inventory.Add(new Healpot ());
@@ -119,6 +122,8 @@ namespace BaldurSuchtFiona.Models
             Position = position;
             _game = game;
             InitializeData (game);
+            ChangeAttackTexture ();
+            ChangeCharacterTexture ();
         }
 
         public void InitializeData (Game1 game){
@@ -141,20 +146,41 @@ namespace BaldurSuchtFiona.Models
         public void ChangeAttackTexture(){
             switch (WeaponCounter)
             {
-                case 1:
-                    AttackTexture = "attack1.png";
-                    AttackTextureName = "attack1.png";
-                    break;
-                case 2:
-                    AttackTexture = "attack2.png";
-                    AttackTextureName = "attack2.png";
-                    break;
-                case 3:
-                    AttackTexture = "attack3.png";
-                    AttackTextureName = "attack3.png";
-                    break;
+            case 1:
+                AttackTexture = "attack1.png";
+                AttackTextureName = "attack1.png";
+                break;
+            case 2:
+                AttackTexture = "attack2.png";
+                AttackTextureName = "attack2.png";
+                break;
+            case 3:
+                AttackTexture = "attack3.png";
+                AttackTextureName = "attack3.png";
+                break;
             }
-            _game.Scene.RemoveBaldurFromRenderer();
+            if (_game.Scene != null)
+                _game.Scene.RemoveBaldurFromRenderer();
+        }
+
+        public void ChangeCharacterTexture(){
+            switch (ArmorCounter)
+            {
+            case 1:
+                Texture = "sprite_player_1.png";
+                TextureName = "sprite_player_1.png";
+                break;
+            case 2:
+                Texture = "sprite_player_2.png";
+                TextureName = "sprite_player_2.png";
+                break;
+            case 3:
+                Texture = "sprite_player_3.png";
+                TextureName = "sprite_player_3.png";
+                break;
+            }
+            if (_game.Scene != null)
+                _game.Scene.RemoveBaldurFromRenderer();
         }
 	}
 }

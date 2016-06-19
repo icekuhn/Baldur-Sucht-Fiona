@@ -84,6 +84,7 @@ namespace BaldurSuchtFiona.Screens
 
                     Manager.CloseScreen ();
                     Manager.Game.Input.Handled = true;
+                    Manager.Game.Baldur.ChangeCharacterTexture ();
                 }
             }
         }

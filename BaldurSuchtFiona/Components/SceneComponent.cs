@@ -151,7 +151,8 @@ namespace BaldurSuchtFiona.Components
         }
 
         public void RemoveBaldurFromRenderer(){
-            objektRenderer.Remove(game.Baldur);
+            if (objektRenderer.ContainsKey (game.Baldur))
+                objektRenderer.Remove(game.Baldur);
         }
     }
 }

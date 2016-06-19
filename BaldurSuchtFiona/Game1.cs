@@ -20,6 +20,7 @@ namespace BaldurSuchtFiona
 	/// </summary>
 	public class Game1 : Game
     {
+        private int _lastLevelValue;
         private readonly string _saveGameFileLocation;
         private bool isStarted;
         public World World { get; set; }
@@ -96,6 +97,7 @@ namespace BaldurSuchtFiona
 
         public void StartGame()
         {
+            _lastLevelValue = 0;
             this.GameTime = new TimeSpan();
             var startPosition = new Vector2(15, 12);
             this.Baldur = new Baldur(this,startPosition);
@@ -120,6 +122,7 @@ namespace BaldurSuchtFiona
 
         public void NewGame()
         {
+            _lastLevelValue = 0;
             this.GameTime = new TimeSpan();
             var startPosition = new Vector2(15, 12);
             this.Baldur = new Baldur(this,startPosition);
@@ -182,17 +185,8 @@ namespace BaldurSuchtFiona
             this.Baldur = new Baldur(this,startPosition);
             isStarted = true;
             World = new World();
-            LoadLevel(0);
             AllowTeleport = true;
-
-            Baldur.Position = new Vector2(17.8f,27.25f); 
-
             var xdoc = XDocument.Load(_saveGameFileLocation);
-
-            var test = xdoc.Elements ();
-
-
-
             var ores = xdoc.Root.Elements().FirstOrDefault(el => el.Name == "Ores");
             var ores1 = ores.Elements().FirstOrDefault(el => el.Name == "Ore1").Value;
             var ores2 = ores.Elements().FirstOrDefault(el => el.Name == "Ore2").Value;
@@ -255,9 +249,17 @@ namespace BaldurSuchtFiona
             long tickReturnValue;
             if(long.TryParse (gameTimeTicks,out tickReturnValue))
                 this.GameTime = new TimeSpan(tickReturnValue);
+
+            _lastLevelValue = 1;
+            LoadLevel(0);
+            Baldur.Position = new Vector2(17.8f,27.25f); 
         }
 
         public void LoadLevel(int levelNumber){
+            if (_lastLevelValue == levelNumber)
+                return;
+            
+            _lastLevelValue = levelNumber;
             Scene.ClearRenderer();
             AllowTeleport = false;
             Area area;
@@ -312,9 +314,13 @@ namespace BaldurSuchtFiona
                     requiredTilesetTextures.Add(tile.Texture);
 
             // Objekt Texturen
+            requiredObjektTextures.Add("sprite_player_1.png");
+            requiredObjektTextures.Add("sprite_player_2.png");
             requiredObjektTextures.Add("sprite_player_3.png");
             requiredObjektTextures.Add("sprite_farmer.png");
             requiredObjektTextures.Add("sprite_miner.png");
+            requiredObjektTextures.Add("sprite_guard.png");
+            requiredObjektTextures.Add("sprite_boss.png");
             requiredObjektTextures.Add("collectables.png");
             requiredObjektTextures.Add("attack1.png");
             requiredObjektTextures.Add("attack2.png");
@@ -365,24 +371,6 @@ namespace BaldurSuchtFiona
                 isStarted = false;
             
             this.Baldur.Position = startPosition;
-
-            if (this.Baldur.ArmorCounter < 1)
-            {
-                var armor = new Armor(this, 1);
-                Baldur.Inventory.Add(armor);
-            }
-
-            if (this.Baldur.WeaponCounter < 1)
-            {
-                var weapon = new Weapon(this, 1);
-                Baldur.Inventory.Add(weapon);
-            }
-
-            if (this.Baldur.KeycardCounter < 1)
-            {
-                var keycard = new Keycard(this, 1);
-                Baldur.Inventory.Add(keycard);
-            }
 
             if (this.Baldur.KeycardCounter == 1) {
                 var keycard = new Keycard (this, 2, new Vector2(19, 19));
@@ -1116,7 +1104,7 @@ namespace BaldurSuchtFiona
 
             if (Baldur.KeycardCounter < 6) //todo: keycard zeigen, wenn alle tot sind
             {
-                var keycard = new Keycard (this, 6, new Vector2(29.5f, 7.25f));
+                var keycard = new Keycard (this, 5, new Vector2(29.5f, 7.25f));
                 map.Objects.Add (keycard);
             }
         }
